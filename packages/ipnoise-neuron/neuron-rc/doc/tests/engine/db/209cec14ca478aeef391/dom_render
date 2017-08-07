@@ -1,0 +1,20 @@
+// vim:syntax=javascript tabstop=4 expandtab
+
+var widget = $('<div></div>')
+    .appendTo(self.element)
+    .IPNoiseWidget(self.options);
+
+widget.html(
+    '<nobr>From: <input type="text"></input></nobr><br/>'
+    +'<nobr>To: <input type="text"></input></nobr>'
+);
+
+widget.find('input').datepicker();
+
+//alert(widget.get(0).outerHTML);
+widget.css('background-color', 'gray');
+widget.css('width', '200px');
+
+//widget.draggable();
+//widget.resizable();
+

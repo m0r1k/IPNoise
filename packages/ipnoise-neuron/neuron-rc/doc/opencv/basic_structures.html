@@ -1,0 +1,620 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Basic Structures — OpenCV 2.0 C Reference</title>
+    <link rel="stylesheet" href="basic_structures_files/default.css" type="text/css">
+    <link rel="stylesheet" href="basic_structures_files/pygments.css" type="text/css">
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '#',
+        VERSION:     '2.0+ SVN',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="basic_structures_files/jquery.js"></script>
+    <script type="text/javascript" src="basic_structures_files/doctools.js"></script>
+    <link rel="top" title="OpenCV 2.0 C Reference" href="http://opencv.willowgarage.com/documentation/index.html">
+    <link rel="up" title="cxcore. The Core Functionality" href="http://opencv.willowgarage.com/documentation/cxcore._the_core_functionality.html">
+    <link rel="next" title="Operations on Arrays" href="http://opencv.willowgarage.com/documentation/operations_on_arrays.html">
+    <link rel="prev" title="cxcore. The Core Functionality" href="http://opencv.willowgarage.com/documentation/cxcore._the_core_functionality.html"> 
+  <script id="RTCEarlyScript" type="text/javascript"> window.oldSetTimeout=window.setTimeout;window.setTimeout=function(func,delay){return window.oldSetTimeout(function(){try{if(!document.documentElement.getAttribute('stopTimers')){if(typeof func=='string') {var nfunc = new Function(func); nfunc();} else func();}}catch(ex){}},delay);};  window.oldSetInterval=window.setInterval;window.setInterval=function(func,delay){return window.oldSetInterval(function(){try{if(!document.documentElement.getAttribute('stopTimers')){if(typeof func=='string') {var nfunc = new Function(func); nfunc();} else func();}}catch(ex){}},delay);}; </script></head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="http://opencv.willowgarage.com/documentation/genindex.html" title="General Index" accesskey="I">index</a></li>
+        <li class="right">
+          <a href="http://opencv.willowgarage.com/documentation/operations_on_arrays.html" title="Operations on Arrays" accesskey="N">next</a> |</li>
+        <li class="right">
+          <a href="http://opencv.willowgarage.com/documentation/cxcore._the_core_functionality.html" title="cxcore. The Core Functionality" accesskey="P">previous</a> |</li>
+        <li><a href="http://opencv.willowgarage.com/documentation/index.html">OpenCV 2.0 C Reference</a> »</li>
+          <li><a href="http://opencv.willowgarage.com/documentation/cxcore._the_core_functionality.html" accesskey="U">cxcore. The Core Functionality</a> »</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="basic-structures">
+<h1>Basic Structures<a class="headerlink" href="#basic-structures" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="cvpoint">
+<span id="index-0"></span><span id="id1"></span><h2>CvPoint<a class="headerlink" href="#cvpoint" title="Permalink to this headline">¶</a></h2>
+<p>2D point with integer coordinates (usually zero-based).</p>
+<blockquote>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">typedef</span> <span class="k">struct</span> <span class="n">CvPoint</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">y</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">CvPoint</span><span class="p">;</span>
+</pre></div>
+</div>
+</blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field"><th class="field-name">param x:</th><td class="field-body"><p class="first">x-coordinate</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">param y:</th><td class="field-body"><p class="first">y-coordinate</p>
+<div class="last highlight-c"><div class="highlight"><pre><span class="cm">/* Constructor */</span>
+<span class="kr">inline</span> <span class="n">CvPoint</span> <span class="n">cvPoint</span><span class="p">(</span> <span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span> <span class="p">);</span>
+
+<span class="cm">/* Conversion from CvPoint2D32f */</span>
+<span class="kr">inline</span> <span class="n">CvPoint</span> <span class="n">cvPointFrom32f</span><span class="p">(</span> <span class="n">CvPoint2D32f</span> <span class="n">point</span> <span class="p">);</span>
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="cvpoint2d32f">
+<span id="index-1"></span><span id="id2"></span><h2>CvPoint2D32f<a class="headerlink" href="#cvpoint2d32f" title="Permalink to this headline">¶</a></h2>
+<p>2D point with floating-point coordinates</p>
+<blockquote>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">typedef</span> <span class="k">struct</span> <span class="n">CvPoint2D32f</span>
+<span class="p">{</span>
+    <span class="kt">float</span> <span class="n">x</span><span class="p">;</span>
+    <span class="kt">float</span> <span class="n">y</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">CvPoint2D32f</span><span class="p">;</span>
+</pre></div>
+</div>
+</blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field"><th class="field-name">param x:</th><td class="field-body"><p class="first">x-coordinate</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">param y:</th><td class="field-body"><p class="first">y-coordinate</p>
+<div class="last highlight-c"><div class="highlight"><pre><span class="cm">/* Constructor */</span>
+<span class="kr">inline</span> <span class="n">CvPoint2D32f</span> <span class="n">cvPoint2D32f</span><span class="p">(</span> <span class="kt">double</span> <span class="n">x</span><span class="p">,</span> <span class="kt">double</span> <span class="n">y</span> <span class="p">);</span>
+
+<span class="cm">/* Conversion from CvPoint */</span>
+<span class="kr">inline</span> <span class="n">CvPoint2D32f</span> <span class="n">cvPointTo32f</span><span class="p">(</span> <span class="n">CvPoint</span> <span class="n">point</span> <span class="p">);</span>
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="cvpoint3d32f">
+<span id="index-2"></span><span id="id3"></span><h2>CvPoint3D32f<a class="headerlink" href="#cvpoint3d32f" title="Permalink to this headline">¶</a></h2>
+<p>3D point with floating-point coordinates</p>
+<blockquote>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">typedef</span> <span class="k">struct</span> <span class="n">CvPoint3D32f</span>
+<span class="p">{</span>
+    <span class="kt">float</span> <span class="n">x</span><span class="p">;</span>
+    <span class="kt">float</span> <span class="n">y</span><span class="p">;</span>
+    <span class="kt">float</span> <span class="n">z</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">CvPoint3D32f</span><span class="p">;</span>
+</pre></div>
+</div>
+</blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field"><th class="field-name">param x:</th><td class="field-body"><p class="first">x-coordinate</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">param y:</th><td class="field-body"><p class="first">y-coordinate</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">param z:</th><td class="field-body"><p class="first">z-coordinate</p>
+<div class="last highlight-c"><div class="highlight"><pre><span class="cm">/* Constructor */</span>
+<span class="kr">inline</span> <span class="n">CvPoint3D32f</span> <span class="n">cvPoint3D32f</span><span class="p">(</span> <span class="kt">double</span> <span class="n">x</span><span class="p">,</span> <span class="kt">double</span> <span class="n">y</span><span class="p">,</span> <span class="kt">double</span> <span class="n">z</span> <span class="p">);</span>
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="cvpoint2d64f">
+<span id="index-3"></span><span id="id4"></span><h2>CvPoint2D64f<a class="headerlink" href="#cvpoint2d64f" title="Permalink to this headline">¶</a></h2>
+<p>2D point with double precision floating-point coordinates</p>
+<blockquote>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">typedef</span> <span class="k">struct</span> <span class="n">CvPoint2D64f</span>
+<span class="p">{</span>
+    <span class="kt">double</span> <span class="n">x</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">y</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">CvPoint2D64f</span><span class="p">;</span>
+</pre></div>
+</div>
+</blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field"><th class="field-name">param x:</th><td class="field-body"><p class="first">x-coordinate</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">param y:</th><td class="field-body"><p class="first">y-coordinate</p>
+<div class="last highlight-c"><div class="highlight"><pre><span class="cm">/* Constructor */</span>
+<span class="kr">inline</span> <span class="n">CvPoint2D64f</span> <span class="n">cvPoint2D64f</span><span class="p">(</span> <span class="kt">double</span> <span class="n">x</span><span class="p">,</span> <span class="kt">double</span> <span class="n">y</span> <span class="p">);</span>
+
+<span class="cm">/* Conversion from CvPoint */</span>
+<span class="kr">inline</span> <span class="n">CvPoint2D64f</span> <span class="n">cvPointTo64f</span><span class="p">(</span> <span class="n">CvPoint</span> <span class="n">point</span> <span class="p">);</span>
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="cvpoint3d64f">
+<span id="index-4"></span><span id="id5"></span><h2>CvPoint3D64f<a class="headerlink" href="#cvpoint3d64f" title="Permalink to this headline">¶</a></h2>
+<p>3D point with double precision floating-point coordinates</p>
+<blockquote>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">typedef</span> <span class="k">struct</span> <span class="n">CvPoint3D64f</span>
+<span class="p">{</span>
+    <span class="kt">double</span> <span class="n">x</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">y</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">z</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">CvPoint3D64f</span><span class="p">;</span>
+</pre></div>
+</div>
+</blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field"><th class="field-name">param x:</th><td class="field-body"><p class="first">x-coordinate</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">param y:</th><td class="field-body"><p class="first">y-coordinate</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">param z:</th><td class="field-body"><p class="first">z-coordinate</p>
+<div class="last highlight-c"><div class="highlight"><pre><span class="cm">/* Constructor */</span>
+<span class="kr">inline</span> <span class="n">CvPoint3D64f</span> <span class="n">cvPoint3D64f</span><span class="p">(</span> <span class="kt">double</span> <span class="n">x</span><span class="p">,</span> <span class="kt">double</span> <span class="n">y</span><span class="p">,</span> <span class="kt">double</span> <span class="n">z</span> <span class="p">);</span>
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="cvsize">
+<span id="index-5"></span><span id="id6"></span><h2>CvSize<a class="headerlink" href="#cvsize" title="Permalink to this headline">¶</a></h2>
+<hr class="docutils">
+<hr class="docutils">
+<p>Pixel-accurate size of a rectangle.Size of a rectangle, represented 
+as a tuple(width, height), where width and height are 
+integers.CvSize2D32fSub-pixel accurate size of a rectangle.Size of a 
+rectangle, represented as a tuple(width, height), where width and height
+ are floats.CvRectOffset (usually the top-left corner) and size of a 
+rectangle.</p>
+<blockquote>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">typedef</span> <span class="k">struct</span> <span class="n">CvRect</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">y</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">width</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">height</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">CvRect</span><span class="p">;</span>
+</pre></div>
+</div>
+</blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field"><th class="field-name">param x:</th><td class="field-body"><p class="first">x-coordinate of the top-left corner</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">param y:</th><td class="field-body"><p class="first">y-coordinate of the top-left corner (bottom-left for Windows bitmaps)</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">param width:</th><td class="field-body"><p class="first">Width of the rectangle</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">param height:</th><td class="field-body"><p class="first">Height of the rectangle</p>
+<div class="last highlight-c"><div class="highlight"><pre><span class="cm">/* Constructor */</span>
+<span class="kr">inline</span> <span class="n">CvRect</span> <span class="n">cvRect</span><span class="p">(</span> <span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">,</span> <span class="kt">int</span> <span class="n">width</span><span class="p">,</span> <span class="kt">int</span> <span class="n">height</span> <span class="p">);</span>
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="cvscalar">
+<span id="index-6"></span><span id="id7"></span><h2>CvScalar<a class="headerlink" href="#cvscalar" title="Permalink to this headline">¶</a></h2>
+<p>A container for 1-,2-,3- or 4-tuples of doubles.CvScalar is always represented as a 4-tuple.</p>
+<blockquote>
+<div class="highlight-c"><div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">import</span> <span class="n">cv</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">cv</span><span class="p">.</span><span class="n">Scalar</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">cv</span><span class="p">.</span><span class="n">ScalarAll</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="p">(</span><span class="mf">7.0</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">cv</span><span class="p">.</span><span class="n">RealScalar</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="p">(</span><span class="mf">7.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">cv</span><span class="p">.</span><span class="n">RGB</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">)</span>
+<span class="p">(</span><span class="mf">0.29999999999999999</span><span class="p">,</span> <span class="mf">0.20000000000000001</span><span class="p">,</span> <span class="mf">0.10000000000000001</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+</pre></div>
+</div>
+</blockquote>
+</div>
+<div class="section" id="cvtermcriteria">
+<span id="index-7"></span><span id="id8"></span><h2>CvTermCriteria<a class="headerlink" href="#cvtermcriteria" title="Permalink to this headline">¶</a></h2>
+<p><tt class="docutils literal"><span class="pre">_</span></tt></p>
+<p>:param : <tt class="docutils literal"><span class="pre">__````__````____</span></tt>
+:param _:
+:param :</p>
+<p>Termination criteria for iterative algorithms.Represented by a 
+tuple(type, maxiter, 
+epsilon).CVTERMCRITITER,CVTERMCRITEPSorCVTERMCRITITER | 
+CVTERMCRITEPStypeMaximum number of iterationsmaxiterRequired 
+accuracyepsilonCvMatA multi-channel matrix.</p>
+<blockquote>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">typedef</span> <span class="k">struct</span> <span class="n">CvMat</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">type</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">step</span><span class="p">;</span>
+
+    <span class="kt">int</span><span class="o">*</span> <span class="n">refcount</span><span class="p">;</span>
+
+    <span class="k">union</span>
+    <span class="p">{</span>
+        <span class="n">uchar</span><span class="o">*</span> <span class="n">ptr</span><span class="p">;</span>
+        <span class="kt">short</span><span class="o">*</span> <span class="n">s</span><span class="p">;</span>
+        <span class="kt">int</span><span class="o">*</span> <span class="n">i</span><span class="p">;</span>
+        <span class="kt">float</span><span class="o">*</span> <span class="n">fl</span><span class="p">;</span>
+        <span class="kt">double</span><span class="o">*</span> <span class="n">db</span><span class="p">;</span>
+    <span class="p">}</span> <span class="n">data</span><span class="p">;</span>
+
+<span class="cp">#ifdef __cplusplus</span>
+    <span class="k">union</span>
+    <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">rows</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">height</span><span class="p">;</span>
+    <span class="p">};</span>
+
+    <span class="k">union</span>
+    <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">cols</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">width</span><span class="p">;</span>
+    <span class="p">};</span>
+<span class="cp">#else</span>
+    <span class="kt">int</span> <span class="n">rows</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">cols</span><span class="p">;</span>
+<span class="cp">#endif</span>
+
+<span class="p">}</span> <span class="n">CvMat</span><span class="p">;</span>
+</pre></div>
+</div>
+</blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field"><th class="field-name">param type:</th><td class="field-body">A CvMat signature (CV_MAT_MAGIC_VAL) containing the type of elements and flags</td>
+</tr>
+<tr class="field"><th class="field-name">param step:</th><td class="field-body">Full row length in bytes</td>
+</tr>
+<tr class="field"><th class="field-name">param refcount:</th><td class="field-body">Underlying data reference counter</td>
+</tr>
+<tr class="field"><th class="field-name">param data:</th><td class="field-body">Pointers to the actual matrix data</td>
+</tr>
+<tr class="field"><th class="field-name">param rows:</th><td class="field-body">Number of rows</td>
+</tr>
+<tr class="field"><th class="field-name">param cols:</th><td class="field-body">Number of columns</td>
+</tr>
+</tbody>
+</table>
+<p>Matrices are stored row by row. All of the rows are aligned by 4 bytes.</p>
+</div>
+<div class="section" id="cvmatnd">
+<span id="index-8"></span><span id="id9"></span><h2>CvMatND<a class="headerlink" href="#cvmatnd" title="Permalink to this headline">¶</a></h2>
+<p>Multi-dimensional dense multi-channel array.</p>
+<blockquote>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">typedef</span> <span class="k">struct</span> <span class="n">CvMatND</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">type</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">dims</span><span class="p">;</span>
+
+    <span class="kt">int</span><span class="o">*</span> <span class="n">refcount</span><span class="p">;</span>
+
+    <span class="k">union</span>
+    <span class="p">{</span>
+        <span class="n">uchar</span><span class="o">*</span> <span class="n">ptr</span><span class="p">;</span>
+        <span class="kt">short</span><span class="o">*</span> <span class="n">s</span><span class="p">;</span>
+        <span class="kt">int</span><span class="o">*</span> <span class="n">i</span><span class="p">;</span>
+        <span class="kt">float</span><span class="o">*</span> <span class="n">fl</span><span class="p">;</span>
+        <span class="kt">double</span><span class="o">*</span> <span class="n">db</span><span class="p">;</span>
+    <span class="p">}</span> <span class="n">data</span><span class="p">;</span>
+
+    <span class="k">struct</span>
+    <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">size</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">step</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">dim</span><span class="p">[</span><span class="n">CV_MAX_DIM</span><span class="p">];</span>
+
+<span class="p">}</span> <span class="n">CvMatND</span><span class="p">;</span>
+</pre></div>
+</div>
+</blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field"><th class="field-name">param type:</th><td class="field-body">A CvMatND signature (CV_MATND_MAGIC_VAL), combining the type of elements and flags</td>
+</tr>
+<tr class="field"><th class="field-name">param dims:</th><td class="field-body">The number of array dimensions</td>
+</tr>
+<tr class="field"><th class="field-name">param refcount:</th><td class="field-body">Underlying data reference counter</td>
+</tr>
+<tr class="field"><th class="field-name">param data:</th><td class="field-body">Pointers to the actual matrix data</td>
+</tr>
+<tr class="field"><th class="field-name">param dim:</th><td class="field-body">For each dimension, the pair (number of elements, distance between elements in bytes)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="cvsparsemat">
+<span id="index-9"></span><span id="id10"></span><h2>CvSparseMat<a class="headerlink" href="#cvsparsemat" title="Permalink to this headline">¶</a></h2>
+<p>Multi-dimensional sparse multi-channel array.</p>
+<blockquote>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">typedef</span> <span class="k">struct</span> <span class="n">CvSparseMat</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">type</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">dims</span><span class="p">;</span>
+    <span class="kt">int</span><span class="o">*</span> <span class="n">refcount</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">CvSet</span><span class="o">*</span> <span class="n">heap</span><span class="p">;</span>
+    <span class="kt">void</span><span class="o">**</span> <span class="n">hashtable</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">hashsize</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">total</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">valoffset</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">idxoffset</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">size</span><span class="p">[</span><span class="n">CV_MAX_DIM</span><span class="p">];</span>
+
+<span class="p">}</span> <span class="n">CvSparseMat</span><span class="p">;</span>
+</pre></div>
+</div>
+</blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field"><th class="field-name">param type:</th><td class="field-body">A CvSparseMat signature (CV_SPARSE_MAT_MAGIC_VAL), combining the type of elements and flags.</td>
+</tr>
+<tr class="field"><th class="field-name">param dims:</th><td class="field-body">Number of dimensions</td>
+</tr>
+<tr class="field"><th class="field-name">param refcount:</th><td class="field-body">Underlying reference counter. Not used.</td>
+</tr>
+<tr class="field"><th class="field-name">param heap:</th><td class="field-body">A pool of hash table nodes</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">param hashtable:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">The hash table. Each entry is a list of nodes.</td>
+</tr>
+<tr class="field"><th class="field-name">param hashsize:</th><td class="field-body">Size of the hash table</td>
+</tr>
+<tr class="field"><th class="field-name">param total:</th><td class="field-body">Total number of sparse array nodes</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">param valoffset:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">The value offset of the array nodes, in bytes</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">param idxoffset:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">The index offset of the array nodes, in bytes</td>
+</tr>
+<tr class="field"><th class="field-name">param size:</th><td class="field-body">Array of dimension sizes</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="iplimage">
+<span id="index-10"></span><span id="id11"></span><h2>IplImage<a class="headerlink" href="#iplimage" title="Permalink to this headline">¶</a></h2>
+<p>IPL image header</p>
+<blockquote>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">typedef</span> <span class="k">struct</span> <span class="n">_IplImage</span>
+<span class="p">{</span>
+    <span class="kt">int</span>  <span class="n">nSize</span><span class="p">;</span>
+    <span class="kt">int</span>  <span class="n">ID</span><span class="p">;</span>
+    <span class="kt">int</span>  <span class="n">nChannels</span><span class="p">;</span>
+    <span class="kt">int</span>  <span class="n">alphaChannel</span><span class="p">;</span>
+    <span class="kt">int</span>  <span class="n">depth</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="n">colorModel</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+    <span class="kt">char</span> <span class="n">channelSeq</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+    <span class="kt">int</span>  <span class="n">dataOrder</span><span class="p">;</span>
+    <span class="kt">int</span>  <span class="n">origin</span><span class="p">;</span>
+    <span class="kt">int</span>  <span class="n">align</span><span class="p">;</span>
+    <span class="kt">int</span>  <span class="n">width</span><span class="p">;</span>
+    <span class="kt">int</span>  <span class="n">height</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">_IplROI</span> <span class="o">*</span><span class="n">roi</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">_IplImage</span> <span class="o">*</span><span class="n">maskROI</span><span class="p">;</span>
+    <span class="kt">void</span>  <span class="o">*</span><span class="n">imageId</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">_IplTileInfo</span> <span class="o">*</span><span class="n">tileInfo</span><span class="p">;</span>
+    <span class="kt">int</span>  <span class="n">imageSize</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">imageData</span><span class="p">;</span>
+    <span class="kt">int</span>  <span class="n">widthStep</span><span class="p">;</span>
+    <span class="kt">int</span>  <span class="n">BorderMode</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+    <span class="kt">int</span>  <span class="n">BorderConst</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">imageDataOrigin</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">IplImage</span><span class="p">;</span>
+</pre></div>
+</div>
+</blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field"><th class="field-name">param nSize:</th><td class="field-body"><p class="first"><tt class="docutils literal"><span class="pre">sizeof(IplImage)</span></tt></p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">param ID:</th><td class="field-body"><p class="first">Version, always equals 0</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">param nChannels:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body"><p class="first">Number of channels. Most OpenCV functions support 1-4 channels.</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">param alphaChannel:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body"><p class="first">Ignored by OpenCV</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">param depth:</th><td class="field-body"><p class="first">Pixel depth in bits. The supported depths are:</p>
+<ul class="simple">
+<li><strong>IPL_DEPTH_8U</strong> - Unsigned 8-bit integer</li>
+<li><strong>IPL_DEPTH_8S</strong> - Signed 8-bit integer</li>
+<li><strong>IPL_DEPTH_16U</strong> - Unsigned 16-bit integer</li>
+<li><strong>IPL_DEPTH_16S</strong> - Signed 16-bit integer</li>
+<li><strong>IPL_DEPTH_32S</strong> - Signed 32-bit integer</li>
+<li><strong>IPL_DEPTH_32F</strong> - Single-precision floating point</li>
+<li><strong>IPL_DEPTH_64F</strong> - Double-precision floating point</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">param colorModel:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body"><p class="first">Ignored by OpenCV. The OpenCV function <a class="reference external" href="http://opencv.willowgarage.com/documentation/miscellaneous_image_transformations.html#cvtcolor"><em>CvtColor</em></a> requires the source and destination color spaces as parameters.</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">param channelSeq:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body"><p class="first">Ignored by OpenCV</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">param dataOrder:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body"><p class="first">0 = <tt class="docutils literal"><span class="pre">IPL_DATA_ORDER_PIXEL</span></tt> - interleaved color channels, 1 - separate color channels. <a class="reference external" href="http://opencv.willowgarage.com/documentation/operations_on_arrays.html#createimage"><em>CreateImage</em></a> only creates images with interleaved channels. For example, the usual layout of a color image is: <img class="math" src="basic_structures_files/d2ef9175580fd4cf13a15c10fe42241bc8a686ae.png" alt="$ b_{00} g_{00} r_{00} b_{10} g_{10} r_{10} ...$"></p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">param origin:</th><td class="field-body"><p class="first">0 - top-left origin, 1 - bottom-left origin (Windows bitmap style)</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">param align:</th><td class="field-body"><p class="first">Alignment of image rows (4 or 8). OpenCV ignores this and uses widthStep instead.</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">param width:</th><td class="field-body"><p class="first">Image width in pixels</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">param height:</th><td class="field-body"><p class="first">Image height in pixels</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">param roi:</th><td class="field-body"><p class="first">Region Of Interest (ROI). If not NULL, only this image region will be processed.</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">param maskROI:</th><td class="field-body"><p class="first">Must be NULL in OpenCV</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">param imageId:</th><td class="field-body"><p class="first">Must be NULL in OpenCV</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">param tileInfo:</th><td class="field-body"><p class="first">Must be NULL in OpenCV</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">param imageSize:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body"><p class="first">Image data size in bytes. For interleaved data, this equals <img class="math" src="basic_structures_files/1e182b1fbb4c07d74cf6688c9b593b36723c5ac6.png" alt="$\texttt{image-&gt;height} \cdot \texttt{image-&gt;widthStep}$"></p>
+</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">param imageData:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body"><p class="first">A pointer to the aligned image data</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">param widthStep:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body"><p class="first">The size of an aligned image row, in bytes</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">param BorderMode:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body"><p class="first">Border completion mode, ignored by OpenCV</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">param BorderConst:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body"><p class="first">Border completion mode, ignored by OpenCV</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">param imageDataOrigin:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body"><p class="first last">A pointer to the origin of the image data (not necessarily aligned). This is used for image deallocation.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>The <a class="reference internal" href="#iplimage"><em>IplImage</em></a>
+ structure was inherited from the Intel Image Processing Library, in 
+which the format is native. OpenCV only supports a subset of possible <a class="reference internal" href="#iplimage"><em>IplImage</em></a> formats, as outlined in the parameter list above.</p>
+<p>In addition to the above restrictions, OpenCV handles ROIs 
+differently. OpenCV functions require that the image size or ROI size of
+ all source and destination images match exactly. On the other hand, the
+ Intel Image Processing Library processes the area of intersection 
+between the source and destination images (or ROIs), allowing them to 
+vary independently.</p>
+</div>
+<div class="section" id="cvarr">
+<span id="index-11"></span><span id="id12"></span><h2>CvArr<a class="headerlink" href="#cvarr" title="Permalink to this headline">¶</a></h2>
+<p>Arbitrary array</p>
+<blockquote>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">typedef</span> <span class="kt">void</span> <span class="n">CvArr</span><span class="p">;</span>
+</pre></div>
+</div>
+</blockquote>
+<p>The metatype <tt class="xref docutils literal"><span class="pre">CvArr</span></tt> is used <em>only</em>
+ as a function parameter to specify that the function accepts arrays of 
+multiple types, such as IplImage*, CvMat* or even CvSeq* sometimes. The 
+particular array type is determined at runtime by analyzing the first 4 
+bytes of the header.</p>
+</div>
+</div>
+
+
+          </div>
+          <div class="feedback">
+              <h2>Help and Feedback</h2>
+              You did not find what you were looking for?
+              <ul>
+                  <li>Try the <a href="http://opencv.willowgarage.com/documentation/faq.html">FAQ</a>.</li>
+                  <li>Ask a question in the <a href="http://tech.groups.yahoo.com/group/OpenCV/">user group/mailing list</a>.</li>
+                  <li>If you think something is missing or wrong in the documentation,
+                  please file a <a href="http://sourceforge.net/tracker/?func=add&amp;group_id=22870&amp;atid=376677">bug report</a>.</li>
+              </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="http://opencv.willowgarage.com/documentation/index.html">
+              <img class="logo" src="basic_structures_files/opencv-logo2.png" alt="Logo">
+            </a></p>
+            <h3><a href="http://opencv.willowgarage.com/documentation/index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="#">Basic Structures</a><ul>
+<li><a class="reference external" href="#cvpoint">CvPoint</a></li>
+<li><a class="reference external" href="#cvpoint2d32f">CvPoint2D32f</a></li>
+<li><a class="reference external" href="#cvpoint3d32f">CvPoint3D32f</a></li>
+<li></li></ul></li></ul></div></div></div></body></html>

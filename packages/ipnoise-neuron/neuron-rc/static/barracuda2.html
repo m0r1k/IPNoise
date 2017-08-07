@@ -1,0 +1,120 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	</head>
+	<body>
+		<h1>Начинался новый дееень...</h1>
+    		<script type="text/javascript">
+                function count_rabbits() {
+                    for(var i=1; i<=3; i++) {
+                       alert("Коту оторвали "+i+" уса!")
+                    }
+                }
+
+
+
+
+// -------------------------------------------------------------
+
+			var questions = {
+				"хлорофиллы красные?":                                  false,
+				"ананасы растут на пальмах?":                           false,
+				"у китов есть зубы?":                                   false,
+				"кот - козел?":                                         true,
+				"роман - свинья?":                                      true,
+                "получит ли животное роман в тяпку нынче вечером?":     true
+		    };
+			var error = 0;
+
+            for (var key in questions){
+                var res = confirm(key);
+                var true_answer = questions[key];
+                if (res != true_answer){
+                    error++;
+                }
+            }
+
+			if (error > 0) {
+				alert("тест не пройден, у вас "+error+" ошибок");
+			} else {
+				alert("тест пройден!гусь молодец!");
+			}
+
+// -------------------------------------------------------------
+
+		/*
+			var questions = [
+				"хлорофиллы красные?",
+				"ананасы растут на пальмах?",
+				"у китов есть зубы?",
+				"кот - козел?",
+				"роман - свинья?"
+			];
+			var error = 0;
+
+			for (var i = 0; i < 5; i++){
+				var e = confirm(questions[i]);
+				if (i == 0 && e == true){
+					error++;
+				}
+                        	if (i == 1 && e == true){
+                                	error++;
+                        	}		
+                        	if (i == 2 && e == true){
+                                	error++;
+                        	}
+                        	if (i == 3 && e == false){
+                                	error++;
+                        	}
+                        	if (i == 4 && e == false){
+                                	error++;
+                        	}
+			}
+
+			if (error > 0) {
+				alert("тест не пройден, у вас "+error+" ошибок");
+			} else {
+				alert("тест пройден!гусь молодец!");
+			
+			}
+		*/	
+			
+// -------------------------------------------------------------
+
+		/*	
+			var answer1 = confirm("хлорофиллы красные?"); // true
+			var answer2 = confirm("ананасы растут на пальмах?");  // false
+			var answer3 = confirm("у китов есть зубы?");			
+			var answer4 = confirm("кот - козел?");
+			var answer5 = confirm("роман - свинья?");
+			var error = 0;
+			if (answer1 == true){
+				error++;
+			}
+                        if (answer2 == true){
+                                error++;
+                        }
+                        if (answer3 == true){
+                                error++;
+                        }
+                        if (answer4 == false){
+                                error++;
+                        }
+                        if (answer5 == false){
+                                error++;
+                        }
+			if (error > 0) {
+				alert("тест не пройден, у вас "+error+" ошибок");
+			} else {
+				alert("тест пройден!гусь молодец!");
+			}
+          */
+            
+
+// -------------------------------------------------------------
+
+
+		</script>
+	</body>
+</html>
+

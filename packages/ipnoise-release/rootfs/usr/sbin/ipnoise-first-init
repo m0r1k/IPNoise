@@ -1,0 +1,39 @@
+#!/bin/bash
+
+##
+## Init script, Roman E. Chechnev
+##
+
+VERSION="0.05"
+PATH=$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
+
+IPNOISE_RPMS_DIR="/var/cache/yum/i386/17/updates/packages/"
+
+function do_setup
+{
+    if [ -r /etc/ipnoise/first_init ]; then
+        return 1;
+    fi
+
+    ## mark first init date
+    date > /etc/ipnoise/first_init
+
+    ## install ipnoise packages
+    rpm -h -i --nodeps $IPNOISE_RPMS_DIR/ipnoise-libevent-*.rpm
+    rpm -h -i --nodeps $IPNOISE_RPMS_DIR/ipnoise-libfuse-*.rpm
+    rpm -h -i --nodeps $IPNOISE_RPMS_DIR/ipnoise-libnet-*.rpm
+    rpm -h -i --nodeps $IPNOISE_RPMS_DIR/ipnoise-libpcap-*.rpm
+    rpm -h -i --nodeps $IPNOISE_RPMS_DIR/ipnoise-iproute2-*.rpm
+    rpm -h -i --nodeps $IPNOISE_RPMS_DIR/ipnoise-net-tools-*.rpm
+    rpm -h -i --nodeps $IPNOISE_RPMS_DIR/ipnoise-thttpd-*.rpm
+    rpm -h -i --nodeps $IPNOISE_RPMS_DIR/ipnoise-tcpdump-*.rpm
+    rpm -h -i --nodeps $IPNOISE_RPMS_DIR/ipnoise-openssh-*.rpm
+    rpm -h -i --nodeps $IPNOISE_RPMS_DIR/ipnoise-squid-*.rpm
+    rpm -h -i --nodeps $IPNOISE_RPMS_DIR/ipnoise-fake-*.rpm
+    rpm -h -i --nodeps $IPNOISE_RPMS_DIR/ipnoise-release-*.rpm
+    rpm -h -i --nodeps $IPNOISE_RPMS_DIR/ipnoise-router-*.rpm
+    rpm -h -i --nodeps $IPNOISE_RPMS_DIR/ipnoise-transport-*.rpm
+}
+
+do_setup
+

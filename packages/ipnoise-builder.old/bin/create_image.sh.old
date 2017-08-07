@@ -1,0 +1,48 @@
+#!/bin/sh
+
+## Roman E. Chechnev
+
+#set -x
+
+## check args
+IMAGE_DIR="$1"
+if [ ! -r "$IMAGE_DIR" ];then
+    echo "Path to image: '$IMAGE_DIR' files missing or not exist"
+    exit 1;
+fi
+
+OUT_DIR="$2"
+if [ ! -r "$OUT_DIR" ];then
+    echo "Path to image: '$OUT_DIR' files missing or not exist"
+    exit 1;
+fi
+
+## create out dir
+install -m 0755 -d $OUT_DIR
+
+IMAGE_SIZE=`du -bs $IMAGE_DIR | awk '{print $1}'`;
+ADD_SPACE_SIZE=140 ## Additional space on image disk (in megabytes)
+
+echo "Image files,      total size: $IMAGE_SIZE"
+echo "Additional space, total size: $ADD_SPACE_SIZE Mb"
+
+IMAGE_TOTAL_SIZE=`perl -e "print int(($IMAGE_SIZE/1024/1024)+$ADD_SPACE_SIZE);"`
+
+echo "Image,            total size: $IMAGE_TOTAL_SIZE Mb"
+echo "Creating.."
+
+dd if=/dev/zero of=${OUT_DIR}/ipnoise.img.1 bs=1M count=$IMAGE_TOTAL_SIZE \
+    && chmod 666 ${OUT_DIR}/ipnoise.img.1                                 \
+    && mkfs.ext3 -F ${OUT_DIR}/ipnoise.img.1                              \
+    && mkdir -p ${OUT_DIR}/mnt                                            \
+    && mount -o loop $OUT_DIR/ipnoise.img.1 ${OUT_DIR}/mnt                \
+    && cp -f ${IMAGE_DIR}/boot/ipnoise_kernel  ${OUT_DIR}/ipnoise_kernel  \
+    && cp -rp ${IMAGE_DIR}/* ${OUT_DIR}/mnt/                              \
+    && umount ${OUT_DIR}/mnt
+
+umount ${OUT_DIR}/mnt/ >/dev/null 2>&1
+rmdir ${OUT_DIR}/mnt
+
+## replace image
+mv ${OUT_DIR}/ipnoise.img.1 ${OUT_DIR}/ipnoise.img
+

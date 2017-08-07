@@ -1,0 +1,16 @@
+.loginWindow {
+    background: #ffff00;
+    position:   absolute;
+    left:       40%;
+    top:        40%;
+    opacity:    100;
+}
+
+.do_login {
+    text-decoration:    underline;
+    cursor:             pointer;
+}
+
+.login {}
+.password {}
+

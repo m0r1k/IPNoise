@@ -1,0 +1,74 @@
+#!/bin/bash
+
+##
+## Init script, Roman E. Chechnev
+##
+
+VERSION="0.08"
+PATH=$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
+
+function do_setup
+{
+    ## may be it is first init?
+    /usr/sbin/ipnoise-first-init
+
+    ## HOST_ROOT_DIR
+    # HOST_ROOT_DIR=`cat /proc/ipnoise/host_os/root_dir`
+    # if [ ! -n "$HOST_ROOT_DIR" ];then
+    #    echo  "Cannot read host root dir"
+    #    exit 1;
+    # fi
+
+    ## HOST_FS
+    #if [ ! -n "`/bin/mount | grep \"/mnt/host_fs\"`" ];then
+    #    ## looks like host fs was not mounted, mounting
+    #    mkdir -p /mnt/host_fs
+    #    mount -t hostfs none /mnt/host_fs
+    #fi
+    #if [ ! -r "/mnt/host_fs/$HOST_ROOT_DIR" ];then
+    #    echo  "Cannot mount host fs"
+    #    exit 1;
+    #fi
+
+    ## goto ipnoise setting dir
+    #mkdir -p /etc/ipnoise/
+    #OLD_DIR=`pwd`
+    #cd /etc/ipnoise
+
+    ## remove old dirs
+    #rm -rf .ipnoise
+    #rm -rf profile
+
+    ## prepare profile dir
+    #if [ ! -r ".ipnoise" ];then
+    #    mkdir -p  "/mnt/host_fs$HOST_ROOT_DIR"
+    #    ln    -sf "/mnt/host_fs$HOST_ROOT_DIR" .ipnoise
+    #fi
+    #mkdir -p .ipnoise/profile
+    #if [ ! -r "profile" ];then
+    #    ln -sf .ipnoise/profile profile
+    #fi
+    
+    ## move debug to host os
+    #rm -rf /var/log
+    #ln -sf /mnt/host_fs$HOST_ROOT_DIR/logs /var/log
+
+    ## create fuse debug fs dir for ipnoise-router
+    #install -m 0755 -d /etc/ipnoise/fuse/
+
+    ## lo up
+    /sbin/ifconfig lo up
+
+    ## setup network
+    echo 1 > /proc/sys/net/ipv6/conf/all/forwarding
+    echo 1 > /proc/sys/net/ipv4/ip_forward
+
+    ## setup kernel debug
+    echo "1 4 1 7" > /proc/sys/kernel/printk
+
+    ## go back
+    #cd $OLD_DIR
+}
+
+do_setup
+

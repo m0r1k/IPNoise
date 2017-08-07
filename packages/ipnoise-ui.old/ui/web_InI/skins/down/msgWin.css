@@ -1,0 +1,12 @@
+.msgIncoming {
+    background: #eeee00;
+}
+.msgOutcoming {
+    background: rgb(150,150,150);
+}
+.msgSystem {
+    font-style: italic;
+    background: rgb(200,200,200);
+    color:      red;
+}
+

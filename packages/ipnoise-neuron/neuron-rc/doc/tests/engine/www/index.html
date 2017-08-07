@@ -1,0 +1,157 @@
+<html>
+
+<head>
+    <title>Feliz carros</title>
+    <style>
+        *           { margin: 0; padding: 0; box-sizing: border-box; }
+        body        { font:       13px Helvetica, Arial; }
+        .viewer     {
+            height:     100%;
+            width:      100%;
+            position:   relative;
+            z-index:    0;
+        }
+
+        .tabs { font-size: 12; height: 100%; }
+        .editor_inspect { border-color: red; border-style: dashed; }
+        .tabs-props textarea {
+            width:              100%;
+            height:             50%;
+        }
+
+        .ipnoise_object { position:         absolute;   }
+        .ipnoise_widget { background-color: green;      }
+        .ipnoise_editor { font-size:        12px        }
+
+        .select-editable {
+             position:          relative;
+             background-color:  white;
+             border:            solid grey 1px;
+             width:             100%;
+             height:            18px;
+         }
+         .select-editable select {
+             position:          absolute;
+             top:               0px;
+             left:              0px;
+             font-size:         14px;
+             border:            none;
+             width:             100%;
+             margin:            0;
+         }
+         .select-editable input {
+             position:          absolute;
+             top:               0px;
+             left:              0px;
+             width:             90%;
+             padding:           1px;
+             font-size:         12px;
+             border:            none;
+         }
+         .select-editable select:focus, .select-editable input:focus {
+             outline:           none;
+         }
+
+    </style>
+
+    <link rel="stylesheet" href="/static/jquery//jquery-ui.css"></link>
+
+    <script type="text/javascript" src="/static/logger.js"></script>
+    <script type="text/javascript" src="/static/jquery/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="/static/jquery/jquery-ui.js"></script>
+    <script type="text/javascript" src="/static/socket.io.js"></script>
+    <script type="text/javascript" src="/static/loader.js"></script>
+    <script type="text/javascript" src="/static/ipnoise/object.js"></script>
+    <script type="text/javascript" src="/static/ipnoise/object_viewer.js"></script>
+    <script type="text/javascript" src="/static/ipnoise/widget.js"></script>
+    <script type="text/javascript" src="/static/ipnoise/widget_editor.js"></script>
+    <script type="text/javascript" src="/static/constants.js"></script>
+    <script type="text/javascript">
+        "use strict";
+
+        var g_viewer = undefined;
+
+        function init_editor(){
+            window.open(
+                'http://www.felizcarros.com/index.html?object_id=editor',
+                'Editor',
+                'width=500, height=500'
+            );
+        }
+
+        function init(){
+            var socket = io.connect('http://www.felizcarros.com/session');
+
+            socket.on('actionViewerCreateDone', function(a_action){
+                if (g_viewer){
+                    g_viewer.close();
+                    g_viewer = undefined;
+                }
+
+                var args = {
+                    'socket':   socket
+                };
+                $.extend(args, a_action.object);
+
+                g_viewer = $('<div></div>')
+                    .appendTo('body')
+                    .IPNoiseObjectViewer(args)
+                    .data('custom-IPNoiseObjectViewer');
+
+                $(document).bind('keypress', function(a_ev){
+                    var code = a_ev.keyCode || e_ev.which;
+                    if (5 == code){
+                        // ctrl + shift + e
+                        init_editor();
+                    }
+                });
+            });
+
+            socket.on('connect', function (){
+                console.log('chat connection opened');
+                if (!g_viewer){
+                    var object_id = getUrlParameter('object_id');
+                    socket.emit('actionViewerCreate', {
+                        'only_id': object_id
+                    });
+                }
+            });
+        }
+
+        $(function(){
+            var loader = getLoader();
+
+            loader.load({
+                'type':     'script',
+                'src':      '/static/utils.js',
+                'target':   'head'
+            });
+            loader.load({
+                'type':     'script',
+                'src':      '/static/base64.js',
+                'target':   'head'
+            });
+            loader.load({
+                'type':     'script',
+                'src':      '/static/base.js',
+                'target':   'head'
+            });
+
+            loader.load({
+                'type':     'script',
+                'src':      '/static/viewer.js',
+                'target':   'head'
+            });
+
+            loader.onload(init);
+        });
+
+    </script>
+</head>
+
+<body>
+    <div class="viewer"></div>
+</body>
+
+</html>
+

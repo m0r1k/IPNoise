@@ -1,0 +1,19 @@
+.logWin {
+    max-height: 300; /* hardcode */
+    max-width:  800; /* hardcode */
+    overflow:   auto;
+    font-size:  12;
+}
+
+.logWinRow1 {
+    background: rgb(242, 242, 242);
+    vertical-align: top;
+    text-align:     left;
+}
+
+.logWinRow2 {
+    background: rgb(222, 222, 222);
+    vertical-align: top;
+    text-align:     left;
+}
+

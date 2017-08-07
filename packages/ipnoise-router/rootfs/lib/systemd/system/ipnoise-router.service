@@ -1,0 +1,12 @@
+[Unit]
+Description=IPNoise router
+After=syslog.target network.target
+
+[Service]
+ExecStart=/usr/sbin/ipnoise-router
+Restart=always
+IgnoreSIGPIPE=no
+
+[Install]
+WantedBy=multi-user.target
+

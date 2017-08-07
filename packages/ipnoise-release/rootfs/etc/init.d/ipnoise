@@ -1,0 +1,56 @@
+#!/bin/bash
+# Startup script for the ipnoise
+#
+# chkconfig: 345 10 90
+# description: IPNoise
+# 
+# processname: ipnoise
+# pidfile: /var/run/ipnoise/ipnoise.pid
+# config:
+### BEGIN INIT INFO
+# Provides: ipnoise
+# Short-Description: IPNoise
+# Default-Start: 3 4 5
+# Required-Start:
+# Required-Stop:
+### END INIT INFO
+
+CONFIG="/etc/ipnoise/profile/config.xml"
+OPTIONS="--debug 1 -c $CONFIG"
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+[ -x /usr/sbin/ipnoise-init ] || exit 0
+
+# See how we were called.
+case "$1" in
+  start)
+    echo -en "Starting IPNoise"
+    /usr/sbin/ipnoise-init
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && touch /var/lock/subsys/ipnoise
+    ;;
+  stop)
+    echo -en "Shutting down IPNoise"
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && rm -f /var/lock/subsys/ipnoise
+    ;;
+  status)
+    status ipnoise
+    RETVAL=$?
+    ;;
+  restart|reload)
+    $0 stop
+    $0 start
+    RETVAL=$?
+    ;;
+  *)
+    echo -en "Usage: ipnoise {start|stop|status|restart|reload}\n"
+    exit 1
+esac
+
+exit $RETVAL
+

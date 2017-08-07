@@ -1,0 +1,45 @@
+Next bug happens while:
+
+templates/perl/generic.pm (processTemplate)
+
+open $fd, '<:encoding(UTF-8)', $fname"
+    or my_die($!);
+
+20130408 morik@
+
+Program received signal SIGSEGV, Segmentation fault.
+[Switching to Thread 0x966ffb40 (LWP 13227)]
+0xb7feb6db in PerlIOEncode_fill (my_perl=0x95b602d8, f=0x95d1ca80) at encoding.xs:241
+241         PUSHSTACKi(PERLSI_MAGIC);
+Missing separate debuginfos, use: debuginfo-install boost-filesystem-1.48.0-14.fc17.i686 boost-program-options-1.48.0-14.fc17.i686 boost-system-1.48.0-14.fc17.i686 boost-thread-1.48.0-14.fc17.i686 libmongodb-2.2.3-1.fc17.i686 libuuid-2.21.2-4.fc17.i686 nss-softokn-freebl-3.14.3-1.fc17.i686 openssl-1.0.0k-1.fc17.i686 qt-4.8.4-14.fc17.i686 qt-x11-4.8.4-14.fc17.i686
+(gdb) bt
+#0  0xb7feb6db in PerlIOEncode_fill (my_perl=0x95b602d8, f=0x95d1ca80) at encoding.xs:241
+#1  0xb7daa069 in Perl_PerlIO_fill (my_perl=0x95b602d8, f=0x95d1ca80) at perlio.c:1812
+#2  0xb7dabcc8 in PerlIOBase_read (count=1, vbuf=<optimized out>, f=<optimized out>, my_perl=<optimized out>) at perlio.c:2206
+#3  PerlIOBase_read (my_perl=0x95b602d8, f=0x95d1ca80, vbuf=0x966ecb9f, count=1) at perlio.c:2180
+#4  0xb7dabd4c in PerlIOBuf_read (my_perl=0x95b602d8, f=0x95d1ca80, vbuf=0x966ecb9f, count=1) at perlio.c:4093
+#5  0xb7dabdd9 in Perl_PerlIO_read (my_perl=0x95b602d8, f=0x95d1ca80, vbuf=0x966ecb9f, count=1) at perlio.c:1715
+#6  0xb7dad9f0 in PerlIO_getc (f=f@entry=0x95d1ca80) at perlio.c:5241
+#7  0xb7d49422 in Perl_sv_gets (my_perl=my_perl@entry=0x95d05af8, sv=sv@entry=0x95b269c0, fp=fp@entry=0x95d1ca80, append=append@entry=0) at sv.c:7774
+#8  0xb7d2a18b in Perl_do_readline (my_perl=my_perl@entry=0x95d05af8) at pp_hot.c:1694
+#9  0xb7d2ae66 in Perl_pp_readline (my_perl=0x95d05af8) at pp_hot.c:331
+#10 0xb7d256e8 in Perl_runops_standard (my_perl=0x95d05af8) at run.c:41
+#11 0xb7cb6e80 in Perl_eval_sv (my_perl=my_perl@entry=0x95d05af8, sv=sv@entry=0x95d09238, flags=flags@entry=2) at perl.c:2769
+#12 0xb7cb70e4 in Perl_eval_pv (my_perl=0x95d05af8, p=0x95d92b74 " \n    my $ret = '';\n    $ret .= processTemplate(\"widget.tpl\");\n    return $ret;\n",
+    croak_on_error=1) at perl.c:2831
+#13 0x0805b7f3 in Template::processPerlCode (this=0x95d02bf8, a_perl=" \n    my $ret = '';\n    $ret .= processTemplate(\"widget.tpl\");\n    return $ret;\n")
+    at src/template.cpp:761
+#14 0x0805bc20 in Template::parseFile (this=0x95d02bf8, a_fname="/mnt/multimedia/neuron/templates/neuron_type_shop/index.tpl", a_out=
+    "<!doctype html>\n<html lang=\"en\">\n<head>\n\n\n<!-- templates/headers.tpl { -->\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"/>\n\n<link rel=\"stylesheet\" href=\"/static/jquery-ui.css\" />\n"...) at src/template.cpp:818
+#15 0x08092563 in Neuron::render (this=0x8104bd0, a_answer=std::shared_ptr (count 3, weak 0) 0x95d036d0, a_params=std::shared_ptr (count 3, weak 0) 0x95d033f8)
+    at src/neuron/neuron.cpp:601
+#16 0x0806c312 in HttpThread::processGet (this=0x8104da0, a_answer=std::shared_ptr (count 3, weak 0) 0x95d036d0, a_req_params=
+    std::shared_ptr (count 3, weak 0) 0x95d033f8) at src/thread/http.cpp:998
+#17 0x0806d073 in HttpThread::processReq (this=0x8104da0, a_req=std::shared_ptr (count 2, weak 0) 0x95d02600) at src/thread/http.cpp:1090
+#18 0x0806d4de in HttpThread::do_start (this=0x8104da0) at src/thread/http.cpp:1124
+#19 0x08054a90 in Thread::setState (this=0x8104da0, a_state=Thread::THREAD_STATE_RUNNING) at src/thread.cpp:99
+#20 0x080545bd in Thread::run (this=0x8104da0) at src/thread.cpp:43
+#21 0x4991155a in ?? () from /lib/libQtCore.so.4
+#22 0x4a405adf in start_thread (arg=0x966ffb40) at pthread_create.c:309
+#23 0x4a33f42e in clone () at ../sysdeps/unix/sysv/linux/i386/clone.S:133
+

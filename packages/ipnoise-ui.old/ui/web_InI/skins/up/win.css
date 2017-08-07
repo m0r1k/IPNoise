@@ -1,0 +1,24 @@
+.win {
+    position:       absolute;
+    background:     gray;
+    border-spacing: 2px;
+    border-width:   2px;
+    border-style:   solid;
+    border-color:   black;
+}
+
+.winHead IMG {
+    height:         15px;
+    cursor:         default;
+}
+
+.winHead {
+    background:     #505090;
+    margin:         0px;
+    margin-left:    0px;
+    margin-right:   0px;
+    padding:        0px;
+    border-spacing: 1px;
+    cursor:         move;
+}
+

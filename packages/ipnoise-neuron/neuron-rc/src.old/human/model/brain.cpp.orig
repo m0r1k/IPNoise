@@ -1,0 +1,239 @@
+#include "human/viewer.hpp"
+#include "ui/viewer.hpp"
+#include "utils.hpp"
+
+#include <QMetaObject>
+#include <QSet>
+
+#include "brain.hpp"
+
+HumanModelBrain::HumanModelBrain(
+    HumanViewer *a_human_viewer)
+    :   HumanModel(a_human_viewer)
+{
+    m_aligned = 0;
+
+    // start timer
+    m_timer = new QTimer();
+    m_timer->setInterval(100);
+    connect(
+        m_timer, SIGNAL(timeout()),
+        this,    SLOT(timer())
+    );
+}
+
+HumanModelBrain::~HumanModelBrain()
+{
+}
+
+ObjectSptr HumanModelBrain::init()
+{
+    m_model_object = getNetwork()->getObjectById(
+        OBJECT_ID(MODEL_BRAIN_OBJECT_NAME)
+    );
+    if (!m_model_object){
+        m_model_object = getNetwork()->createObject();
+        m_model_object->setId(ObjectIdSptr(
+            new ObjectId(
+                MODEL_BRAIN_OBJECT_NAME
+            )
+        ));
+
+        ObjectSptr      new_object;
+
+        // create new object
+        new_object = getNetwork()->createObject();
+        new_object->setPos(
+            0*UI_VIWER_OBJECT_SPHERE_SIZE,
+            0*UI_VIWER_OBJECT_SPHERE_SIZE,
+            0*UI_VIWER_OBJECT_SPHERE_SIZE
+        );
+        new_object->setHumanVal(0.5f);
+        LINK(m_model_object.get(), new_object.get());
+        m_objects.push_back(new_object);
+
+        for (int32_t i = 0; i < 10; i++){
+            double x = Utils::fRand(
+                -UI_VIWER_OBJECT_SPHERE_SIZE, UI_VIWER_OBJECT_SPHERE_SIZE
+            );
+            double y = Utils::fRand(
+                -UI_VIWER_OBJECT_SPHERE_SIZE, UI_VIWER_OBJECT_SPHERE_SIZE
+            );
+            double z = Utils::fRand(
+                -UI_VIWER_OBJECT_SPHERE_SIZE, UI_VIWER_OBJECT_SPHERE_SIZE
+            );
+
+            // create new object
+            new_object = getNetwork()->createObject();
+            new_object->setPos(x, y, z);
+            LINK(m_model_object.get(), new_object.get());
+            m_objects.push_back(new_object);
+        }
+    }
+
+    // start devide
+//    devide(m_model_object);
+
+    // start timer
+    m_timer->start();
+
+    return m_model_object;
+}
+
+ObjectSptr HumanModelBrain::devide(
+    ObjectSptr  a_object)
+{
+    ObjectSptr      new_object;
+    ObjectDoubleSptr  x;
+    ObjectDoubleSptr  y;
+    ObjectDoubleSptr  z;
+    ObjectDoubleSptr  val;
+
+    // copy values
+    x   = OBJECT_DOUBLE(*a_object->getPosX() + 0.01f);
+    y   = OBJECT_DOUBLE(*a_object->getPosY());
+    z   = OBJECT_DOUBLE(*a_object->getPosZ());
+    val = OBJECT_DOUBLE(*a_object->getHumanVal() + 0.2f);
+
+    // create new object
+    new_object = getNetwork()->createObject();
+
+    // set position
+    new_object->setPosX(x);
+    new_object->setPosY(y);
+    new_object->setPosZ(z);
+    new_object->setHumanVal(val);
+
+    LINK(a_object.get(),        new_object.get());
+    LINK(m_model_object.get(),  new_object.get());
+
+    m_objects.push_back(new_object);
+
+    return new_object;
+}
+
+void HumanModelBrain::timer()
+{
+/*
+    BrainObjectsIt  it;
+    BrainObjects    cur_objects = m_objects;
+
+    for (it = cur_objects.begin();
+        it != cur_objects.end();
+        it++)
+    {
+        ObjectSptr cur_object = *it;
+        devide(cur_object);
+    }
+
+    PWARN("MORIK m_objects.size: '%ld'\n",
+        m_objects.size()
+    );
+
+    align();
+*/
+    return;
+}
+
+void HumanModelBrain::align()
+{
+    BrainObjectsIt  it1, it2;
+
+    int32_t aligned = 1;
+
+    if (m_aligned){
+        goto out;
+    }
+
+    for (it1 = m_objects.begin();
+        it1 != m_objects.end();
+        it1++)
+    {
+        ObjectSptr  cur_object1 = *it1;
+        double      x1          = *cur_object1->getPosX();
+        double      y1          = *cur_object1->getPosY();
+        double      z1          = *cur_object1->getPosZ();
+
+        for (it2 = m_objects.begin();
+            it2 != m_objects.end();
+            it2++)
+        {
+            if (it2 == m_objects.begin()){
+                // skip first object
+                continue;
+            }
+
+            if (it2 == it1){
+                // skip ourself
+                continue;
+            }
+            ObjectSptr  cur_object2 = *it2;
+            double      x2          = *cur_object2->getPosX();
+            double      y2          = *cur_object2->getPosY();
+            double      z2          = *cur_object2->getPosZ();
+
+            double force    = 0.0f;
+            double len      = sqrt(
+                  pow((x2 > x1) ? x2 - x1 : x1 - x2, 2)
+                + pow((y2 > y1) ? x2 - x1 : y1 - y2, 2)
+                + pow((z2 > z1) ? z2 - z1 : z1 - z2, 2)
+            );
+
+            double size = 0.0f;
+
+            force = 1/pow(len, 2);
+
+            PWARN("len: '%f', force: '%f'\n",
+                len,
+                force
+            );
+
+            if (5000.0f < force){
+                size = 1.2f;
+            } else if (1000.0f > force){
+                size = 0.8f;
+            } else {
+                continue;
+            }
+
+            cur_object2->setPosX(
+                ((x1 < x2) ? x1 : x2) + size * ((x2 > x1) ? x2 - x1 : x1 - x2)
+            );
+            cur_object2->setPosY(
+                ((y1 < y2) ? y1 : y2) + size * ((y2 > y1) ? y2 - y1 : y1 - y2)
+            );
+            cur_object2->setPosZ(
+                ((z1 < z2) ? z1 : z2) + size * ((z2 > z1) ? z2 - z1 : z1 - z2)
+            );
+
+            aligned = 0;
+            PWARN("again\n");
+            goto out;
+        }
+    }
+
+//        vector<ObjectSptr>              objects;
+//        vector<ObjectSptr>::iterator    objects_it;
+
+//        double x = cur_object->getPosX();
+//        double y = cur_object->getPosX();
+//        double z = cur_object->getPosX();
+
+//        getNeighObjects(
+//            cur_object,
+//            objects
+//        );
+
+//        PWARN("was found '%ld' neigh objects\n",
+//            objects.size()
+//        );
+
+out:
+    if (    !m_aligned
+        &&  aligned)
+    {
+        m_aligned = 1;
+    }
+    return;
+}
+

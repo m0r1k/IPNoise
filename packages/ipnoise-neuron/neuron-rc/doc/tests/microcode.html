@@ -1,0 +1,72 @@
+<html>
+    <head>
+        <title>microcode</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <script type="text/javascript" src="/mnt/multimedia/neuron/neuron-rc/static/js/jquery-1.9.1.js"></script>
+        <script type="text/javascript" src="/mnt/multimedia/neuron/neuron-rc/static/js/jquery-ui.js"></script>
+        <script type="text/javascript" src="/mnt/multimedia/neuron/neuron-rc/doc/tests/microcode.js"></script>
+
+        <style>
+            .lines {
+//                border-style:   solid;
+            }
+            .line {
+                display:    flex;
+            }
+            .code  {
+                width:      400px;
+                height:     200px;
+            }
+            .addChunk {
+
+            }
+        </style>
+
+        <script type="text/javascript">
+            var g_deep = 0;
+
+            $(function(){
+                var data = 3.14156972;
+                if (2 < data, 0){
+                    alert('true');
+                } else {
+                    alert('false');
+                }
+/*
+                $('.addChunk').click(function(){
+                    var div = $('<div class="line"/>');
+                    var obj = createChunk("ChunkNop");
+                    var el  = obj.createUi();
+                    div.append(el);
+                    div.attr(
+                        'style',
+                        'padding-left: '+g_deep*20+'px;'
+                    );
+                    $('.lines').append(div);
+                });
+*/
+            });
+        </script>
+
+    </head>
+    <body>
+        <textarea class="code">
+var self = {
+    name = "core.object.http.server"
+};
+
+var action = {
+    name = "core.action.thread.started"
+};
+
+if (    action.name == "core.thread.http.started"
+    &&  self.state  != "list")
+{
+}
+
+        </textarea>
+        <table class="lines"></table>
+        <button class="addChunk">Add chunk</button>
+    </body>
+</html>
+

@@ -1,0 +1,16 @@
+[Unit]
+Description=The Neuron Server
+After=syslog.target network.target remote-fs.target nss-lookup.target
+
+[Service]
+User=morik
+Type=simple
+PIDFile=/run/neuron.pid
+WorkingDirectory=/mnt/multimedia/neuron/
+ExecStart=/mnt/multimedia/neuron/neuron $OPTIONS
+PrivateTmp=true
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+

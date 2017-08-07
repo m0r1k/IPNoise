@@ -1,0 +1,6 @@
+## HOSTFS
+## outside (hostfs)
+-virtfs local,path=/path/to/share,mount_tag=host0,security_model=passthrough,id=host0
+## inside
+host0   /wherever    9p      trans=virtio,version=9p2000.L   0 0
+

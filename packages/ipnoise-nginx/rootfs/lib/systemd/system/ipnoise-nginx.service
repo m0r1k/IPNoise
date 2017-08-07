@@ -1,0 +1,12 @@
+[Unit]
+Description=IPNoise nginx
+After=syslog.target network.target
+
+[Service]
+ExecStart=/usr/sbin/nginx -c /etc/nginx/nginx.conf
+Restart=always
+IgnoreSIGPIPE=no
+
+[Install]
+WantedBy=multi-user.target
+

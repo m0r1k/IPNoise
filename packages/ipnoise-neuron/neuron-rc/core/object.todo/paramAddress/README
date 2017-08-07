@@ -1,0 +1,6 @@
+Next packages required:
+
+- libsqlite3x
+- sqlite3-dbf
+- libsqlite3x-devel
+

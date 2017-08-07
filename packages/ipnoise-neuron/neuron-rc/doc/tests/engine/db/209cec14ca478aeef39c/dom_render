@@ -1,0 +1,8 @@
+// vim:syntax=javascript tabstop=4 expandtab
+
+var widget = $('<div></div>')
+    .appendTo(self.element)
+    .IPNoiseWidget(self.options);
+
+widget.html('hi');
+widget.css('width', '200px');

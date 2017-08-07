@@ -1,0 +1,83 @@
+
+.historyWin {
+    margin: 10px auto;
+    width: 570px;
+    font: 75%/120% Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.historyWin INPUT {
+    width:      100%;
+    background: gray;
+}
+
+.historyWin p {
+    padding: 0 0 1em;
+}
+
+/* message display page */
+.message_list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 383px;
+}
+.message_head {
+    width:      100%;
+    padding:    5px 10px;
+    cursor:     pointer;
+    position:   relative;
+}
+.message_head .timestamp {
+    color: #666666;
+    font-size: 95%;
+    position: absolute;
+    left: 280px;
+    top: 5px;
+}
+.message_head .timestampMsgCount {
+    color: #666666;
+    font-size: 95%;
+    position: absolute;
+    left: 30px;
+    top: 5px;
+}
+.message_head cite {
+    font-size: 100%;
+    font-weight: bold;
+    font-style: normal;
+}
+.message_body {
+    padding: 5px 10px 15px;
+}
+.collapse_buttons {
+    text-align: right;
+    border-top: solid 1px #e4e4e4;
+    padding: 5px 0;
+    width: 383px;
+}
+.collapse_buttons a {
+    margin-left: 15px;
+    float: right;
+}
+.message_list li {
+    padding:    0;
+    margin:     0;
+    background: url("/web_InI/images/message-bar.gif") no-repeat;
+}
+.show_all_message {
+    background: url("/web_InI/images/tall-down-arrow.gif") no-repeat right center;
+    padding-right: 12px;
+}
+.show_recent_only {
+    display: none;
+    background: url("/web_InI/images/tall-up-arrow.gif") no-repeat right center;
+    padding-right: 12px;
+}
+.collpase_all_message {
+    background: url("/web_InI/images/collapse-all.gif") no-repeat right center;
+    padding-right: 12px;
+    color: #666666;
+}
+

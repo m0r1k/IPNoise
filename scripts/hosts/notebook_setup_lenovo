@@ -1,0 +1,13 @@
+#!/bin/bash
+
+ETH0_IF_ADDR=192.168.222.2
+
+## don't use "0.0.0.0" in TRANSPORT_BIND_ADDR
+TRANSPORT_BIND_ADDR="192.168.1.222:22101"
+HUID="2210:0:7309:227d:3030:fb23:816a:cc5a"
+DEBUG=1
+IPNOISE_CONF=/etc/ipnoise/profile/config_lenovo.xml
+
+. notebook_setup_base
+. host_setup
+

@@ -1,0 +1,43 @@
+<html>
+
+    <head>
+        <script type="text/javascript">
+            function tear_mustache(){
+                for(var i=1; i<=3; i++) {
+                   alert("коту оторвали "+i+" уса!");
+                }
+            }
+
+            function showResults(){
+                var checkbox    = document.getElementById("my_checkbox");
+                var select      = document.getElementById("8787");
+                alert(checkbox.checked);
+            }
+         </script>
+    </head>
+    <body>
+        <form url="http://poshurshi.ru/static/barracuda4.html">
+            <input name="lastname"  type="text" value="Name"></input><br/>
+            <input name="pass"      type="password" value="password"></input><br/>
+            <select name="firstname" id="8787">
+                <option value="0">Andrew</option>
+                <option value="1">Sergey</option>
+                <option value="2">Alex</option>
+                <option value="3">Ivan</option>
+            </select><br/>
+            <textarea name="description" style="width: 200px; height: 200px;">
+        Давнавно
+        доилз
+        и лалисью пожимали
+            </textarea><br/>
+            <input name="test" id="my_checkbox" type="checkbox">Test</input><br/>
+            <input name="transport" type="radio" value="1">Auto</input><br/>
+            <input name="transport" type="radio" value="2">Moto</input><br/>
+            <input type="file"></input><br/>
+            <br/>
+            <input type="button" value="Жми!" onclick="showResults();"></input><br/>
+            <input type="submit" value="Отправить"></input><br/>
+        </form>
+    </body>
+
+</html>

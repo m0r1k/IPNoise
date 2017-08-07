@@ -1,0 +1,5 @@
+function Base()
+{
+    alert('base');
+}
+

@@ -1,0 +1,5 @@
+#!/bin/sh
+urpmi.addmedia ipnoise http://updater/2210:0000:0000:0000:0000:0000:0000:0001/public/ipnoise/stable/2011.0/i586/;
+urpmi.update   ipnoise -ff;
+urpmi --update --auto-update --force
+

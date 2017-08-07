@@ -1,0 +1,19 @@
+--- src/human/model/brain.cpp
++++ src/human/model/brain.cpp
+@@ -37,13 +37,11 @@
+     ));
+     if (!m_model_neuron){
+         m_model_neuron = db->createNeuron();
+-        m_model_neuron->setId(PropNeuronIdSptr(
+-            new PropNeuronId(
+-                MODEL_BRAIN_NEURON_NAME
+-            )
++        m_model_neuron->setId(PROP_NEURON_ID(
++            MODEL_BRAIN_NEURON_NAME
+         ));
+ 
+-        NeuronSptr      new_neuron;
++        NeuronSptr new_neuron;
+ 
+         // create new neuron
+         new_neuron = db->createNeuron();

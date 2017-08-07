@@ -1,0 +1,19 @@
+--- src/human/model/brain.cpp
++++ src/human/model/brain.cpp
+@@ -37,13 +37,11 @@
+     ));
+     if (!m_model_object){
+         m_model_object = db->createObject();
+-        m_model_object->setId(ObjectIdSptr(
+-            new ObjectId(
+-                MODEL_BRAIN_OBJECT_NAME
+-            )
++        m_model_object->setId(OBJECT_ID(
++            MODEL_BRAIN_OBJECT_NAME
+         ));
+ 
+-        ObjectSptr      new_object;
++        ObjectSptr new_object;
+ 
+         // create new object
+         new_object = db->createObject();

@@ -1,0 +1,5 @@
+#ifndef MIFIT_ALGORITHM_H_
+#define MIFIT_ALGORITHM_H_
+
+
+#endif /*MIFIT_ALGORITHM_H_*/

@@ -1,0 +1,13 @@
+.contextMenu IMG { width: 10; }
+.contextMenu TR  { background-color: rgb(240, 240, 240); }
+.contextMenuItemSelected TD {
+    background-color:   rgb(230, 230, 230);
+    cursor:             pointer;
+}
+
+.contextMenuAddGroup    {}
+.contextMenuDelGroup    {}
+.contextMenuAddItem     {}
+.contextMenuDelItem     {}
+.contextMenuAdd         {}
+

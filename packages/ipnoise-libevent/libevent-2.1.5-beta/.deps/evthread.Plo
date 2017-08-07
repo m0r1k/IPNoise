@@ -1,0 +1,8 @@
+evthread.lo: evthread.c /usr/include/stdc-predef.h \
+ include/event2/event-config.h evconfig-private.h
+
+/usr/include/stdc-predef.h:
+
+include/event2/event-config.h:
+
+evconfig-private.h:

@@ -1,0 +1,15 @@
+.addItemWin {}
+.addItemWin INPUT {
+    width:      100%;
+    background: gray;
+}
+
+.addItemWin TEXTAREA {
+    width:      100%;
+    background: gray;
+}
+
+._ItemSubmit {
+    cursor:     pointer;
+}
+

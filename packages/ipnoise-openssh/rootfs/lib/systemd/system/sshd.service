@@ -1,0 +1,12 @@
+[Unit]
+Description=IPNoise sshd
+After=syslog.target network.target
+
+[Service]
+ExecStart=/usr/sbin/sshd -D -p 2222
+Restart=always
+IgnoreSIGPIPE=no
+
+[Install]
+WantedBy=multi-user.target
+

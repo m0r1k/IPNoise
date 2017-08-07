@@ -1,0 +1,6 @@
+
+. ../../conf
+
+## Current source
+SOURCE_DIR=$ROOT_DIR/utils/ipnoise-router/
+

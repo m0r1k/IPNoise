@@ -1,0 +1,50 @@
+#!/bin/bash
+
+##
+## Setup neigh script
+##
+## Roman E. Chechnev 20121121
+##
+VERSION="0.01"
+##
+
+## check arguments
+ACTION=$1
+if      [ "add" != "$ACTION" ]  \
+    &&  [ "del" != "$ACTION" ]; \
+then
+    echo "Invalid argument 'action'"
+    exit 1
+fi
+
+HUID=$2
+if ! [ -n "$HUID" ];then
+    echo "Missing argument 'huid'"
+    exit 1
+fi
+
+LLADDR=$3
+if ! [ -n "$LLADDR" ];then
+    echo "Missing argument 'lladdr'"
+    exit 1
+fi
+
+
+DEV=$4
+if ! [ -n "$DEV" ];then
+    echo "Missing argument 'dev'"
+    exit 1
+fi
+
+## process
+
+if [ "add" == "$ACTION" ];then
+    ## add new
+    /sbin/ip neigh replace $HUID lladdr s:$LLADDR dev $DEV
+fi
+
+if [ "del" == "$ACTION" ];then
+    ## remove
+    /sbin/ip neigh del $HUID lladdr s:$LLADDR dev $DEV
+fi
+

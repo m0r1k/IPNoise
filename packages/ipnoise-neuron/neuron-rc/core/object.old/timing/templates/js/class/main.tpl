@@ -1,0 +1,3 @@
+// ONLY GENERIC STATIC FUNCTIONS
+// FOR OBJECTS IN */js/class/main.tpl
+

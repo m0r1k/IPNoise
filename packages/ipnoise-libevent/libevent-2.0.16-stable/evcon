@@ -1,0 +1,569 @@
+Binary file ./test/.libs/regress matches
+./test/regress_http.c:		/* req->kind = EVHTTP_RESPONSE; */
+./test/regress_http.c:		/* req->kind = EVHTTP_RESPONSE; */
+./test/regress_http.c:		/* req->kind = EVHTTP_RESPONSE; */
+./test/regress_testutils.c:	if (req->nquestions != 1)
+./test/regress_testutils.c:			req->nquestions));
+./test/regress_testutils.c:	question = req->questions[0]->name;
+./test/regress_dns.c:	for (i = 0; i < req->nquestions; ++i) {
+./test/regress_dns.c:		const int qtype = req->questions[i]->type;
+./test/regress_dns.c:		const int qclass = req->questions[i]->dns_question_class;
+./test/regress_dns.c:		const char *qname = req->questions[i]->name;
+./test/regress_dns.c:	if (req->nquestions != 1)
+./test/regress_dns.c:			req->nquestions));
+./test/regress_dns.c:	question = req->questions[0]->name;
+./test/regress_dns.c:	if (req->nquestions != 1)
+./test/regress_dns.c:			req->nquestions));
+./test/regress_dns.c:	question = req->questions[0]->name;
+./test/regress_dns.c:	for (i=0;i<req->nquestions;++i) {
+./test/regress_dns.c:		const int qtype = req->questions[i]->type;
+./test/regress_dns.c:		const int qclass = req->questions[i]->dns_question_class;
+./test/regress_dns.c:		const char *qname = req->questions[i]->name;
+./test/regress_dns.c:	tt_assert(req->nquestions);
+./test/regress_dns.c:	evdns_server_request_add_a_reply(req, req->questions[0]->name, 1,
+./test/regress_rpc.c:			req->input_headers, "X-Hook");
+./test/regress_rpc.c:	if (req->response_code != HTTP_SERVUNAVAIL) {
+./test/regress_rpc.c:	evhttp_add_header(req->output_headers, "Host", "somehost");
+./test/regress_rpc.c:	evbuffer_add_printf(req->output_buffer, "Some Nonsense");
+./test/regress_rpc.c:	if (req->response_code != HTTP_OK) {
+./test/regress_rpc.c:	if ((kill_unmarshal(kill_reply, req->input_buffer)) == -1) {
+./test/regress_rpc.c:	evhttp_add_header(req->output_headers, "Host", "somehost");
+./test/regress_rpc.c:	msg_marshal(req->output_buffer, msg);
+./test/regress_rpc.c:			req->input_headers, "X-Pool-Hook");
+./test/regress_rpc.c:		evhttp_add_header(req->input_headers, "X-Hook", hook_type);
+./test/regress_rpc.c:		evhttp_add_header(req->output_headers, "X-Hook", hook_type);
+./test/regress_rpc.c:	const char *header = evhttp_find_header(req->input_headers, "X-Hook");
+./test/regress_rpc.c:	evhttp_remove_header(req->input_headers, "X-Hook");
+./test/regress_rpc.c:	evhttp_add_header(req->input_headers, "X-Pool-Hook", "ran");
+Binary file ./test/regress-regress_dns.o matches
+Binary file ./http.o matches
+Binary file ./.libs/http.o matches
+Binary file ./.libs/libevent_extra-2.0.so.5.1.4 matches
+Binary file ./.libs/libevent.a matches
+Binary file ./.libs/libevent_extra.a matches
+Binary file ./.libs/libevent-2.0.so.5.1.4 matches
+Binary file ./.libs/evdns.o matches
+./http.c:	return (req->response_code != HTTP_NOCONTENT &&
+./http.c:		req->response_code != HTTP_NOTMODIFIED &&
+./http.c:		(req->response_code < 100 || req->response_code >= 200) &&
+./http.c:		req->type != EVHTTP_REQ_HEAD);
+./http.c:			req->major, req->minor);
+./http.c:	evhttp_remove_header(req->output_headers, "Proxy-Connection");
+./http.c:	method = evhttp_method(req->type);
+./http.c:	    method, req->uri, req->major, req->minor);
+./http.c:	if ((req->type == EVHTTP_REQ_POST || req->type == EVHTTP_REQ_PUT) &&
+./http.c:	    evhttp_find_header(req->output_headers, "Content-Length") == NULL){
+./http.c:		    EV_SIZE_ARG(evbuffer_get_length(req->output_buffer)));
+./http.c:		evhttp_add_header(req->output_headers, "Content-Length", size);
+./http.c: * Create the headers needed for an HTTP reply in req->output_headers,
+./http.c:	int is_keepalive = evhttp_is_connection_keepalive(req->input_headers);
+./http.c:	    req->major, req->minor, req->response_code,
+./http.c:	    req->response_code_line);
+./http.c:	if (req->major == 1) {
+./http.c:		if (req->minor >= 1)
+./http.c:			evhttp_maybe_add_date_header(req->output_headers);
+./http.c:		if (req->minor == 0 && is_keepalive)
+./http.c:			evhttp_add_header(req->output_headers,
+./http.c:		if ((req->minor >= 1 || is_keepalive) &&
+./http.c:				req->output_headers,
+./http.c:				evbuffer_get_length(req->output_buffer));
+./http.c:		if (evhttp_find_header(req->output_headers,
+./http.c:			evhttp_add_header(req->output_headers,
+./http.c:	if (evhttp_is_connection_close(req->flags, req->input_headers)) {
+./http.c:		evhttp_remove_header(req->output_headers, "Connection");
+./http.c:		if (!(req->flags & EVHTTP_PROXY_REQUEST))
+./http.c:		    evhttp_add_header(req->output_headers, "Connection", "close");
+./http.c:		evhttp_remove_header(req->output_headers, "Proxy-Connection");
+./http.c: * bufferevent. Also writes all data from req->output_buffer */
+./http.c:	if (req->kind == EVHTTP_REQUEST) {
+./http.c:	TAILQ_FOREACH(header, req->output_headers, next) {
+./http.c:	if (evbuffer_get_length(req->output_buffer) > 0) {
+./http.c:		evbuffer_add_buffer(output, req->output_buffer);
+./http.c:		if (!req->userdone) {
+./http.c:			TAILQ_REMOVE(&req->evcon->requests, req, next);
+./http.c:			req->evcon = NULL;
+./http.c:		if (req->uri) {
+./http.c:			mm_free(req->uri);
+./http.c:			req->uri = NULL;
+./http.c:		if (req->uri_elems) {
+./http.c:			evhttp_uri_free(req->uri_elems);
+./http.c:			req->uri_elems = NULL;
+./http.c:		(*req->cb)(req, req->cb_arg);
+./http.c:		cb = req->cb;
+./http.c:		cb_arg = req->cb_arg;
+./http.c:		req->evcon = NULL;
+./http.c:		    evhttp_is_connection_close(req->flags, req->input_headers)||
+./http.c:		    evhttp_is_connection_close(req->flags, req->output_headers);
+./http.c:	(*req->cb)(req, req->cb_arg);
+./http.c:	if (con_outgoing && ((req->flags & EVHTTP_USER_OWNED) == 0)) {
+./http.c:		if (req->ntoread < 0) {
+./http.c:			if ((ev_uint64_t)ntoread > EV_SIZE_MAX - req->body_size) {
+./http.c:			if (req->body_size + (size_t)ntoread > req->evcon->max_body_size) {
+./http.c:			req->body_size += (size_t)ntoread;
+./http.c:			req->ntoread = ntoread;
+./http.c:			if (req->ntoread == 0) {
+./http.c:		/* req->ntoread is signed int64, len is ssize_t, based on arch,
+./http.c:		if (req->ntoread > EV_SSIZE_MAX) {
+./http.c:		if (req->ntoread > 0 && buflen < (ev_uint64_t)req->ntoread)
+./http.c:		evbuffer_remove_buffer(buf, req->input_buffer, (size_t)req->ntoread);
+./http.c:		req->ntoread = -1;
+./http.c:		if (req->chunk_cb != NULL) {
+./http.c:			req->flags |= EVHTTP_REQ_DEFER_FREE;
+./http.c:			(*req->chunk_cb)(req, req->cb_arg);
+./http.c:			evbuffer_drain(req->input_buffer,
+./http.c:			    evbuffer_get_length(req->input_buffer));
+./http.c:			req->flags &= ~EVHTTP_REQ_DEFER_FREE;
+./http.c:			if ((req->flags & EVHTTP_REQ_NEEDS_FREE) != 0) {
+./http.c:	if (req->chunked) {
+./http.c:	} else if (req->ntoread < 0) {
+./http.c:		if ((size_t)(req->body_size + evbuffer_get_length(buf)) < req->body_size) {
+./http.c:		req->body_size += evbuffer_get_length(buf);
+./http.c:		evbuffer_add_buffer(req->input_buffer, buf);
+./http.c:	} else if (req->chunk_cb != NULL || evbuffer_get_length(buf) >= (size_t)req->ntoread) {
+./http.c:		if (n > (size_t) req->ntoread)
+./http.c:			n = (size_t) req->ntoread;
+./http.c:		req->ntoread -= n;
+./http.c:		req->body_size += n;
+./http.c:		evbuffer_remove_buffer(buf, req->input_buffer, n);
+./http.c:	if (req->body_size > req->evcon->max_body_size ||
+./http.c:	    (!req->chunked && req->ntoread >= 0 &&
+./http.c:		(size_t)req->ntoread > req->evcon->max_body_size)) {
+./http.c:	if (evbuffer_get_length(req->input_buffer) > 0 && req->chunk_cb != NULL) {
+./http.c:		req->flags |= EVHTTP_REQ_DEFER_FREE;
+./http.c:		(*req->chunk_cb)(req, req->cb_arg);
+./http.c:		req->flags &= ~EVHTTP_REQ_DEFER_FREE;
+./http.c:		evbuffer_drain(req->input_buffer,
+./http.c:		    evbuffer_get_length(req->input_buffer));
+./http.c:		if ((req->flags & EVHTTP_REQ_NEEDS_FREE) != 0) {
+./http.c:	if (req->ntoread == 0) {
+./http.c:	req->kind = EVHTTP_RESPONSE;
+./http.c:		if (!req->chunked && req->ntoread < 0
+./http.c:			__func__, version, req, req->remote_host));
+./http.c:	req->major = major;
+./http.c:	req->minor = minor;
+./http.c:	req->response_code = atoi(number);
+./http.c:	if (!evhttp_valid_response_code(req->response_code)) {
+./http.c:	if ((req->response_code_line = mm_strdup(readable)) == NULL) {
+./http.c:		req->type = EVHTTP_REQ_GET;
+./http.c:		req->type = EVHTTP_REQ_POST;
+./http.c:		req->type = EVHTTP_REQ_HEAD;
+./http.c:		req->type = EVHTTP_REQ_PUT;
+./http.c:		req->type = EVHTTP_REQ_DELETE;
+./http.c:		req->type = EVHTTP_REQ_OPTIONS;
+./http.c:		req->type = EVHTTP_REQ_TRACE;
+./http.c:		req->type = EVHTTP_REQ_PATCH;
+./http.c:		req->type = _EVHTTP_REQ_UNKNOWN;
+./http.c:			__func__, method, req, req->remote_host));
+./http.c:		 * we see that req->type is unsupported. */
+./http.c:	if ((req->uri = mm_strdup(uri)) == NULL) {
+./http.c:	if ((req->uri_elems = evhttp_uri_parse_with_flags(req->uri,
+./http.c:	scheme = evhttp_uri_get_scheme(req->uri_elems);
+./http.c:	hostname = evhttp_uri_get_host(req->uri_elems);
+./http.c:	    !evhttp_find_vhost(req->evcon->http_server, NULL, hostname))
+./http.c:		req->flags |= EVHTTP_PROXY_REQUEST;
+./http.c:		if (req->evcon != NULL &&
+./http.c:		    evbuffer_get_length(buffer) > req->evcon->max_headers_size)
+./http.c:	if (req->evcon != NULL &&
+./http.c:	    line_length > req->evcon->max_headers_size) {
+./http.c:	req->headers_size = line_length;
+./http.c:	switch (req->kind) {
+./http.c:	struct evkeyvalq* headers = req->input_headers;
+./http.c:		req->headers_size += line_length;
+./http.c:		if (req->evcon != NULL &&
+./http.c:		    req->headers_size > req->evcon->max_headers_size) {
+./http.c:		if (req->evcon != NULL &&
+./http.c:		req->headers_size + evbuffer_get_length(buffer) > req->evcon->max_headers_size)
+./http.c:	struct evkeyvalq *headers = req->input_headers;
+./http.c:		req->ntoread = -1;
+./http.c:		req->ntoread = -1;
+./http.c:		req->ntoread = ntoread;
+./http.c:		__func__, EV_I64_ARG(req->ntoread),
+./http.c:		EV_SIZE_ARG(evbuffer_get_length(bufferevent_get_input(req->evcon->bufev)))));
+./http.c:	if (req->kind == EVHTTP_REQUEST &&
+./http.c:	    !evhttp_method_may_have_body(req->type)) {
+./http.c:	xfer_enc = evhttp_find_header(req->input_headers, "Transfer-Encoding");
+./http.c:		req->chunked = 1;
+./http.c:		req->ntoread = -1;
+./http.c:		if (req->kind == EVHTTP_REQUEST && req->ntoread < 1) {
+./http.c:	if (req->kind == EVHTTP_REQUEST && REQ_VERSION_ATLEAST(req, 1, 1)) {
+./http.c:		expect = evhttp_find_header(req->input_headers, "Expect");
+./http.c:				if (req->ntoread > 0) {
+./http.c:					if ((req->evcon->max_body_size <= EV_INT64_MAX) && (ev_uint64_t)req->ntoread > req->evcon->max_body_size) {
+./http.c:	switch (req->kind) {
+./http.c:		if (req->response_code == 100) {
+./http.c:					__func__, req->response_code));
+./http.c:				__func__, req->remote_host, fd));
+./http.c:	req->kind = EVHTTP_REQUEST;
+./http.c:	req->type = type;
+./http.c:	if (req->uri != NULL)
+./http.c:		mm_free(req->uri);
+./http.c:	if ((req->uri = mm_strdup(uri)) == NULL) {
+./http.c:	if (!req->major && !req->minor) {
+./http.c:		req->major = 1;
+./http.c:		req->minor = 1;
+./http.c:	EVUTIL_ASSERT(req->evcon == NULL);
+./http.c:	req->evcon = evcon;
+./http.c:	EVUTIL_ASSERT(!(req->flags & EVHTTP_REQ_OWN_CONNECTION));
+./http.c:	struct evhttp_connection *evcon = req->evcon;
+./http.c:		!evhttp_is_connection_keepalive(req->input_headers))||
+./http.c:	    evhttp_is_connection_close(req->flags, req->input_headers) ||
+./http.c:	    evhttp_is_connection_close(req->flags, req->output_headers);
+./http.c:	EVUTIL_ASSERT(req->flags & EVHTTP_REQ_OWN_CONNECTION);
+./http.c:		evhttp_connection_free(req->evcon);
+./http.c:	struct evhttp_connection *evcon = req->evcon;
+./http.c:	req->userdone = 1;
+./http.c:		evbuffer_add_buffer(req->output_buffer, databuf);
+./http.c:	if (evhttp_find_header(req->output_headers, "Content-Length") == NULL &&
+./http.c:		evhttp_add_header(req->output_headers, "Transfer-Encoding",
+./http.c:		req->chunked = 1;
+./http.c:		req->chunked = 0;
+./http.c:	evhttp_make_header(req->evcon, req);
+./http.c:	evhttp_write_buffer(req->evcon, NULL, NULL);
+./http.c:	struct evhttp_connection *evcon = req->evcon;
+./http.c:	if (req->chunked) {
+./http.c:	if (req->chunked) {
+./http.c:	struct evhttp_connection *evcon = req->evcon;
+./http.c:	req->userdone = 1;
+./http.c:	if (req->chunked) {
+./http.c:		evhttp_write_buffer(req->evcon, evhttp_send_done, NULL);
+./http.c:		req->chunked = 0;
+./http.c:	req->kind = EVHTTP_RESPONSE;
+./http.c:	req->response_code = code;
+./http.c:	if (req->response_code_line != NULL)
+./http.c:		mm_free(req->response_code_line);
+./http.c:	req->response_code_line = mm_strdup(reason);
+./http.c:	if (req->response_code_line == NULL) {
+./http.c:	if (!req->major || !req->minor) {
+./http.c:		req->major = 1;
+./http.c:		req->minor = 1;
+./http.c:	if (req->kind != EVHTTP_RESPONSE)
+./http.c:	evhttp_clear_headers(req->output_headers);
+./http.c:	evhttp_add_header(req->output_headers, "Content-Type", "text/html");
+./http.c:	evhttp_add_header(req->output_headers, "Connection", "close");
+./http.c:	path = evhttp_uri_get_path(req->uri_elems);
+./http.c:	req->userdone = 0;
+./http.c:	if (req->type == 0 || req->uri == NULL) {
+./http.c:	if ((http->allowed_methods & req->type) == 0) {
+./http.c:			(unsigned)req->type, (unsigned)http->allowed_methods));
+./http.c:		if ((escaped_html = evhttp_htmlescape(req->uri)) == NULL) {
+./http.c:			evhttp_connection_free(req->evcon);
+./http.c:			evhttp_connection_free(req->evcon);
+./http.c:	req->headers_size = 0;
+./http.c:	req->body_size = 0;
+./http.c:	req->kind = EVHTTP_RESPONSE;
+./http.c:	req->input_headers = mm_calloc(1, sizeof(struct evkeyvalq));
+./http.c:	if (req->input_headers == NULL) {
+./http.c:	TAILQ_INIT(req->input_headers);
+./http.c:	req->output_headers = mm_calloc(1, sizeof(struct evkeyvalq));
+./http.c:	if (req->output_headers == NULL) {
+./http.c:	TAILQ_INIT(req->output_headers);
+./http.c:	if ((req->input_buffer = evbuffer_new()) == NULL) {
+./http.c:	if ((req->output_buffer = evbuffer_new()) == NULL) {
+./http.c:	req->cb = cb;
+./http.c:	req->cb_arg = arg;
+./http.c:	if ((req->flags & EVHTTP_REQ_DEFER_FREE) != 0) {
+./http.c:		req->flags |= EVHTTP_REQ_NEEDS_FREE;
+./http.c:	if (req->remote_host != NULL)
+./http.c:		mm_free(req->remote_host);
+./http.c:	if (req->uri != NULL)
+./http.c:		mm_free(req->uri);
+./http.c:	if (req->uri_elems != NULL)
+./http.c:		evhttp_uri_free(req->uri_elems);
+./http.c:	if (req->response_code_line != NULL)
+./http.c:		mm_free(req->response_code_line);
+./http.c:	if (req->host_cache != NULL)
+./http.c:		mm_free(req->host_cache);
+./http.c:	evhttp_clear_headers(req->input_headers);
+./http.c:	mm_free(req->input_headers);
+./http.c:	evhttp_clear_headers(req->output_headers);
+./http.c:	mm_free(req->output_headers);
+./http.c:	if (req->input_buffer != NULL)
+./http.c:		evbuffer_free(req->input_buffer);
+./http.c:	if (req->output_buffer != NULL)
+./http.c:		evbuffer_free(req->output_buffer);
+./http.c:	req->flags |= EVHTTP_USER_OWNED;
+./http.c:	return (req->flags & EVHTTP_USER_OWNED) != 0;
+./http.c:	return req->evcon;
+./http.c:	req->chunk_cb = cb;
+./http.c:	if (req->uri == NULL)
+./http.c:	return (req->uri);
+./http.c:	if (req->uri_elems == NULL)
+./http.c:	return (req->uri_elems);
+./http.c:	if (req->host_cache)
+./http.c:		return req->host_cache;
+./http.c:	if (req->uri_elems)
+./http.c:		host = evhttp_uri_get_host(req->uri_elems);
+./http.c:	if (!host && req->input_headers) {
+./http.c:		host = evhttp_find_header(req->input_headers, "Host");
+./http.c:				req->host_cache = mm_malloc(len + 1);
+./http.c:				if (!req->host_cache) {
+./http.c:				memcpy(req->host_cache, host, len);
+./http.c:				req->host_cache[len] = '\0';
+./http.c:				host = req->host_cache;
+./http.c:	return (req->type);
+./http.c:	return req->response_code;
+./http.c:	return (req->input_headers);
+./http.c:	return (req->output_headers);
+./http.c:	return (req->input_buffer);
+./http.c:	return (req->output_buffer);
+./http.c:	if ((req->remote_host = mm_strdup(evcon->address)) == NULL) {
+./http.c:	req->remote_port = evcon->port;
+./http.c:	req->evcon = evcon;	/* the request ends up owning the connection */
+./http.c:	req->flags |= EVHTTP_REQ_OWN_CONNECTION;
+./http.c:	req->userdone = 1;
+./http.c:	req->kind = EVHTTP_REQUEST;
+./evrpc.c:	if (req->type != EVHTTP_REQ_POST ||
+./evrpc.c:	    evbuffer_get_length(req->input_buffer) <= 0)
+./evrpc.c:		evrpc_hook_associate_meta(&rpc_state->hook_meta, req->evcon);
+./evrpc.c:		    rpc_state, req, req->input_buffer);
+./evrpc.c:		    rpc_state->request, req->input_buffer) == -1) {
+./evrpc.c:		evrpc_hook_associate_meta(&rpc_state->hook_meta, req->evcon);
+./evrpc.c:	return req->request;
+./evrpc.c:	return req->reply;
+./evrpc.c:	if (evhttp_find_header(req->output_headers, "Content-Type") == NULL) {
+./evrpc.c:		evhttp_add_header(req->output_headers,
+./evrpc.c:	ctx->request_marshal(req->output_buffer, ctx->request);
+./evrpc.c:		    ctx, req, req->output_buffer);
+./evrpc.c:		    ctx, req, req->input_buffer);
+./evrpc.c:		res = ctx->reply_unmarshal(ctx->reply, req->input_buffer);
+./evrpc.c:	if ((store = req->hook_meta) == NULL)
+./evrpc.c:		store = req->hook_meta = evrpc_hook_meta_new();
+./evrpc.c:	if (req->hook_meta == NULL)
+./evrpc.c:	TAILQ_FOREACH(meta, &req->hook_meta->meta_data, next) {
+./evrpc.c:	return (req->hook_meta != NULL ? req->hook_meta->evcon : NULL);
+./sample/dns-example.c:	for (i = 0; i < req->nquestions; ++i) {
+./sample/dns-example.c:		if (req->questions[i]->type == EVDNS_TYPE_A &&
+./sample/dns-example.c:		    req->questions[i]->dns_question_class == EVDNS_CLASS_INET) {
+./sample/dns-example.c:			printf(" -- replying for %s (A)\n", req->questions[i]->name);
+./sample/dns-example.c:			r = evdns_server_request_add_a_reply(req, req->questions[i]->name,
+./sample/dns-example.c:		} else if (req->questions[i]->type == EVDNS_TYPE_PTR &&
+./sample/dns-example.c:		    req->questions[i]->dns_question_class == EVDNS_CLASS_INET) {
+./sample/dns-example.c:			printf(" -- replying for %s (PTR)\n", req->questions[i]->name);
+./sample/dns-example.c:			r = evdns_server_request_add_ptr_reply(req, NULL, req->questions[i]->name,
+./sample/dns-example.c:			printf(" -- skipping %s [%d %d]\n", req->questions[i]->name,
+./sample/dns-example.c:				   req->questions[i]->type, req->questions[i]->dns_question_class);
+./evdns.c:	 * Each inflight request req is in req_heads[req->trans_id % n_req_heads].
+./evdns.c:			if (req->trans_id == trans_id) return req;
+./evdns.c:			req = req->next;
+./evdns.c:				if (req->tx_count == 0 && req->ns == ns) {
+./evdns.c:					req->ns = nameserver_pick(base);
+./evdns.c:				req = req->next;
+./evdns.c:	req->trans_id = trans_id;
+./evdns.c:	*((u16 *) req->request) = htons(trans_id);
+./evdns.c:	struct evdns_base *base = req->base;
+./evdns.c:		evtimer_del(&req->timeout_event);
+./evdns.c:	event_debug_unassign(&req->timeout_event);
+./evdns.c:	if (!req->request_appended) {
+./evdns.c:		mm_free(req->request);
+./evdns.c:	if (req->handle) {
+./evdns.c:		EVUTIL_ASSERT(req->handle->current_req == req);
+./evdns.c:			search_request_finished(req->handle);
+./evdns.c:			req->handle->current_req = NULL;
+./evdns.c:			if (! req->handle->pending_cb) {
+./evdns.c:				mm_free(req->handle);
+./evdns.c:			req->handle = NULL; /* If we have a bug, let's crash
+./evdns.c:			req->handle->current_req = NULL;
+./evdns.c:	const struct nameserver *const last_ns = req->ns;
+./evdns.c:	ASSERT_LOCKED(req->base);
+./evdns.c:	req->ns = nameserver_pick(req->base);
+./evdns.c:	if (req->ns == last_ns) {
+./evdns.c:	req->reissue_count++;
+./evdns.c:	req->tx_count = 0;
+./evdns.c:	req->transmit_me = 1;
+./evdns.c:		req->ns = nameserver_pick(base);
+./evdns.c:		evdns_request_insert(req, &REQ_HEAD(base, req->trans_id));
+./evdns.c:	ASSERT_LOCKED(req->base);
+./evdns.c:	d->request_type = req->request_type;
+./evdns.c:	d->user_callback = req->user_callback;
+./evdns.c:	if (req->handle) {
+./evdns.c:		req->handle->pending_cb = 1;
+./evdns.c:		d->handle = req->handle;
+./evdns.c:	    req->user_pointer);
+./evdns.c:		event_base_get_deferred_cb_queue(req->base->event_base),
+./evdns.c:	ASSERT_LOCKED(req->base);
+./evdns.c:			if (req->reissue_count < req->base->global_max_reissues) {
+./evdns.c:				nameserver_failed(req->ns, msg);
+./evdns.c:				    (struct sockaddr *)&req->ns->address,
+./evdns.c:			nameserver_up(req->ns);
+./evdns.c:		if (req->handle->search_state &&
+./evdns.c:		    req->request_type != TYPE_PTR) {
+./evdns.c:			if (!search_try_next(req->handle)) {
+./evdns.c:		request_finished(req, &REQ_HEAD(req->base, req->trans_id), 1);
+./evdns.c:		if (req->handle == req->ns->probe_request)
+./evdns.c:			req->ns->probe_request = NULL; /* Avoid double-free */
+./evdns.c:		nameserver_up(req->ns);
+./evdns.c:		request_finished(req, &REQ_HEAD(req->base, req->trans_id), 1);
+./evdns.c:	EVUTIL_ASSERT(req->base == base);
+./evdns.c:		if (name_parse(req->request, req->request_len, &k,	\
+./evdns.c:	reply.type = req->request_type;
+./evdns.c:			if (req->request_type != TYPE_A) {
+./evdns.c:			if (req->request_type != TYPE_PTR) {
+./evdns.c:			if (!req->put_cname_in_ptr || *req->put_cname_in_ptr) {
+./evdns.c:			*req->put_cname_in_ptr = mm_strdup(cname);
+./evdns.c:			if (req->request_type != TYPE_AAAA) {
+./evdns.c:	server_req->trans_id = trans_id;
+./evdns.c:	memcpy(&server_req->addr, addr, addrlen);
+./evdns.c:	server_req->addrlen = addrlen;
+./evdns.c:	server_req->base.flags = flags;
+./evdns.c:	server_req->base.nquestions = 0;
+./evdns.c:	server_req->base.questions = mm_calloc(sizeof(struct evdns_server_question *), questions);
+./evdns.c:	if (server_req->base.questions == NULL)
+./evdns.c:		server_req->base.questions[server_req->base.nquestions++] = q;
+./evdns.c:	server_req->port = port;
+./evdns.c:		evdns_server_request_respond(&(server_req->base), DNS_ERR_NOTIMPL);
+./evdns.c:	port->user_callback(&(server_req->base), port->user_data);
+./evdns.c:		if (server_req->base.questions) {
+./evdns.c:			for (i = 0; i < server_req->base.nquestions; ++i)
+./evdns.c:				mm_free(server_req->base.questions[i]);
+./evdns.c:			mm_free(server_req->base.questions);
+./evdns.c:		int r = sendto(port->socket, req->response, (int)req->response_len, 0,
+./evdns.c:			   (struct sockaddr*) &req->addr, (ev_socklen_t)req->addrlen);
+./evdns.c:			/* we released the last reference to req->port. */
+./evdns.c:	EVDNS_LOCK(req->port);
+./evdns.c:	if (req->response) /* have we already answered? */
+./evdns.c:		itemp = &req->answer;
+./evdns.c:		countp = &req->n_answer;
+./evdns.c:		itemp = &req->authority;
+./evdns.c:		countp = &req->n_authority;
+./evdns.c:		itemp = &req->additional;
+./evdns.c:		countp = &req->n_additional;
+./evdns.c:	EVDNS_UNLOCK(req->port);
+./evdns.c:	req->base.flags &= ~(EVDNS_FLAGS_AA|EVDNS_FLAGS_RD);
+./evdns.c:	req->base.flags |= flags;
+./evdns.c:	flags = req->base.flags;
+./evdns.c:	APPEND16(req->trans_id);
+./evdns.c:	APPEND16(req->base.nquestions);
+./evdns.c:	APPEND16(req->n_answer);
+./evdns.c:	APPEND16(req->n_authority);
+./evdns.c:	APPEND16(req->n_additional);
+./evdns.c:	for (i=0; i < req->base.nquestions; ++i) {
+./evdns.c:		const char *s = req->base.questions[i]->name;
+./evdns.c:		APPEND16(req->base.questions[i]->type);
+./evdns.c:		APPEND16(req->base.questions[i]->dns_question_class);
+./evdns.c:			item = req->answer;
+./evdns.c:			item = req->authority;
+./evdns.c:			item = req->additional;
+./evdns.c:	req->response_len = j;
+./evdns.c:	if (!(req->response = mm_malloc(req->response_len))) {
+./evdns.c:	memcpy(req->response, buf, req->response_len);
+./evdns.c:	struct evdns_server_port *port = req->port;
+./evdns.c:	if (!req->response) {
+./evdns.c:	r = sendto(port->socket, req->response, (int)req->response_len, 0,
+./evdns.c:			   (struct sockaddr*) &req->addr, (ev_socklen_t)req->addrlen);
+./evdns.c:			req->prev_pending = port->pending_replies->prev_pending;
+./evdns.c:			req->next_pending = port->pending_replies;
+./evdns.c:			req->prev_pending->next_pending =
+./evdns.c:				req->next_pending->prev_pending = req;
+./evdns.c:			req->prev_pending = req->next_pending = req;
+./evdns.c:			list = &req->answer;
+./evdns.c:			list = &req->authority;
+./evdns.c:			list = &req->additional;
+./evdns.c:	if (req->base.questions) {
+./evdns.c:		for (i = 0; i < req->base.nquestions; ++i)
+./evdns.c:			mm_free(req->base.questions[i]);
+./evdns.c:		mm_free(req->base.questions);
+./evdns.c:	if (req->port) {
+./evdns.c:		EVDNS_LOCK(req->port);
+./evdns.c:		if (req->port->pending_replies == req) {
+./evdns.c:			if (req->next_pending && req->next_pending != req)
+./evdns.c:				req->port->pending_replies = req->next_pending;
+./evdns.c:				req->port->pending_replies = NULL;
+./evdns.c:		rc = --req->port->refcnt;
+./evdns.c:	if (req->response) {
+./evdns.c:		mm_free(req->response);
+./evdns.c:	if (req->next_pending && req->next_pending != req) {
+./evdns.c:		req->next_pending->prev_pending = req->prev_pending;
+./evdns.c:		req->prev_pending->next_pending = req->next_pending;
+./evdns.c:		EVDNS_UNLOCK(req->port); /* ????? nickm */
+./evdns.c:		server_port_free(req->port);
+./evdns.c:		EVDNS_UNLOCK(req->port);
+./evdns.c:	if (addr_len < (int)req->addrlen)
+./evdns.c:	memcpy(sa, &(req->addr), req->addrlen);
+./evdns.c:	return req->addrlen;
+./evdns.c:	struct evdns_base *base = req->base;
+./evdns.c:	req->ns->timedout++;
+./evdns.c:	if (req->ns->timedout > req->base->global_max_nameserver_timeout) {
+./evdns.c:		req->ns->timedout = 0;
+./evdns.c:		nameserver_failed(req->ns, "request timed out.");
+./evdns.c:	if (req->tx_count >= req->base->global_max_retransmits) {
+./evdns.c:		request_finished(req, &REQ_HEAD(req->base, req->trans_id), 1);
+./evdns.c:		(void) evtimer_del(&req->timeout_event);
+./evdns.c:	ASSERT_LOCKED(req->base);
+./evdns.c:	r = sendto(server->socket, (void*)req->request, req->request_len, 0,
+./evdns.c:		nameserver_failed(req->ns, evutil_socket_error_to_string(err));
+./evdns.c:	} else if (r != (int)req->request_len) {
+./evdns.c:	ASSERT_LOCKED(req->base);
+./evdns.c:	req->transmit_me = 1;
+./evdns.c:	EVUTIL_ASSERT(req->trans_id != 0xffff);
+./evdns.c:	if (req->ns->choked) {
+./evdns.c:	r = evdns_request_transmit_to(req, req->ns);
+./evdns.c:		req->ns->choked = 1;
+./evdns.c:		nameserver_write_waiting(req->ns, 1);
+./evdns.c:		if (evtimer_add(&req->timeout_event, &req->base->global_timeout) < 0) {
+./evdns.c:		req->tx_count++;
+./evdns.c:		req->transmit_me = 0;
+./evdns.c:	req->ns = ns;
+./evdns.c:				if (req->transmit_me) {
+./evdns.c:				req = req->next;
+./evdns.c:			struct request *next = req->next;
+./evdns.c:			req->tx_count = req->reissue_count = 0;
+./evdns.c:			req->ns = NULL;
+./evdns.c:			(void) evtimer_del(&req->timeout_event);
+./evdns.c:			req->trans_id = 0;
+./evdns.c:			req->transmit_me = 0;
+./evdns.c:	ASSERT_LOCKED(req->base);
+./evdns.c:		EVUTIL_ASSERT(req->next);
+./evdns.c:	if (req->next == req) {
+./evdns.c:		req->next->prev = req->prev;
+./evdns.c:		req->prev->next = req->next;
+./evdns.c:		if (*head == req) *head = req->next;
+./evdns.c:	req->next = req->prev = NULL;
+./evdns.c:	ASSERT_LOCKED(req->base);
+./evdns.c:		req->next = req->prev = req;
+./evdns.c:	req->prev = (*head)->prev;
+./evdns.c:	req->prev->next = req;
+./evdns.c:	req->next = *head;
+./evdns.c:	req->base = base;
+./evdns.c:	evtimer_assign(&req->timeout_event, req->base->event_base, evdns_request_timeout_callback, req);
+./evdns.c:	req->request = ((u8 *) req) + sizeof(struct request);
+./evdns.c:	req->request_appended = 1;
+./evdns.c:	    type, CLASS_INET, req->request, request_max_len);
+./evdns.c:	req->request_len = rlen;
+./evdns.c:	req->trans_id = trans_id;
+./evdns.c:	req->tx_count = 0;
+./evdns.c:	req->request_type = type;
+./evdns.c:	req->user_pointer = user_ptr;
+./evdns.c:	req->user_callback = callback;
+./evdns.c:	req->ns = issuing_now ? nameserver_pick(base) : NULL;
+./evdns.c:	req->next = req->prev = NULL;
+./evdns.c:	req->handle = handle;
+./evdns.c:	struct evdns_base *base = req->base;
+./evdns.c:	if (req->ns) {
+./evdns.c:		evdns_request_insert(req, &REQ_HEAD(base, req->trans_id));
+./evdns.c:			base = handle->current_req->base;
+./evdns.c:	if (req->ns) {
+./evdns.c:		request_finished(req, &REQ_HEAD(base, req->trans_id), 1);
+./evdns.c:	struct evdns_base *base = req->base;
+./evdns.c:				newreq = request_new(base, NULL, req->request_type, handle->search_origname, handle->search_flags, req->user_callback, req->user_pointer);
+./evdns.c:		newreq = request_new(base, NULL, req->request_type, new_name, handle->search_flags, req->user_callback, req->user_pointer);
+./evdns.c:	request_finished(req, &REQ_HEAD(req->base, req->trans_id), 0);
+./evdns.c:	newreq->handle = handle;
+./evdns.c:	ASSERT_LOCKED(handle->current_req->base);
+./evdns.c:				evdns_request_insert(req, &new_heads[req->trans_id % n_heads]);
+./evdns.c:	EVUTIL_ASSERT(req->type == DNS_IPv4_A || req->type == DNS_IPv6_AAAA);
+./evdns.c:	if (req->type == DNS_IPv4_A) {
+./evdns.c:		if (req->type == DNS_IPv4_A)
+./evdns.c:	if (other_req->r == NULL)
+./evdns.c:	req->r = NULL;
+./evdns.c:		if (other_req->r == NULL)
+./evdns.c:		if (other_req->r) {
+./evdns.c:		if (other_req->r) {
+./evdns.c:			if (other_req->r) {
+./evdns.c:				evdns_cancel_request(NULL, other_req->r);
+./evdns.c:			if (other_req->r == NULL)
+./evdns.c:	if (other_req->r) {
+./evdns.c:			if (req->type == DNS_IPv4_A)
+./evdns.c:			data->ipv4_request.r->current_req->put_cname_in_ptr =
+./evdns.c:			data->ipv6_request.r->current_req->put_cname_in_ptr =
+./ChangeLog: o Correctly count req->body_size on http usage without Content-Length (8e342e5)
+Binary file ./evdns.o matches

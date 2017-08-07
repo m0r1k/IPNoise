@@ -1,0 +1,12 @@
+[Unit]
+Description=IPNoise squid proxy server
+After=syslog.target network.target
+
+[Service]
+ExecStart=/usr/sbin/squid -N
+Restart=always
+IgnoreSIGPIPE=no
+
+[Install]
+WantedBy=multi-user.target
+

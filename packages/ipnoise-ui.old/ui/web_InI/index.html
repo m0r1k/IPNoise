@@ -1,0 +1,282 @@
+<!--
+
+/*
+ *  Web InI - (It is Not Icq)
+ *
+ *  Roman E. Chechnev, (c) 2008-2009
+ *  ipnoise%at%chechnev.ru
+ *
+ *  IPNoise web client implementation
+ *  Aug, 2009.
+ */
+
+ -->
+
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <!-- Load sound class -->
+    <!-- <script type="text/javascript" src="sound/prototype.js" ></script> -->
+    <script type="text/javascript" src="sound/DP_Debug.js" ></script>
+    <script type="text/javascript" src="sound/Sound.js" ></script>
+
+    <script type="text/javascript">
+        var context         = window;
+        var context_doc     = context.document;
+        var context_win     = null;
+        
+        var INІ_VERSION     = "0.42";
+
+        var ipnoise_api     = null;
+
+        var updater         = null;
+        var updater_net     = null;
+        var updater_win_id  = null;
+
+        var ipnoise_sess_id = null;
+        var main_window     = null;
+
+        function checkUpdates(data){
+            if (updater_net){
+                var updater_win = null;
+                updater_win = getClassByGuiId(updater_win_id);
+                if (!updater_win && data.status == 'SUCCESS'){
+                    var regexp = /var\s+INІ_VERSION\s+=\s+"([^"]+)"/;
+                    var res = regexp.exec(data.responseText);
+                    if (res && res[1]){
+                        var new_version = res[1];
+                        var cur_version = INІ_VERSION;
+                        // force to be integer
+                        var new_version_test = (new_version*10)/10;
+                        var cur_version_test = (cur_version*10)/10;
+                        if (new_version_test > cur_version_test){
+                            updater_win = WindowClass({"context": context});
+                            updater_win_id = updater_win.getClassGuiId();
+                            updater_win.setTitle("Updater");
+                            updater_win.setSize("auto", "auto");
+                            updater_win.setAbsPos(200, 200);
+                            updater_win.setInnerHtml(
+                                "<div class=\"updaterWindowClass\">\n"
+                                +"Найдна новая версия InI: "+new_version+"<br>\n"
+                                +"Новая версия вступит в силу, после того,<br>\n"
+                                +"как Вы перезапустите текущую версию InI.<br>\n"
+                                +"<br>\n"
+                                +"<a href=\"/web_InI/index.html\">Перезапустить сейчас</a><br>\n"
+                                +"<br>\n"
+                                +"</div>\n"
+                            );
+                        }
+                    }
+                }
+                cleanClass(updater_net);
+                updater_net = null;
+            }
+        }
+
+        function checkUpdatesWatchdog(){
+            if (ipnoise_sess_id && !getClassByGuiId(updater_win_id)){
+                updater_net               = XmlHttpRequestClass();
+                updater_net.url           = "/web_InI/index.html";
+                updater_net.onload        = checkUpdates;
+                updater_net.sendGet();       
+            }
+        }
+
+        context_doc.oncontextmenu = function(ev){
+            // открываем свое меню
+            var node      = ev.target;
+            var target_id = undefined;
+            // TODO get window from "context" variable
+            var selection = window.getSelection();
+            if (selection != ""){
+                // don not show our context menu if text selected
+                return true;
+            }
+            while (node){
+                var target_id = node.id;
+                if (target_id){
+                    var obj = getClassByGuiId(target_id);
+                    if (obj && obj.showContextMenu){
+                        return obj.showContextMenu(ev);
+                    }
+                }
+                node = node.parentNode;
+            }
+            return true;
+        }
+
+        function createMsgWindow(args){ 
+            var huid            = args["huid"];
+            var name            = args["name"];
+            var sync_history    = args["sync_history"];
+            var show            = args["show"];
+            var classes         = getAllClasses();
+            var win             = null;
+            for (var class_id in classes){
+                // search already opened msg windows
+                var class_obj = classes[class_id];
+                if (class_obj && class_obj.huid == huid){
+                    win = class_obj;
+                    break;
+                }
+            }
+            if (!win){
+                win = msgWindowClass({
+                    "context":        context,
+                    "huid":           huid,
+                    "name":           name,
+                    "sync_history":   sync_history,
+                    "hide":           1,
+                });
+                win.setTitle("Dialog with '"+name+"'");
+                win.setAbsPos("50", "100");
+                win.setSize("600",  "400");
+                win.focus();
+            }
+            if (show){
+                win.unhide();
+            }
+            return win;
+        }
+
+        function login(guid){ 
+            var win_el = $("#"+guid);
+
+            var login  = win_el.find(".login").attr("value");
+            var passwd = win_el.find(".password").attr("value");
+
+            if (!login.length || !passwd.length){
+                return;
+            }
+
+            var win_obj = getClassByGuiId(guid);
+            if (win_obj){
+                win_obj.close();
+            }
+
+            // Main window
+            main_window = mainWindowClass({context: context});
+            main_window.setTitle("InІ ver. "+INІ_VERSION);
+            main_window.setAbsPos(800, 100);
+
+            // trying login
+            ipnoise_api.API_login(login, passwd);
+        }
+
+        function loginKeyPress(guid, ev){
+            var keycode;
+            if (context.event){
+                keycode = context.event.keyCode;
+            } else if (ev) {
+                keycode = ev.which;
+            } else {
+                return true;
+            }
+            if (keycode == 13){
+                login(guid);
+            }      
+        }
+
+        function init(){
+            // setup updater to check updates every min
+            updater = setInterval(checkUpdatesWatchdog, 60*1000);
+
+            context_doc.onmousemove = mouseMove; 
+            context_doc.onmouseup   = mouseUp; 
+
+            ipnoise_api = IPNoiseAPIClass({context: context});
+ 
+            var win0 = WindowClass({
+                "context":          context,
+                "background-color": "rgb(10, 10, 10)",
+                "opacity":          "0.8",
+                "z-index":          "20",
+                "hide-head":        "1",
+                "disable-resize":   "1"
+            });
+            win0.setAbsPos("40%", "200px");
+            
+            var tmp_login_win = TemplateLoginWindowClass();
+            tmp_login_win.onLogin(
+                "login(\""+win0.getClassGuiId()+"\");"
+            );
+            tmp_login_win.onKeyDown(
+                "loginKeyPress(\""+win0.getClassGuiId()+"\", event);"
+            );
+
+            win0.setBodyElement(tmp_login_win.main_div);
+
+            var login_field = context.document.getElementById("login_field");
+           
+            var win_el = $("#"+win0.getClassGuiId());
+            win_el.find(".login").focus();
+
+            var win1 = WindowClass({
+                "context":        context,
+                "disable-move":   1,
+                "disable-resize": 1
+            });
+            win1.setInnerHtml("Web InI ver. "+INІ_VERSION+" Based on IPNoise engine &lt;Roman E. Chechnev&gt;");
+            win1.setAbsPos("5px", "5px");
+            win1.setFixedSize("100%", "40px");
+
+        }
+    </script>
+
+    <link rel="stylesheet" href="css/table.css"                 type="text/css">
+    <link rel="stylesheet" href="css/contextWindowClass.css"    type="text/css">
+    <link rel="stylesheet" href="css/updaterWindowClass.css"    type="text/css">
+    
+</head>
+
+
+<body id="body" style="background-color: black; min-width: 1024; min-height: 768;" background="images/wallpaper1.jpg" onload="init();">
+
+    <script type="text/javascript">
+        // this must be before all other scripts
+        var sound = new Sound();
+        // sound.setVolume(100);
+    </script>
+
+    <script type="text/javascript" src="js/jquery-1.3.2.min.js" ></script>
+
+    <script type="text/javascript" src="Base64.js" ></script>
+    <script type="text/javascript" src="log.js" ></script>
+    <script type="text/javascript" src="AbstractClass.js" ></script>
+    <script type="text/javascript" src="dragDrop.js" ></script>
+    <script type="text/javascript" src="windowClass.js" ></script>
+    <script type="text/javascript" src="msgWindowClass.js" ></script>
+    <script type="text/javascript" src="mainWindowClass.js" ></script>
+    <script type="text/javascript" src="contextWindowClass.js" ></script>
+    <script type="text/javascript" src="addItemWindowClass.js" ></script>
+    <script type="text/javascript" src="historyWindowClass.js" ></script>
+    <script type="text/javascript" src="whoAroundWindowClass.js" ></script>
+
+    <script type="text/javascript" src="net.js" ></script>
+ 
+    <!-- load skin -->
+    <link rel="stylesheet" href="skins/up/msgWin.css"       type="text/css"></link>
+    <script                 src="skins/up/msgWin.js"        type="text/javascript"></script>
+    <link rel="stylesheet" href="skins/up/win.css"          type="text/css"></link>
+    <script                 src="skins/up/win.js"           type="text/javascript"></script>
+    <link rel="stylesheet" href="skins/up/mainWin.css"      type="text/css"></link>
+    <script                 src="skins/up/mainWin.js"       type="text/javascript"></script> 
+    <link rel="stylesheet" href="skins/up/logWin.css"       type="text/css"></link>
+    <script                 src="skins/up/logWin.js"        type="text/javascript"></script>
+    <link rel="stylesheet" href="skins/up/loginWin.css"     type="text/css"></link>
+    <script                 src="skins/up/loginWin.js"      type="text/javascript"></script>
+    <link rel="stylesheet" href="skins/up/addItemWin.css"   type="text/css"></link>
+    <script                 src="skins/up/addItemWin.js"    type="text/javascript"></script>
+    <link rel="stylesheet" href="skins/up/historyWin.css"   type="text/css"></link>
+    <script                 src="skins/up/historyWin.js"    type="text/javascript"></script>
+    <link rel="stylesheet" href="skins/up/whoAroundWin.css" type="text/css"></link>
+    <script                 src="skins/up/whoAroundWin.js"  type="text/javascript"></script>
+
+
+    <script type="text/javascript" src="IPNoiseAPI.js" ></script>
+
+    Welcome to the InI - decentralized IM client with IPNoise support. Roman E. Chechnev.
+</body>
+</html>
+

@@ -1,0 +1,26 @@
+#!/bin/bash
+
+if [ ! -n "$ETH0_IF_ADDR" ]; then
+    echo "Empty ETH0_IF_ADDR";
+    exit 1;
+fi
+
+## setup eth0
+DEV=eth0
+
+## start
+ip link set $DEV up >/dev/null 2>&1
+
+## delete all addresses
+ip a l  | /bin/grep $DEV       \
+        | /bin/grep inet       \
+        | /bin/grep -v grep    \
+        | awk '{ print $2 }'   \
+        | while read f;        \
+              do               \
+                  ip a d $f dev $DEV;    \
+              done
+
+## setup new
+ip a r $ETH0_IF_ADDR/24 dev $DEV  >/dev/null 2>&1
+

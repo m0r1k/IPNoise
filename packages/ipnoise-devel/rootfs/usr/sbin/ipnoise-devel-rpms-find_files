@@ -1,0 +1,84 @@
+#!/usr/bin/env perl
+
+##
+## Simple script for prepare rpm files list
+## Roman E. Chechnev
+## 20131216 morik@ipnoise.ru
+##
+
+use strict;
+use warnings;
+
+our $VERSION = '0.02';
+
+use Getopt::Long;
+
+my $buildroot = '.';
+my $out       = '';
+my $files     = '';
+my $skip      = '';
+
+GetOptions (
+    "buildroot=s" => \$buildroot,
+    "out=s"       => \$out,
+    "skip=s"      => \$skip,
+) or die ("Cannot parse args\n");
+
+my @skip_parts = split(",", $skip);
+
+sub parse_dir
+{
+    my $dir  = shift;
+    my $path = shift || [ $buildroot ];
+    my $dh   = undef;
+
+    opendir ($dh, $dir)
+        or die ("Cannot open dir: '$dir' for read ($!)");
+
+    while (my $cur_inode = readdir $dh){
+        if (   '.'  eq $cur_inode
+            || '..' eq $cur_inode)
+        {
+            next;
+        }
+
+        my $inode_path      = [@$path, $cur_inode];
+        my $inode_path_text = join("/", @$inode_path);
+        my $skip            = 0;
+
+        foreach my $cur_skip (@skip_parts){
+            if ($inode_path_text =~ /$cur_skip/){
+                $skip = 1;
+                last;
+            }
+        }
+        if ($skip){
+            next;
+        }
+
+        if (-d "$inode_path_text"){
+            parse_dir($inode_path_text, $inode_path);
+        } else {
+            my $tmp = $inode_path_text;
+            $tmp =~ s/^$buildroot//g;
+            $files .= "$tmp\n";
+        }
+    }
+
+    close $dh;
+}
+
+## parse dirs recursive
+parse_dir($buildroot);
+chomp $files;
+
+## save
+if (!$out){
+    print "$files\n";
+} else {
+    open OUT, "> $out"
+        or die("Cannot open file: '$out' for write ($!)");
+    print OUT "$files\n";
+    close OUT;
+}
+

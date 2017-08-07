@@ -1,0 +1,75 @@
+BODY
+{
+    background-color:    #000000;
+}
+
+a:link
+{ 
+    color: #000000;
+}
+
+a:visited
+{ 
+    color: #000000;
+}
+
+a:hover
+{ 
+    color: #CCCCCC;
+    background-color: #333333;
+    text-decoration: none;
+}
+
+a:active
+{ 
+    color: #333333;
+}
+
+.main
+{
+}
+
+.menu
+{
+    opacity:        0.3;
+    background:     url("images/stars.png") no-repeat top center;
+}
+
+.menu .row
+{
+    color:              #000000;
+    background-color:   #ffffff;
+    opacity:            0.9;
+    font:               95%/140% Arial, Helvetica, sans-serif;
+}
+
+.menu .row DIV
+{
+    padding:            2px;
+}
+
+.data
+{
+    opacity:            0.3;
+    background:         url("images/background.jpg") no-repeat center;
+}
+
+.data_text
+{
+    opacity:            1.0;
+    text-align:         right;
+    background:         url("images/background.jpg") no-repeat center;
+    color:              #ffffff;
+    background-color:   #000000;
+    font:               75%/120% Arial, Helvetica, sans-serif;
+}
+
+.footer
+{
+    text-align:         right;
+    color:              #505050;
+    background-color:   #000000;
+    opacity:            0.9;
+    font:               75%/120% Arial, Helvetica, sans-serif;
+}
+

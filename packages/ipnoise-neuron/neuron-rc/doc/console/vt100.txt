@@ -1,0 +1,959 @@
+Appendix  A
+
+Control   Codes   and   Escape   Sequences
+
+This appendix lists control codes and escape sequences that complete implemen-
+tations of VT102/VT2XX and Tektronix 4014/4105 terminals should interpret  and
+the functions they should initiate.   * marks functions that are redundant  or
+not  possible on an Atari ST computer,   *NI  marks  other   not   implemented
+functions (due to my laziness?),  *RI uncomplete implementation of a function,
+please read the implementation notes for details.
+
+Consult the ASCII table for numeric values of the control codes,  Ps,  Pn,  Pc
+and Pl  denote decimal values ( ESC [10;10f postion cursor at text coordinates
+(10,10)).
+
+The  following  control  codes  and  commands,  the  syntax  and  the  command
+interfaces as a whole could possibly be patented  or/and  copyrighted,  please
+consider  this  list as 'for information only'.  Commercial  use  is  strictly
+forbidden.
+
+A.1          ANSI/VT2XX/VT102/VT100  Mode
+
+A.1.1          Set Mode
+
+       ESC [2h                Keyboard locked
+       ESC [4h                Insert mode
+       ESC [12h               Local echo off
+       ESC [20h               New line mode on
+       ESC [?1h               Cursor key application mode
+       ESC [?3h               *RI 132 column mode
+       ESC [?4h               *RI Smooth scrolling
+       ESC [?5h               Screen reverse
+       ESC [?6h               Origin mode relative
+
+A.1.  ANSI/VT2XX/VT102/VT100 MODE
+
+
+      ESC [?7h                Auto wrap on
+      ESC [?8h                * Auto repeat on
+      ESC [?9h                * Interlace on
+      ESC [?18h               Print form feed on
+      ESC [?19h               Print extent full screen
+
+
+
+A.1.2         Reset  Mode
+
+      ESC [2l                 Keyboard unlocked
+      ESC [4l                 Replace mode
+      ESC [12l                Local echo on
+      ESC [20l                New line mo de off
+      ESC [?1l                Cursor key cursor mode
+      ESC [?2l                VT52 mode
+      ESC [?3l                80 column mode
+      ESC [?4l                Jump scrolling
+      ESC [?5l                Screen normal
+      ESC [?6l                Origin mode absolute
+      ESC [?7l                Auto wrap off
+      ESC [?8l                * Auto repeat off
+      ESC [?9l                * Interlace off
+      ESC [?18l               Print form feed on
+      ESC [?19l               Print extent scrolling region
+
+
+
+A.1.3         Select  Character  Sets
+
+The format is : ESC primary final
+
+Where  primary selects one of the four logical  character sets  (G0 to G3) and
+final selects the actual character set to be, mapped into the logical set.
+
+
+Primary selector
+
+        (               G0
+        )               G1
+
+Final selector
+
+        A               UK national
+        B               US-ASCII
+        0               Special graphics
+        1               *NI Alternate character set ROM
+        2               *NI Alternate special graphics set ROM
+
+
+APPENDIX A.  CONTROL CODES AND ESCAPE SEQUENCES
+
+
+A.1.4         Shift  into  Character  Sets
+
+      SO                     Locked shift G1
+      SI                     Locked shift G0
+
+A.1.5         Character  Attributes
+
+       ESC [0m                No attributes
+       ESC [1m                Bold
+       ESC [4m                Underline
+       ESC [5m                Blink (Light)
+       ESC [7m                Reverse
+
+
+
+A.1.6          Scrolling  Region
+
+       ESC [Pt;Pbr           Set scrolling region
+
+
+
+A.1.7          Cursor  Movement  Commands
+
+       ESC [PnA              Cursor Pn times up
+       ESC [PnB              Cursor down
+       ESC [PnC              Cursor right
+       ESC [PnD              Cursor left
+       ESC [Pl;PcH           Cursor position
+       ESC [Pl;Pcf
+       ESC D                 Index
+       ESC M                 Reverse Index
+       ESC E                 Next line
+       ESC 7                 Save cursor
+       ESC 8                 Restore cursor
+
+
+
+A.1.8          Tab  Stops
+
+       ESC H                  Horizontal tab set
+       ESC [g                 Tab clear
+       ESC [0g                Tab clear
+       ESC [3g                Clear all tabs
+
+A.1.  ANSI/VT2XX/VT102/VT100 MODE
+
+
+A.1.9          Line  Attributes
+
+       ESC #3                 Double-height top half
+       ESC #4                 Double-height bottom half
+       ESC #5                 Single-width single-height
+       ESC #6                 *RI Double-width single height
+
+
+A.1.10          Erasing
+
+In Line
+
+      ESC [K                  Cursor to end of line
+      ESC [0K
+      ESC [1K                 Beginning of line to cursor
+      ESC [2K                 Entire line
+
+
+
+In Screen
+
+      ESC [J                  Cursor to end of screen
+      ESC [0J
+      ESC [1J                 Beginning of screen to cursor
+      ESC [2J                 Entire screen
+
+
+
+A.1.11          Requests/Reports
+
+        Requests from host                            Reports to host
+  ESC [5n          Status              ESC [0n              Terminal OK
+                                       ESC [3n            * Terminal not OK
+  ESC [6n          Cursor pos.         ESC [Pl;PcR          Cursor position
+  ESC [c           What are you?       ESC [?1;Psc          VT100, Ps options
+  ESC [0c                              ESC [?6;Psc          VT102, Ps options
+  ESC Z                                ESC [?62;Psc         VT200, Ps options
+  ESC [?15n        Printer status      ESC [?10n            Printer ready
+                                       ESC [?11n            Printer not ready
+                                       ESC [?13n            No printer
+
+
+      ESC [0x                 Send terminal parameter report after setup
+      ESC [1x                 Send only on request
+
+APPENDIX A.  CONTROL CODES AND ESCAPE SEQUENCE
+
+
+A.1.12          Reset
+
+      ESC c                    Reset to default values
+
+
+
+A.1.13          Tests
+
+      ESC #8                 Fill screen with E's
+      ESC [2;Psy             * Invoke tests
+
+
+A.1.14           Keyboard LED's
+
+       ESC [0q                 All off
+       ESC [Psq               LED Ps on
+
+
+
+A.1.15           VT52 Mode
+
+       ESC                     Enter ANSI Mode
+       ESC =                   Enter alternate keypad mode
+       ESC i                   Exit alternate keypad mode
+       ESC F                   Select special graphics character set
+       ESC G                   Select US/UK character set
+       ESC A                   Cursor up
+       ESC B                   Cursor down
+       ESC C                   Cursor right
+       ESC D                   Cursor left
+       ESC H                   Cursor home
+       ESC YPlPc               Direct cursor address
+       ESC I                   Reverse line feed
+       ESC K                   Erase to end of line
+       ESC J                   Erase to end of screen
+       ESC Z                   What are you?
+       ESC /Z                  I am a VT52 (Response)
+       ESC ^                   Enter auto print mode
+       ESC -                   Exit auto print mode
+       ESC W                   Enter printer controller mode
+       ESC X                   Exit printer controller mode
+       ESC ]                   Print screen
+       ESC V                   Print cursor line
+
+A.1.  ANSI/VT2XX/VT102/VT100 MODE
+
+
+A.1.16           Editing Functions
+
+       ESC [PnP             Delete Pn character
+       ESC [PnL             Insert Line
+       ESC [PnM             Delete Line
+
+
+
+A.1.17           Print  Commands
+
+       ESC [?5i                Enter auto print
+       ESC [?4i                Exit auto print
+       ESC [5i                 Enter printer controller
+       ESC [4i                 Exit printer controller
+       ESC [i                  Print screen
+       ESC [0i
+       ESC [?1i                Print cursor line
+
+
+
+A.1.18          Other  Control  Characters
+
+       NUL                     Ignored
+       SOH                     Ignored
+       ETX                     Ignored
+       EOT                     Ignored
+       ENQ                     Transmit answerback message
+       BEL                     Bell
+       BS                      Backspace
+       HT                      Horizontal tab
+       LF                      Linefeed or  CR    LF
+       VT                      same as  LF
+       FF                      same as  LF
+       CR                      Carriage Return
+       SO                      Shift to G1 character set
+       SI                      Shift to G0 character set
+       DC1                     Ignored (Alternate XOn)
+       DC3                     Ignored (Alternate XOff)
+       CAN                     Cancel
+       SUB                     Cancel
+       DEL                     Ignored
+       US                      Ignored
+       RS                      Ignored
+       FS                      Ignored
+       SYN                     Ignored
+       EM                      Ignored
+
+APPENDIX A.  CONTROL CODES AND ESCAPE SEQUENCES
+
+
+       ETB                     Ignored
+       NAK                     Ignored
+       DLE                     Ignored
+       XON                     In XOn/XOff flow control mode
+       XOFF                    intercepted by ST bios, otherwise ignored
+
+
+A.1.19          Nonstandard  Functions
+
+       ESC [`                  Lock Keyboard
+       ESC [b                  Unlock Keyboard
+       ESC [PnI                Move Pn tabs right
+       GS                      Enter 4014 Vector mode
+       ESC %!0                 Enter Tektronix alpha mode (4105)
+       ESC #!0                 Report terminal mode (4105)
+       %!  SPSP 1              Report:  I am a ANSI terminal (4105)
+       ESC [?39h               Set 49 line mode
+       ESC [?39l               Set 24 line mode
+       ESC [?40h               Set meta mode
+       ESC [?40l               Reset meta mode
+       ESC [*c                 Inquire UniTerm version and mode
+       Response:
+       ESC [*major ;minor ;release;max-row;max-col c
+       ESC Pu string ESC \
+       Execute string with UniTerm's macro processor
+
+
+A.2          VT2XX  Functions
+
+
+A.2.1          Character  Sets
+
+The format is: ESC primary final
+
+Primary selector
+
+        (               G0
+        )               G1
+        *               G2
+        +               G3
+
+Final selector
+
+        <               DEC International
+
+A.2.  VT2XX FUNCTIONS
+
+
+        B               US-ASCII
+        0               Special graphics
+
+
+
+A.2.2          Terminal  Modes
+
+
+       CSI 61"p               VT100 mode
+       CSI 62"p               VT200 mode, 8-bit
+       CSI 62;0"p             " "
+       CSI 62;1"p             VT200 mode, 7-bit
+       CSI 62;2"p             VT200 mode, 8-bit
+       ESCSP F                *NI Send only C0 codes
+       ESCSP G                *NI SEnd only C1 codes
+
+
+A.2.3         Selective  Erasing  and  Attributes
+
+
+      CSI 22m                 Bold off
+      CSI 24m                 Underline off
+      CSI 25m                 Blink off
+      CSI 27m                 Inverse off
+      CSI 0"q                 Erase protectionoff
+      CSI 1"q                 Non-erasable
+      CSI 2"q                 Erasable
+      CSI ?K                  Cursor to EOL
+      CSI ?0K
+      CSI ?1K                 SOL to Cursor
+      CSI ?2K                 Whole line
+      CSI ?J                  Cursor to EOP
+      CSI ?0J
+      CSI ?1J                 SOP to Cursor
+      CSI ?2J                 Whole screen
+
+APPENDIX A.  CONTROL CODES AND ESCAPE SEQUENCES
+
+
+
+A.2.4         Reports
+
+
+      From host
+      CSI i0c                 Secondary device attribute response
+      From terminal
+      CSI i1;17;0c            VT220, Software version 1.7
+      From host
+      CSI ?25n                Are the function-keys locked?
+      From terminal
+      CSI ?20n                Unlocked
+      CSI ?21n                *NI Locked
+
+
+
+A.2.5         Misc
+
+
+      ESC [PnX               Erase Pn characters
+      ESC [PnP               Delete Pn characters
+      ESC [Pn@               Insert Pn blanks
+      CSI !p                 Soft reset
+      CSI ?38h               Tektronix mode
+      CSI ?38l               VT200 mode
+      CSI ?25h               *NI Cursor on
+      CSI ?25l               *NI Cursor off
+
+A.2.   VT2XX FUNCTIONS
+
+
+
+A.2.6          Downloadable  Function  Keys
+
+
+       DCS Pc;Pl|Ky1/St1;.. ST
+                                  Pc = 0 clear all keys (ignored)
+                                  Pc = 1 don't clear keys (ignored)
+                                  Pl = 0 lock keys (ignored)
+                                  Pl = 1 don't lock keys (ignored)
+                                  Ky1 Key number (decimal)
+                                  St1 String (hex)
+
+
+
+A.2.7          Downloadable  Character  Sets
+
+
+Not implemented!  Sorry.
+
+
+
+A.2.8          Control  Codes
+
+
+       IND                      Index
+       NEL                      Next line
+       SSA                      Ignored
+
+A.2.  VT3XX FUNCTIONS
+
+
+       ESA                      Ignored
+       HTS                      Horizontal tab set
+       HTJ                      Ignored
+       VTS                      Ignored
+       PLD                      Ignored
+       PLU                      Ignored
+       RI                       Reverse index
+       SS2                      Single shift G2->GL
+       SS3                      Single shift G3->GL
+       DCS                      Device control string introducer
+       PU1                      Ignored
+       PU2                      Ignored
+       STS                      Ignored
+       CCH                      Ignored
+       MW                       Ignored
+       SPA                      Ignored
+       EPA                      Ignored
+       CSI                      Control sequence introducer
+       ST                       String terminator
+       OSC                      Ignored
+       PM                       Ignored
+       APC                      Ignored
+
+
+A.3          VT3XX Functions
+
+Cuurently only the implemented control sequences are listed.
+
+A.3.1 Set Mode
+
+       ESC ?67h           <Backspace> sends BS and <Delete> sends DEL
+
+A.3.2 Reset Mode
+     
+       ESC ?67l           <Backspace> sends DEL and <Delete> sends BS
+
+A.3.3 National Replacement Character Sets
+
+In this mode the ASCII characters:
+
+ # @ [ \ ] ^ _ ` { | } ~
+
+are mapped into characters of the  international  character set.  Only one NRC
+can be active at one time, the format to select one is:
+
+        ESC primary final
+
+APPENDIX A.  CONTROL CODES AND ESCAPE SEQUENCES
+
+Primary selector
+
+        (               G0
+        )               G1
+        *               G2
+        +               G3
+
+Final selector
+
+        A               British
+        4               *RI Dutch
+        5 or C          Finnish
+        R               *RI French
+        9 or Q          French Canadian
+        K               German
+        Y               Italian
+        ' or E or 6     Norwegian/Dutch
+        %6              *NI Portugese
+        Z               Spanish
+        7 or H          Swedish
+        =               Swiss
+
+
+
+A.4          4014  Mode
+
+
+A.4.1         Alpha  Mode
+
+Cursor Movement
+
+      BS                        Cursor left
+      HT                        Cursor right
+      LF                        Cursor down
+      VT                        Cursor up
+      CR                        Cursor to left margin
+
+
+
+Character Set Sizes
+
+      ESC 8                    Normal 35x76 (lines x columns)
+      ESC 9                    Small 38x81
+      ESC :                    Smaller 50x120
+      ESC ;                    Smallest 58x133
+      ESC 6                    *NI Enter Italics ?
+      ESC 7                    *NI Exit Italics ?
+
+A.4.  4014 MODE
+
+
+Mode Changing
+
+      GS                        Vector mode
+      ESC  SUB                  GIN mode
+      FS                        Point plot mode
+      ESC  FS                   *NI Special point plot mode
+      RS                        Incremental mode
+      CAN                       Return to text terminal
+
+
+A.4.2         Other  Functions  and  Extended  Escape  Codes
+
+      ESC  ETB              Hardcopy
+      ESC  ENQ              Transmit status
+      ESC  STX              Enable block fill/erase
+      ESC  ETX              Disable block fill/erase
+      ESC "R                Enable rectangle draw
+      ESC "r                Disable rectangle draw
+      ESC x                 Enable selective erase
+      ESC /0d               Dots on
+      ESC /1d               Dots off
+      ESC /2d               Dots complemented
+
+
+A.4.3          Vector  Mode
+
+       GS                      Next vector is dark
+       address                 Draw vector, next vector is visible
+       ESC `                   Solid vector
+       ESC a                   Dotted
+       ESC b                   Dot-dashed
+       ESC c                   Short-dashed
+       ESC d                   Long-dashed
+       ESC p                   Solid vector, XOR
+       ESC q                   Dotted, XOR
+       ESC r                   Dot-dashed, XOR
+       ESC s                   Short-dashed, XOR
+       ESC t                   Long-dashed, XOR
+       ESC  SUB                GIN mode
+       US                      Alpha mode, don't move
+       CR                      Alpha mode
+       ESC  FF                 Alpha mode, clear screen
+
+APPENDIX A.  CONTROL CODES AND ESCAPE SEQUENCES
+
+
+A.4.4          Point  Plot/Special  Point  Plot  Mode
+
+       address                 Plot point
+       intensity address       *NI Special plot point
+       CR                      Alpha mode
+       ESC  FF                 Alpha mode
+
+
+A.4.5          Incremental  Point  Plot  Mode
+
+       SP                      Pen up
+       P                       Pen down
+       D                       North
+       E                       North east
+       A                       East
+       I                       South east
+       H                       South
+       J                       South west
+       B                       West
+       F                       North west
+       CAN                     Alpha mode
+       ESC SUB                 GIN mode
+
+
+A.5          4105  Commands
+
+
+In  the  following  list capital letters are part  of  the  command  sequences
+and lower case identifiers denote Tektronix encoded parameters.
+
+      ESC IQ code             *NI Report terminal settings
+      ESC IJ normal shifted   *NI Change GIN cursor speed
+
+      ESC JC                  *NI Copy
+
+      ESC KC                  *NI Cancel
+      ESC KR mode             *NI Change carriage return/line feed mode
+      ESC KD number contents  *NI Define macro
+      ESC KO number contents  *NI Define nonvolatile macro
+      ESC KA mode             *NI Enable dialog area
+
+A.5.  4105 COMMANDS
+
+
+      ESC KW mode             *NI Enable key expansion
+      ESC KX number           *NI Expand macro
+      ESC KH mode             *NI Hardcopy
+      ESC KI mode             Ignore deletes mode
+      ESC KF mode             *NI Change line feed/carriage return mode
+      ESC KL mode             *NI Lock keyboard
+      ESC KQ                  *NI Report errors
+      ESC KV                  *NI Reset
+      ESC KU                  *NI Save nonvolatile parameters
+      ESC KE mode             *NI Change echo mo de
+      ESC KZ char-delete line-delete literal
+                              *NI Change edit characters
+      ESC KT threshold        *NI Change error threshold
+
+A.5.   4105 COMMANDS
+
+      ESC KY char             *NI Change key execute character
+      ESC KS mode             *NI Change transparent mode
+      ESC KB positions        *NI Change tab stops
+
+      ESC LL number           *NI Change number of lines in dialog area
+      ESC LP start-point fill-boundary
+                              *NI Start panel boundary
+      ESC LZ                  *NI Clear dialog area
+      ESC LG position         *NI Draw to position
+      ESC LH position         *NI Draw marker at position
+      ESC LE                  *NI Finish Panel 
+      ESC LT text             *NI Graphic text
+      ESC LF position         *NI Move to position
+      ESC LB number           *NI Change number of lines for dialog buffer
+      ESC LI char-color char-background-color dialog-background-color
+                              *NI Change dialog area color
+      ESC LV mode             *NI Change dialog area visibility
+      ESC LM writing-mode     *NI Change dialog area writing mode
+      ESC MP number           *NI Choose fill pattern
+      ESC MG writing-mode     *NI Change graphics area writing mode
+      ESC MN direction        *NI Change graphtext direction
+      ESC MR mantissa power-of-two
+                              *NI Change graphtext rotation
+      ESC MC width height spacing
+                              *NI Change graphtext size
+      ESC ML color            *NI Change line color
+      ESC MV style            Change line style
+      ESC MM type            Change marker type
+
+42                             APPENDIX A.  CONTROL CODES AND ESCAPE SEQUENCES
+
+
+      ESC MT text-color       *NI Change text color
+
+
+      ESC NM mode             *NI Prompt mode
+      ESC NR transmit receive
+                              *NI Change baud rates
+      ESC NK time             *NI Change break time
+      ESC NU char             *NI Change echo suppression cancel character
+      ESC NE string           *NI Change EOF string
+      ESC NT string           *NI Change EOL string
+      ESC NC first-char second-char
+                              *NI Change EOM characters
+      ESC NF mode             *NI Change flow control mode
+      ESC NP string           *NIChange prompt string
+      ESC NQ size             *NI Change input buffer size
+      ESC NB stopbits         *NI Change number of stop bits
+      ESC ND delay            *NI Change transmit delay
+
+      ESC QI values           *NI Map color to monochrome values for print
+      ESC QU density          *NI Choose color hardcopy image density
+      ESC QD type             *NI Choose printer type
+      ESC QL pages page-origin ff-mode
+                              *NI Change dialog hardcopy attributes
+      ESC QE attributes       *NI Change hardcopy monchrome attributes
+      ESC QO orientation      *NI Change image orientation
+
+      ESC RU plane writing-mode bits-per-pixel
+                                  *NI Begin pixel operations
+      ESC RX dest.-plane d.-lower-left-corner
+      first-source-corner second-s.-corner
+                                  *NI Copy pixels
+      ESC RP number color
+                                  *NI Write pixels
+      ESC RR lower-left-corner upper-right-corner fill-color
+                                  *NI Fill rectangle
+      ESC RL array                *NI ?
+      ESC RH position             *NI Move to pixel position
+      ESC RS lower-left-corner upper-right-corner
+                                  *NI Change coordinates for pixel operations
+      ESC RW first-corner opposite-corner
+                                  *NI Change window on 4096*4096 coordinates
+
+      ESC TD first-color second-color
+                                  *NI Change alpha cursor colors
+
+A.5.  4105 COMMANDS                                                         43
+
+
+      ESC TF colors               *NI Change color indices for dialog area
+      ESC TG plane colors*NI Change color indices forplane
+      ESC TC first-color second-color third-color
+                                  *NI Change GIN cursor color
+
+      ESC SX number position
+                                  *NI Change GIN cursor position
+
+      ESC  SUB                   Enter 4010 GIN mode
+      ENQ                        *NI Inquire 4105 status
+      US                         *NI Enter 4105 alpha mode
+      ESC  CAN                   Enter echo suppression mode
+      FS                         Enter marker mode
+      GS                         Enter vector mode
+      ESC  FF                    Clear screen, enter alpha mode
+      ESC #!0                    Report terminal mode
+      ESC  ENQ                   Report 4010 status
+      ESC %!  mode               Change to a different terminal mode
+      ESC  font                  Change fonts
+      ESC  style                 Change 4014 line style
+      ESC ETB                    4014 hardcopy
+
+
+
+
+Appendix  B
+
+
+
+ASCII   Control   Codes
+
+
+
+
+B.1.  7-BIT CONTROL CODES                                                   45
+
+
+
+B.1          7-bit  Control  Codes
+
+
+
+______________________________________________________________________________
+|  Dec  | Oct  |   Hex  |   Keys   |    Atari     |   ASCII name             |
+|_______|______|________|<Control>+|__character___|__________________________|
+|  0    |000   |   00   |    <@>   |  None        |  N_ L Null               |
+|  1    |001   |   01   |    <A>   |  Up Arrow    |  SOH  Start of header    |
+|  2    |002   |   02   |    <B>   |  Down "      |  STX  Start text         |
+|  3    |003   |   03   |    <C>   |  Right "     |  ETX  End text           |
+|  4    |004   |   04   |    <D>   |  Left "      |  EOT  End of trans.      |
+|  5    |005   |   05   |    <E>   |  Close Box   |  ENQ  Enquiry            |
+|  6    |006   |   06   |    <F>   |  Move Box    |  ACK  Acknowledge        |
+|  7    |007   |   07   |    <G>   |  Full Box    |  BEL  Bell               |
+|  8    |010   |   08   |    <H>   |  Check       |  BS  Backspace           |
+|  9    |011   |   09   |    <I>   |  Clock       |  TAB  Horizontal tab     |
+|  10   |012   |   0A   |    <J>   |  Bell        |  LF  Linefeed            |
+|  11   |013   |   0B   |    <K>   |  Note        |  VT  Vertical tab        |
+|  12   |014   |   0C   |    <L>   |  FF          |  FF  Formfeed            |
+|  13   |015   |   0D   |    <M>   |  CR          |  CR  Carrige return      |
+|  14   |016   |   0E   |    <N>   |  Left Atari  |  SO  Shift out           |
+|  15   |017   |   0F   |    <O>   |  Right "     |  SI  Shift in            |
+|  16   |020   |   10   |    <P>   |  Led 0       |  DLE  Data link escape   |
+|  17   |021   |   11   |    <Q>   |  Led 1       |  DC1  X-on               |
+|  18   |022   |   12   |    <R>   |  Led 2       |  DC2                     |
+|  19   |023   |   13   |    <S>   |  Led 3       |  DC3  X-off              |
+|  20   |024   |   14   |    <T>   |  Led 4       |  DC4                     |
+|  21   |025   |   15   |    <U>   |  Led 5       |  NAK  Neg. acknowledge   |
+|  22   |026   |   16   |    <V>   |  Led 6       |  SYN  Synchronus idle    |
+|  23   |027   |   17   |    <W>   |  Led 7       |  ETB  End trans. blocks  |
+|  24   |030   |   18   |    <X>   |  Led 8       |  CAN  Cancel             |
+|  25   |031   |   19   |    <Y>   |  Led 9       |  EM  End of medium       |
+|  26   |032   |   1A   |    <Z>   |  ?           |  SUB  Substitute         |
+|  27   |033   |   1B   |    <[>   |  ESC         |  ESC  Escape             |
+|  28   |034   |   1C   |    <\>   |  Face p. 1   |  FS  File sep.           |
+|  29   |035   |   1D   |    <]>   |  Face p. 2   |  GS  Group sep.          |
+|  30   |036   |   1E   |    <^>   |  Face p. 3   |  RS  Record sep.         |
+|  31   |037   |   1F   |    <_>   |  Face p. 4   |  US  Unit sep.           |
+|  32   |040   |   20   | <Space>  |              |  SP  Space               | 
+ 
+|_______|______|________|__________|______________|__________________________|
+
+46                                             APPENDIX B. ASCII CONTROL CODES
+
+
+B.2          8-bit  Control  Codes
+______________________________________________________________________________
+|  Dec  | Oct  |   Hex  |Keys <Meta>+  |   7-bit   |   ASCII name            |
+|_______|______|________|__<Control>+__|___equiv.__|_________________________|
+| 128   | 200  |   80   |      <@>     |   ESC @   | Unused                  |
+| 129   | 201  |   81   |      <A>     |   ESC A   | Unused                  |
+| 130   | 202  |   82   |      <B>     |   ESC B   | Unused                  |
+| 131   | 203  |   83   |      <C>     |   ESC C   | Unused                  |
+| 132   | 204  |   84   |      <D>     |   ESC D   | IND  Index              |
+| 133   | 205  |   85   |      <E>     |   ESC E   | NEL  New line           |
+| 134   | 206  |   86   |      <F>     |   ESC F   | SSA                     |
+| 135   | 207  |   87   |      <G>     |   ESC G   | ESA                     |
+| 136   | 210  |   88   |      <H>     |   ESC H   | HTS  Horizontal tab set |
+| 137   | 211  |   89   |      <I>     |   ESC I   | HTJ                     |
+| 138   | 212  |   8A   |      <J>     |   ESC J   | VTS                     |
+| 139   | 213  |   8B   |      <K>     |   ESC K   | PLD                     |
+| 140   | 214  |   8C   |      <L>     |   ESC L   | PLU                     |
+| 141   | 215  |   8D   |      <M>     |   ESC M   | RI  Reverse index       |
+| 142   | 216  |   8E   |      <N>     |   ESC N   | SS2  Single shift 2     |
+| 143   | 217  |   8F   |      <O>     |   ESC O   | SS3  Single shift 3     |
+| 144   | 220  |   90   |      <P>     |   ESC P   | DCS  Dev. ctrl string   |
+| 145   | 221  |   91   |      <Q>     |   ESC Q   | PU1                     |
+| 146   | 222  |   92   |      <R>     |   ESC R   | PU2                     |
+| 147   | 223  |   93   |      <S>     |   ESC S   | STS                     |
+| 148   | 224  |   94   |      <T>     |   ESC T   | CCH                     |
+| 149   | 225  |   95   |      <U>     |   ESC U   | MW                      |
+| 150   | 226  |   96   |      <V>     |   ESC V   | SPA                     |
+| 151   | 227  |   97   |      <W>     |   ESC W   | EPA                     |
+| 152   | 230  |   98   |      <X>     |   ESC X   | Unused                  |
+| 153   | 231  |   99   |      <Y>     |   ESC Y   | Unused                  |
+| 154   | 232  |   9A   |      <Z>     |   ESC Z   | Unused                  |
+| 155   | 233  |   9B   |      <[>     |   ESC [   | CSI Command seq.  intro.|
+| 156   | 234  |   9C   |      <\>     |   ESC \   | ST  String terminator   |
+| 157   | 235  |   9D   |      <]>     |   ESC ]   | OSC                     |
+| 158   | 236  |   9E   |      <^>     |   ESC ^   | PM                      |
+| 159   | 237  |   9F   |      <_>     |   ESC _   | APC                     |
+|_______|______|________|______________|___________|_________________________|
+
+Due  to the way the german bios is written (and probably most of the  none  US 
+versions) not all of these codes can be produced with the keyboard.
+
+
+Appendix  E
+
+
+
+Key   assignments   and   generated   codes
+
+
+
+                         Table E.1: VT100 Cursor Keys
+     ___________________________________________________________________
+     |__VT100_Key____|_UniTerm_key__|__ANSI_normal_|__ANSI_application_|
+     |  Cursor Up    | Cursor Up    |  ESC [A      |  ESC OA           |
+     |  Cursor Down  | Cursor Down  |  ESC [B      |  ESC OB           |
+     |  Cursor Right | Cursor Right |  ESC [C      |  ESC OC           |
+     |__Cursor_Left__|_Cursor_Left__|__ESC_[D______|__ESC_OD___________|  
+
+
+
+                         Table E.2: VT52 Cursor Keys
+     ___________________________________________________________________
+     |__VT100_Key____|_UniTerm_key__|__ANSI_normal_|__ANSI_application_|
+     |  Cursor Up    | Cursor Up    |  ESC A       |  ESC A            |
+     |  Cursor Down  | Cursor Down  |  ESC B       |  ESC B            |
+     |  Cursor Right | Cursor Right |  ESC C       |  ESC C            |
+     |__Cursor_Left__|_Cursor_Left__|__ESC_D_______|__ESC_D____________|  
+
+
+
+                                                                            61
+
+
+
+                           Table E.3: VT100 Keypad
+  _________________________________________________________________________
+  |__VT100_Key___|____UniTerm_key___|__Numeric_mode__|__Application_mode__|
+  |  PF1         |    Keypad (      |  ESC OP        |  ESC OP            |
+  |  PF2         |    Keypad )      |  ESC OQ        |  ESC OQ            |
+  |  PF3         |    Keypad /      |  ESC OR        |  ESC OR            |
+  |  PF4         |    Keypad *      |  ESC OS        |  ESC OS            |
+  |  Keypad 7    |    Keypad 7      |  7             |  ESC Ow            |
+  |  Keypad 8    |    Keypad 8      |  8             |  ESC Ox            |
+  |  Keypad 9    |    Keypad 9      |  9             |  ESC Oy            |
+  |  Keypad 4    |    Keypad 4      |  4             |  ESC Ot            |
+  |  Keypad 5    |    Keypad 5      |  5             |  ESC Ou            |
+  |  Keypad 6    |    Keypad 6      |  6             |  ESC Ov            |
+  |  Keypad 1    |    Keypad 1      |  1             |  ESC Oq            |
+  |  Keypad 2    |    Keypad 2      |  2             |  ESC Or            |
+  |  Keypad 3    |    Keypad 3      |  3             |  ESC Os            |
+  |  Keypad 0    |    Keypad 0      |  0             |  ESC Op            |
+  |  Keypad -    |    Keypad -      |  -             |  ESC Om            |
+  |  Keypad ,    |    Keypad +      |  ,             |  ESC Ol            |
+  |  Keypad .    |    Keypad .      |  .             |  ESC On            |
+  |__Keypad_Enter|____Keypad_Enter__|__CR/CRLF_______|__ESC_OM____________|
+
+
+62                            APPENDIX E.  KEY ASSIGNMENTS AND GENERATED CODES
+
+                     Table E.4: VT100 Keypad (VT52 mode)
+  _________________________________________________________________________
+  |__VT100_Key___|____UniTerm_key___|__Numeric_mode__|__Application_mode__|
+  |  PF1         |    Keypad (      |  ESC P         |  ESC P             |
+  |  PF2         |    Keypad )      |  ESC Q         |  ESC Q             |
+  |  PF3         |    Keypad /      |  ESC R         |  ESC R             |
+  |  PF4         |    Keypad *      |  ESC S         |  ESC S             |
+  |  Keypad 7    |    Keypad 7      |  7             |  ESC ?w            |
+  |  Keypad 8    |    Keypad 8      |  8             |  ESC ?x            |
+  |  Keypad 9    |    Keypad 9      |  9             |  ESC ?y            |
+  |  Keypad 4    |    Keypad 4      |  4             |  ESC ?t            |
+  |  Keypad 5    |    Keypad 5      |  5             |  ESC ?u            |
+  |  Keypad 6    |    Keypad 6      |  6             |  ESC ?v            |
+  |  Keypad 1    |    Keypad 1      |  1             |  ESC ?q            |
+  |  Keypad 2    |    Keypad 2      |  2             |  ESC ?r            |
+  |  Keypad 3    |    Keypad 3      |  3             |  ESC ?s            |
+  |  Keypad 0    |    Keypad 0      |  0             |  ESC ?p            |
+  |  Keypad -    |    Keypad -      |  -             |  ESC ?m            |
+  |  Keypad ,    |    Keypad +      |  ,             |  ESC ?l            |
+  |  Keypad .    |    Keypad .      |  .             |  ESC ?n            |
+  |__Keypad_Enter|____Keypad_Enter__|__CR/CRLF_______|__ESC_?M____________|
+
+
+
+                                                                            63
+
+
+
+                            Table E.5: VT2XX Keys
+               _______________________________________________
+               |  VT2XX Key  |Assigned to   |    Sends       |
+               |             |  for down-   |  (default      |
+               |_____________|loadable_keys_|___on_a_VT2XX)__|
+               |  Find       |              |    ESC [1~     |
+               |  Insert here|              |    ESC [2~     |
+               |  Remove     |              |    ESC [3~     |
+               |  Select     |              |    ESC [4~     |
+               |  Prev Screen|              |    ESC [5~     |
+               |__Next_Screen|______________|____ESC_[6~_____|
+               |  F6 (F6)    |          F1  |    ESC [17~    |
+               |  F7 (F7)    |          F2  |    ESC [18~    |
+               |  F8 (F8)    |          F3  |    ESC [19~    |
+               |  F9 (F9)    |          F4  |    ESC [20~    |
+               |  F10 (F10)  |          F5  |    ESC [21~    |
+               |  F11 (F11)  |          F6  |    ESC [23~    |
+               |  F12 (F12)  |          F7  |    ESC [24~    |
+               |  F13 (F13)  |          F8  |    ESC [25~    |
+               |  F14 (F14)  |          F9  |    ESC [26~    |
+               |  Help (F15) |          F10 |    ESC [28~    |
+               |  Do (F16)   |    Shift F1  |    ESC [29~    |
+               |  F17 (F17)  |    Shift F2  |    ESC [31~    |
+               |  F18 (F18)  |    Shift F3  |    ESC [32~    |
+               |  F19 (F19)  |    Shift F4  |    ESC [33~    |
+               |  F20 (F20)  |    Shift F5  |    ESC [34~    |
+               |_____________|______________|________________|
+
+
+## net_sh v1.5 (sb) -----------------------------------------------------------
+

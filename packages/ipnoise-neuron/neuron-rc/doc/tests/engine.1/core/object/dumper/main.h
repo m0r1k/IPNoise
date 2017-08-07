@@ -1,0 +1,25 @@
+#ifndef MAIN_H
+#define MAIN_H
+
+#include "object.h"
+
+struct object_dumper
+{
+    Object  super;
+};
+typedef struct object_dumper ObjectDumper;
+
+Object * constructor(
+    const void      *a_data,
+    const uint64_t  a_data_size
+);
+void    destructor(Object *a_object);
+void    action(
+    Object          *a_object,
+    const char      *a_name,
+    const void      *a_data,
+    const uint64_t  a_data_size
+);
+
+#endif
+

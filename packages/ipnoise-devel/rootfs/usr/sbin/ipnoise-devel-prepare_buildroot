@@ -1,0 +1,30 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+my $buildroot = $ARGV[0] || '';
+
+open OUT, ">/tmp/123"
+    or die("Cannot open /tmp/123 ($!)");
+
+while (<STDIN>){
+    my $line = $_;
+    chomp $line;
+
+    if (   $line =~ m|^/sbin/?$|
+        || $line =~ m|^/usr/sbin/?$|)
+    {
+        ## skip /sbin to avoid conflict
+        ## with 'filesystems' rpm
+        next;
+    }
+
+    $line =~ s|^$buildroot||g;
+    print "$line\n";
+
+    print OUT "$line\n";
+}
+
+close OUT;
+

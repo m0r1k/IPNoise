@@ -1,0 +1,12 @@
+[Unit]
+Description=IPNoise TCP v4. transport
+After=syslog.target network.target
+
+[Service]
+ExecStart=/usr/sbin/ipnoise-transport-tcp-v4
+Restart=always
+IgnoreSIGPIPE=no
+
+[Install]
+WantedBy=multi-user.target
+

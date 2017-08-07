@@ -1,0 +1,43 @@
+#!/bin/bash
+
+##
+## Setup local user script
+##
+## Roman E. Chechnev 20110119
+##
+VERSION="0.06"
+##
+
+## check arguments
+ACTION=$1
+if      [ "add" != "$ACTION" ]  \
+    &&  [ "del" != "$ACTION" ]; \
+then
+    echo "Invalid argument 'action'"
+    exit 1
+fi
+
+HUID=$2
+if ! [ -n "$HUID" ];then
+    echo "Missing argument huid"
+    exit 1
+fi
+
+ROOT_DIR=/etc/ipnoise/.ipnoise/
+
+if [ "add" == "$ACTION" ];then
+    ## setup dirs
+    mkdir -p "$ROOT_DIR/$HUID/public"
+    mkdir -p "/var/lib/thttpd/$HUID/"
+
+    ## setup thttpd
+    ln -sf "$ROOT_DIR/$HUID/public" "/var/lib/thttpd/$HUID/public"
+
+    ## setup ip
+    /sbin/ip addr replace $HUID/128 dev lo
+
+    ## disable routing loop
+    /sbin/ip6tables -A FORWARD -i tcp_v4_0 -s $HUID/128 -j DROP
+    /sbin/ip6tables -A FORWARD -i udp_v4_0 -s $HUID/128 -j DROP
+fi
+

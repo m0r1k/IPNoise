@@ -1,0 +1,116 @@
+#!/bin/sh
+
+export PATH=$PATH:/mnt/multimedia/rootfs/usr/sbin/
+
+##
+## Simple devel environment setup script
+## Roman E. Chechnev 20131124 morik@ipnoise.ru
+##
+VERSION="0.03"
+##
+
+##
+## How create devel image?
+##
+## 1. start ./setup
+## 2. cd pipe
+## 3. execute all commands as root from create_devel_image, fill_devel_image
+## 4. now you should boot with -hda devel.img options for qemu
+##
+
+##
+## create devel image
+##
+function create_devel_image
+{
+    ## create empty image
+    dd if=/dev/zero of=devel.img bs=10M count=1000
+
+    ## (create new linux partition)
+    fdisk devel.img
+
+    ## setup image to loopback device
+    losetup /dev/loop1 devel.img
+
+    ## map partitions to devices
+    kpartx -va /dev/loop1
+
+    ## create filesystem
+    mkfs.ext4 /dev/mapper/loop1p1
+
+    ## free mapping
+    kpartx -d /dev/loop1
+
+    ## free losetup
+    losetup -d /dev/loop1
+}
+
+##
+## fill devel image
+##
+function fill_devel_image
+{
+    ## setup production image
+    losetup  /dev/loop1 ipnoise.img
+    ## setup devel image
+    losetup  /dev/loop2 devel.img
+    ## map partitions
+    kpartx -va /dev/loop1
+    ## map partitions
+    kpartx -va /dev/loop2
+    ## mount partitions
+    mount /dev/mapper/loop1p1 /mnt/1
+    ## mount partitions
+    mount /dev/mapper/loop2p1 /mnt/2
+    ## copy entry
+    cp -rp /mnt/1/* /mnt/2/
+    ## umount
+    umount /mnt/1
+    ## umount
+    umount /mnt/2
+    ## unmap
+    kpartx -d /dev/loop1
+    ## unmap
+    kpartx -d /dev/loop2
+    ## detach from block device
+    losetup -d /dev/loop1
+    ## detach from block device
+    losetup -d /dev/loop2
+}
+
+##
+## install devel software
+##
+function install_devel_software
+{
+    yum install -y busybox
+    yum install -y rpm-build
+    yum install -y glibc-devel bison flex               \
+	    db4-devel libdb-devel                       \
+	    perl-Pod-MinimumVersion.noarch              \
+    	openssl-devel gcc-c++ libxml2-devel             \
+    	lzma-devel xz-devel libstdc++-static            \
+    	glibc-static automoc.i686 qt-devel              \
+    	glib2-devel sudo                                \
+        db4-devel                                       \
+        db4                                             \
+        makerpms                                        \
+        sqlite-devel                                    \
+        mongodb-devel                                   \
+        perl-eperl                                      \
+        perl-ExtUtils-Embed.noarch                      \
+        libvirt-devel libcap-devel and libattr-devel    \
+        autoconf autogen sysconftool automake libtool   \
+        vim tig ctags                                   \
+        lzma pcre-devel
+}
+
+## setup and start proxy
+#export http_proxy=http://127.0.0.1:3128/
+#chmod 0777 /var/logs/
+#squid -z
+#squid
+
+## install software
+install_devel_software
+

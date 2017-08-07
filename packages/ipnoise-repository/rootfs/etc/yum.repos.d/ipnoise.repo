@@ -1,0 +1,7 @@
+[ipnoise]
+name            = IPNoise repository
+baseurl         = http://ipnoise.ru/repo/Fedora/$releasever/$basearch
+gpgcheck        = 0
+enabled         = 1
+metadata_expire = 1m
+

@@ -1,0 +1,13 @@
+#!/bin/sh
+
+destdir="/home/sites/ru.ipnoise/www/repo/Fedora/19"
+
+mkdir -p $destdir/{SRPMS,i386,x86_64}
+
+for arch in i386 x86_64
+do
+    pushd ${destdir}/${arch} >/dev/null 2>&1
+        createrepo .
+    popd >/dev/null 2>&1
+done
+

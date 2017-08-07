@@ -1,0 +1,11 @@
+/usr/lib/debug/sbin/iproute-arpd.debug
+/usr/lib/debug/sbin/ip.debug
+/usr/lib/debug/sbin/rtmon.debug
+/usr/lib/debug/sbin/ifstat.debug
+/usr/lib/debug/sbin/tc.debug
+/usr/lib/debug/sbin/ss.debug
+/usr/lib/debug/sbin/genl.debug
+/usr/lib/debug/sbin/rtacct.debug
+/usr/lib/debug/sbin/lnstat.debug
+/usr/lib/debug/sbin/nstat.debug
+/usr/src/debug/iproute2-2.6.26

@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="all">
+    <file>resources/default/images/loading_002.png</file>
+  </qresource>
+</RCC>

@@ -1,0 +1,9 @@
+/* webrtc style file */
+body {
+    font: normal 100%/1.6 helvetica, arial, sans-serif;
+}
+
+#webcam,
+#feed {
+    display: none;
+}

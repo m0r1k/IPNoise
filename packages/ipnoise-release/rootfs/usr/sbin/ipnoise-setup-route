@@ -1,0 +1,51 @@
+#!/bin/bash
+
+##
+## Setup route script
+##
+## Roman E. Chechnev 20110206
+##
+VERSION="0.04"
+##
+
+## check arguments
+ACTION=$1
+if      [ "add" != "$ACTION" ]  \
+    &&  [ "del" != "$ACTION" ]; \
+then
+    echo "Invalid argument 'action'"
+    exit 1
+fi
+
+HUID=$2
+if ! [ -n "$HUID" ];then
+    echo "Missing argument huid"
+    exit 1
+fi
+
+DEV=$3
+if ! [ -n "$DEV" ];then
+    echo "Missing argument dev"
+    exit 1
+fi
+
+SRC_HUID=$4
+if ! [ -n "$SRC_HUID" ];then
+    echo "Missing argument src_huid"
+    exit 1
+fi
+
+## process
+
+if [ "add" == "$ACTION" ];then
+    ## add new
+    ## /sbin/ip route replace $HUID/128 dev $DEV src $SRC_HUID
+    /sbin/ip route replace $HUID/128 dev $DEV
+fi
+
+if [ "del" == "$ACTION" ];then
+    ## remove
+    ## /sbin/ip route del $HUID/128 dev $DEV src $SRC_HUID
+    /sbin/ip route del $HUID/128 dev $DEV
+fi
+

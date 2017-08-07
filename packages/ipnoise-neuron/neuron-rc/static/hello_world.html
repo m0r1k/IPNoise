@@ -1,0 +1,26 @@
+<html>
+
+<head>
+    <script language="javascript">
+        function barracuda(){
+            var el   = document.getElementById("morik");
+            var val  = el.getAttribute("value") * 1 + 1;
+            el.setAttribute("value", val);
+        }
+    </script>
+</head>
+
+<body>
+
+<table>
+    <tr>
+        <td>Count:</td>
+        <td><input id="morik" type="text" value="0"></input></td>
+    </tr>
+    <tr>
+        <td><input type="submit" value="поехали!" onclick="barracuda();"></td>
+    </tr>
+</table>
+
+</body>
+</html>

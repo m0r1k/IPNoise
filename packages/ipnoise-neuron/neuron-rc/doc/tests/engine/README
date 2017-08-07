@@ -1,0 +1,14 @@
+--- mongodb ---
+
+initital setup:
+
+cfg = {
+    '_id' : 'rs0',
+    'version' : 1,
+    'members' : [ {
+        '_id' : 0,
+        'host' : 'felizcarros.com:27017'
+    } ]
+};
+rs.initiate(cfg);
+

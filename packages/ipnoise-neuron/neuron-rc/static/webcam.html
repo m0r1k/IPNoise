@@ -1,0 +1,219 @@
+<html>
+<head>
+    <meta
+        http-equiv="Content-Type"
+        content="text/html; charset=utf-8">
+    </meta>
+    <script
+        type="text/javascript"
+        src="/static/js/jquery-1.9.1.js">
+    </script>
+    <script
+        type="text/javascript"
+        src="/static/js/jquery-ui.js">
+    </script>
+    <script
+        type="text/javascript"
+        src="/static/js/base64.js">
+    </script>
+    <script
+        type="text/javascript"
+        src="/static/js/utils.js">
+    </script>
+
+    <script>
+        var g_ws                = undefined;
+        var g_frames_received   = 0;
+        var g_time_last         = new Date().getTime();
+        var g_timer             = undefined;
+
+        function init_ws(a_url){
+            if (g_ws){
+                g_ws.onclose    = function(){};
+                g_ws.onmessage  = function(){};
+                g_ws.onerror    = function(){};
+                g_ws.close();
+                g_ws = undefined;
+            }
+            var ws = new WebSocket(
+                "ws://192.168.223.222:8080" + a_url
+            );
+            ws.binaryType = 'arraybuffer';
+
+            ws.onopen = function(){
+                console.log("connection opened\n");
+                g_ws = ws;
+            }
+
+            ws.onclose = function(){
+                console.log("connection closed\n");
+                g_ws = undefined;
+            }
+
+            ws.onmessage = function(ev){
+                var ab  = ev.data;
+                var url = 'data:image/jpeg;base64,';
+                url += Base64.encodeFromStringOfUint8(
+                    arrayBuffer_of_uint8_to_string_of_uint8(
+                        ab
+                    )
+                );
+
+                $('.res').html('<img src="'+url+'"/>');
+
+                // calculate fps
+                g_frames_received++;
+                var time_cur    = new Date().getTime();
+                var elapsed     = time_cur - g_time_last;
+                if (elapsed > 1000){
+                    if (g_frames_received){
+                        console.log(
+                            g_frames_received+' fps'
+                        );
+                    }
+                    g_frames_received   = 0;
+                    g_time_last         = time_cur;
+                }
+            }
+
+            ws.onerror = function(ev){
+                console.log("connection error");
+                console.log(ev);
+            }
+        }
+
+        function image_recv(){
+            if (g_ws){
+                var ab = string_to_arrayBuffer_of_utf8_uint8(
+                    "get image"
+                );
+                g_ws.send(ab);
+            }
+        }
+
+        function image_send(){
+            var canvas   = document.getElementById("canvas");
+            var context  = canvas.getContext("2d");
+            var video    = document.getElementById("video");
+            var img_data = undefined;
+
+            context.drawImage(video, 0, 0, 640, 480);
+            //img_data = context.getImageData(0, 0, 640, 480);
+            img_data = canvas.toDataURL("image/jpeg");
+            if (g_ws){
+                var res = /base64,(.*)/.exec(img_data);
+                if (    res
+                    &&  2 == res.length)
+                {
+                    var ab = Base64.decodeToArrayBufferOfUint8(
+                        res[1]
+                    );
+                    g_ws.send(ab);
+                }
+            }
+        }
+
+        function init_cam(){
+            // Grab elements, create settings, etc.
+            var canvas      = document.getElementById("canvas");
+            var context     = canvas.getContext("2d");
+            var video       = document.getElementById("video");
+            var videoObj    = { "video": true };
+            var errBack     = function(error){
+                console.log("Video capture error: ", error.code);
+            };
+
+            // Put video listeners into place
+            if (navigator.getUserMedia) { // Standard
+                navigator.getUserMedia(videoObj, function(stream) {
+                    video.src = stream;
+                    video.play();
+                }, errBack);
+            } else if(navigator.webkitGetUserMedia) { // WebKit-prefixed
+                navigator.webkitGetUserMedia(videoObj, function(stream){
+                    video.src = window.webkitURL.createObjectURL(stream);
+                    video.play();
+                }, errBack);
+            } else if(navigator.mozGetUserMedia) { // WebKit-prefixed
+                navigator.mozGetUserMedia(videoObj, function(stream){
+                    video.src = window.URL.createObjectURL(stream);
+                    video.play();
+                }, errBack);
+            }
+
+            $('.start').removeAttr('disabled');
+            $('.step').removeAttr('disabled');
+            $('.stop').attr('disabled',  1);
+
+            $('.start').click(function(){
+                var url = $('.url').val();
+                if (    '/video/echo'   == url
+                    ||  '/video/record' == url)
+                {
+                    if (g_timer){
+                        clearInterval(g_timer);
+                    }
+                    g_timer = setInterval(image_send, 200);
+                } else if ( '/video/play'   == url
+                        ||  '/video/screen' == url)
+                {
+                    if (g_timer){
+                        clearInterval(g_timer);
+                    }
+                    g_timer = setInterval(image_recv, 200);
+                }
+                $('.start').attr('disabled', 1);
+                $('.step').attr('disabled',  1);
+                $('.stop').removeAttr('disabled');
+            });
+            $('.stop').click(function(){
+                if (g_timer){
+                    clearInterval(g_timer);
+                    g_timer = undefined;
+                }
+                $('.start').removeAttr('disabled');
+                $('.step').removeAttr('disabled');
+                $('.stop').attr('disabled',  1);
+            });
+            $('.step').click(function(){
+                image_send();
+            });
+        }
+
+        $(function main(){
+            $('.start').attr('disabled', 1);
+            $('.step').attr('disabled',  1);
+            $('.stop').attr('disabled',  1);
+            $('.url').change(function(a_ev){
+                var target = $(a_ev.target);
+                var url    = target.val();
+                init_ws(url);
+                return false;
+            });
+            var url = $('.url').val();
+            init_cam();
+            init_ws(url);
+        });
+
+    </script>
+</head>
+<body>
+    <nobr>
+    <div class="controls">
+        <select class="url">
+            <option>/video/echo</option>
+            <option>/video/play</option>
+            <option>/video/record</option>
+            <option>/video/screen</option>
+        </select>
+        <button class="start">start</button>
+        <button class="stop">stop</button>
+        <button class="step">step</button>
+    </div>
+    <div class="res"></div>
+    <video id="video" width="640" height="480" style="display: none;" autoplay></video>
+    <canvas id="canvas" width="640" height="480" style="display: none;"></canvas>
+    </nobr>
+</body>
+</html>
+

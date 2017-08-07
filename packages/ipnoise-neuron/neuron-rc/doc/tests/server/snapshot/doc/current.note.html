@@ -1,0 +1,469 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="generator" content="Osso Notes">
+    <title></title></head>
+<body>
+<p>
+<br>current community
+<br>
+<br>&#32;&#32;&#32;&#32;*
+<br>&#32;&#32;&#32;&#32;&#32;&#32;chat blog
+<br>&#32;&#32;&#32;&#32;&#32;&#32;Stack Overflow
+<br>&#32;&#32;&#32;&#32;*
+<br>&#32;&#32;&#32;&#32;&#32;&#32;Meta Stack Overflow
+<br>&#32;&#32;&#32;&#32;*
+<br>&#32;&#32;&#32;&#32;&#32;&#32;Stack Overflow Careers
+<br>
+<br>your communities
+<br>Sign up or log in to customize your list.
+<br>more stack exchange communities
+<br>Stack Exchange
+<br>sign up log in tour help
+<br>
+<br>&#32;&#32;&#32;&#32;* Tour Start here for a quick overview of the site
+<br>&#32;&#32;&#32;&#32;* Help Center Detailed answers to any questions you might have
+<br>&#32;&#32;&#32;&#32;* Meta Discuss the workings and policies of this site
+<br>
+<br>stack overflow careers
+<br>
+<br>Stack Overflow
+<br>
+<br>&#32;&#32;&#32;&#32;* Questions
+<br>&#32;&#32;&#32;&#32;* Tags
+<br>&#32;&#32;&#32;&#32;* Users
+<br>&#32;&#32;&#32;&#32;* Badges
+<br>&#32;&#32;&#32;&#32;* Unanswered
+<br>
+<br>&#32;&#32;&#32;&#32;* Ask Question
+<br>
+<br>Take the 2-minute tour ×
+<br>Stack Overflow is a question and answer site for professional and enthusiast programmers. It's 100% free, no registration required.
+<br>How do take a screenshot correctly with xlib?
+<br>up vote 11 down vote favorite
+<br>5
+<br>&#9;
+<br>
+<br>I am trying to capture an image of the screen for use in screencasting. Thus I need a fast solution, and cannot rely on shell programs such as import or xwd.
+<br>
+<br>This is the code I have written so far, but it fails and gives me a junk image, which just seems to show fragments of several images with odd colors tossed together.
+<br>
+<br>enter image description here
+<br>
+<br>Any ideas on what I am doing wrong?
+<br>
+<br>#include &lt;X11/Xlib.h&gt;
+<br>#include &lt;X11/X.h&gt;
+<br>
+<br>#include &lt;cstdio&gt;
+<br>#include &lt;CImg.h&gt;
+<br>using namespace cimg_library;
+<br>
+<br>int main()
+<br>{
+<br>&#32;&#32;&#32;Display *display = XOpenDisplay(NULL);
+<br>&#32;&#32;&#32;Window root = DefaultRootWindow(display);
+<br>
+<br>&#32;&#32;&#32;XWindowAttributes gwa;
+<br>
+<br>&#32;&#32;&#32;XGetWindowAttributes(display, root, &amp;gwa);
+<br>&#32;&#32;&#32;int width = gwa.width;
+<br>&#32;&#32;&#32;int height = gwa.height;
+<br>
+<br>
+<br>&#32;&#32;&#32;XImage *image = XGetImage(display,root, 0,0 , width,height,AllPlanes, ZPixmap);
+<br>
+<br>&#32;&#32;&#32;unsigned char *array = new unsigned char[width * height * 3];
+<br>
+<br>&#32;&#32;&#32;unsigned long red_mask = image-&gt;red_mask;
+<br>&#32;&#32;&#32;unsigned long green_mask = image-&gt;green_mask;
+<br>&#32;&#32;&#32;unsigned long blue_mask = image-&gt;blue_mask;
+<br>
+<br>&#32;&#32;&#32;for (int x = 0; x &lt; width; x++)
+<br>&#32;&#32;&#32;&#32;&#32;&#32;for (int y = 0; y &lt; height ; y++)
+<br>&#32;&#32;&#32;&#32;&#32;&#32;{
+<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;unsigned long pixel = XGetPixel(image,x,y);
+<br>
+<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;unsigned char blue = pixel &amp; blue_mask;
+<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;unsigned char green = (pixel &amp; green_mask) &gt;&gt; 8;
+<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;unsigned char red = (pixel &amp; red_mask) &gt;&gt; 16;
+<br>
+<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;array[(x + width * y) * 3] = red;
+<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;array[(x + width * y) * 3+1] = green;
+<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;array[(x + width * y) * 3+2] = blue;
+<br>&#32;&#32;&#32;&#32;&#32;&#32;}
+<br>
+<br>&#32;&#32;&#32;CImg&lt;unsigned char&gt; pic(array,width,height,1,3);
+<br>&#32;&#32;&#32;pic.save_png("blah.png");
+<br>
+<br>&#32;&#32;&#32;printf("%ld %ld %ld\n",red_mask&gt;&gt; 16, green_mask&gt;&gt;8, blue_mask);
+<br>
+<br>&#32;&#32;&#32;return 0;
+<br>}
+<br>
+<br>c++ c screenshot xlib cimg
+<br>share|improve this question
+<br>&#9;
+<br>edited Nov 23 '11 at 22:43
+<br>
+<br>&#9;
+<br>asked Nov 23 '11 at 22:01
+<br>Lalaland
+<br>4,5751427
+<br>&#9;
+<br>&#9;
+<br>add a comment | 
+<br>2 Answers 2
+<br>active oldest votes
+<br>up vote 6 down vote accepted
+<br>&#9;
+<br>
+<br>You are mistaken about the way array is laid out in memory, as you can find out by declaring img before the loop and adding this printf to your inner loop:
+<br>
+<br>printf("%ld %ld %u %u %u\n",x,y,pic.offset(x,y,0),pic.offset(x,y,1),pic.offset(x,y,2));
+<br>
+<br>This yields (on my 1920x1200 screen):
+<br>
+<br>0 0 0 2304000 4608000
+<br>0 1 1920 2305920 4609920
+<br>0 2 3840 2307840 4611840
+<br>
+<br>and so on, indicating that the red/green/blue subimages are kept "together" instead of the three color components of a single pixel being adjacent to each other.
+<br>
+<br>The builtin CImg accessors will make your code work:
+<br>
+<br>&#32;&#32;&#32;&#32;&#32;pic(x,y,0) = red;
+<br>&#32;&#32;&#32;&#32;&#32;pic(x,y,1) = green;
+<br>&#32;&#32;&#32;&#32;&#32;pic(x,y,2) = blue;
+<br>
+<br>share|improve this answer
+<br>&#9;
+<br>answered Nov 23 '11 at 22:34
+<br>themel
+<br>5,7881122
+<br>&#9;
+<br>&#32;&#32;&#32;&#9; 
+<br>&#9;
+<br>You were right :) – &#32;Lalaland Nov 23 '11 at 22:43
+<br>add a comment | 
+<br>Did you find this question interesting? Try our newsletter
+<br>
+<br>Sign up for our newsletter and get our top new questions delivered to your inbox (see an example).
+<br>up vote 1 down vote
+<br>&#9;
+<br>
+<br>You can use libpng
+<br>
+<br>&#32;&#32;&#32;int code = 0;
+<br>&#32;&#32;&#32;FILE *fp;
+<br>&#32;&#32;&#32;png_structp png_ptr;
+<br>&#32;&#32;&#32;png_infop png_info_ptr;
+<br>&#32;&#32;&#32;png_bytep png_row;
+<br>
+<br>&#32;&#32;&#32;// Open file
+<br>&#32;&#32;&#32;fp = fopen ("test.png", "wb");
+<br>&#32;&#32;&#32;if (fp == NULL)
+<br>&#32;&#32;&#32;&#32;&#32;{
+<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;fprintf (stderr, "Could not open file for writing\n");
+<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;code = 1;
+<br>&#32;&#32;&#32;&#32;&#32;}
+<br>
+<br>&#32;&#32;&#32;// Initialize write structure
+<br>&#32;&#32;&#32;png_ptr = png_create_write_struct (PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+<br>&#32;&#32;&#32;if (png_ptr == NULL)
+<br>&#32;&#32;&#32;&#32;&#32;{
+<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;fprintf (stderr, "Could not allocate write struct\n");
+<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;code = 1;
+<br>&#32;&#32;&#32;&#32;&#32;}
+<br>
+<br>&#32;&#32;&#32;// Initialize info structure
+<br>&#32;&#32;&#32;png_info_ptr = png_create_info_struct (png_ptr);
+<br>&#32;&#32;&#32;if (png_info_ptr == NULL)
+<br>&#32;&#32;&#32;&#32;&#32;{
+<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;fprintf (stderr, "Could not allocate info struct\n");
+<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;code = 1;
+<br>&#32;&#32;&#32;&#32;&#32;}
+<br>
+<br>&#32;&#32;&#32;// Setup Exception handling
+<br>&#32;&#32;&#32;if (setjmp (png_jmpbuf (png_ptr)))
+<br>&#32;&#32;&#32;&#32;&#32;{
+<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;fprintf(stderr, "Error during png creation\n");
+<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;code = 1;
+<br>&#32;&#32;&#32;&#32;&#32;}
+<br>
+<br>&#32;&#32;&#32;png_init_io (png_ptr, fp);
+<br>
+<br>&#32;&#32;&#32;// Write header (8 bit colour depth)
+<br>&#32;&#32;&#32;png_set_IHDR (png_ptr, png_info_ptr, width, height,
+<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;8, PNG_COLOR_TYPE_RGB, PNG_INTERLACE_NONE,
+<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;PNG_COMPRESSION_TYPE_BASE, PNG_FILTER_TYPE_BASE);
+<br>
+<br>&#32;&#32;&#32;// Set title
+<br>&#32;&#32;&#32;char *title = "Screenshot";
+<br>&#32;&#32;&#32;if (title != NULL)
+<br>&#32;&#32;&#32;&#32;&#32;{
+<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;png_text title_text;
+<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;title_text.compression = PNG_TEXT_COMPRESSION_NONE;
+<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;title_text.key = "Title";
+<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;title_text.text = title;
+<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;png_set_text (png_ptr, png_info_ptr, &amp;title_text, 1);
+<br>&#32;&#32;&#32;&#32;&#32;}
+<br>
+<br>&#32;&#32;&#32;png_write_info (png_ptr, png_info_ptr);
+<br>
+<br>&#32;&#32;&#32;// Allocate memory for one row (3 bytes per pixel - RGB)
+<br>&#32;&#32;&#32;png_row = (png_bytep) malloc (3 * width * sizeof (png_byte));
+<br>
+<br>&#32;&#32;&#32;// Write image data
+<br>&#32;&#32;&#32;int x, y;
+<br>&#32;&#32;&#32;for (y = 0; y &lt; height; y++)
+<br>&#32;&#32;&#32;&#32;&#32;{
+<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;for (x = 0; x &lt; width; x++)
+<br>&#32;&#32;&#32;&#32;&#32;{
+<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;unsigned long pixel = XGetPixel (image, x, y);
+<br>
+<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;unsigned char blue = pixel &amp; blue_mask;
+<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;unsigned char green = (pixel &amp; green_mask) &gt;&gt; 8; 
+<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;unsigned char red = (pixel &amp; red_mask) &gt;&gt; 16;
+<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;png_byte *ptr = &amp;(png_row[x*3]);
+<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;ptr[0] = red;
+<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;ptr[1] = green;
+<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;ptr[2] = blue;
+<br>&#32;&#32;&#32;&#32;&#32;}
+<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;png_write_row (png_ptr, png_row);
+<br>&#32;&#32;&#32;&#32;&#32;}
+<br>
+<br>&#32;&#32;&#32;// End write
+<br>&#32;&#32;&#32;png_write_end (png_ptr, NULL);
+<br>
+<br>&#32;&#32;&#32;// Free
+<br>&#32;&#32;&#32;fclose (fp);
+<br>&#32;&#32;&#32;if (png_info_ptr != NULL) png_free_data (png_ptr, png_info_ptr, PNG_FREE_ALL, -1);
+<br>&#32;&#32;&#32;if (png_ptr != NULL) png_destroy_write_struct (&amp;png_ptr, (png_infopp)NULL);
+<br>&#32;&#32;&#32;if (png_row != NULL) free (png_row);
+<br>
+<br>share|improve this answer
+<br>&#9;
+<br>answered Feb 1 '14 at 16:04
+<br>Pioz
+<br>1,3111028
+<br>&#9;
+<br>&#9;
+<br>add a comment | 
+<br>Your Answer
+<br>
+<br>&#32;&#32;&#32;&#32;*
+<br>&#32;&#32;&#32;&#32;*
+<br>&#32;&#32;&#32;&#32;*
+<br>&#32;&#32;&#32;&#32;*
+<br>&#32;&#32;&#32;&#32;*
+<br>&#32;&#32;&#32;&#32;*
+<br>&#32;&#32;&#32;&#32;*
+<br>&#32;&#32;&#32;&#32;*
+<br>&#32;&#32;&#32;&#32;*
+<br>&#32;&#32;&#32;&#32;*
+<br>&#32;&#32;&#32;&#32;*
+<br>&#32;&#32;&#32;&#32;*
+<br>&#32;&#32;&#32;&#32;*
+<br>&#32;&#32;&#32;&#32;*
+<br>*
+<br>
+<br>&#32;
+<br>draft saved
+<br>draft discarded
+<br>Sign up or log in
+<br>
+<br>Sign up using Google
+<br>
+<br>Sign up using Facebook
+<br>
+<br>Sign up using Stack Exchange
+<br>Post as a guest
+<br>Name
+<br>Email required, but not shown
+<br>discard
+<br>
+<br>By posting your answer, you agree to the privacy policy and terms of service.
+<br>Not the answer you're looking for? Browse other questions tagged c++ c screenshot xlib cimg or ask your own question.
+<br>
+<br>asked
+<br>&#9;
+<br>
+<br>3 years ago
+<br>
+<br>viewed
+<br>&#9;
+<br>
+<br>3739 times
+<br>
+<br>active
+<br>&#9;
+<br>
+<br>11 months ago
+<br>Blog
+<br>Why We (Still) Believe in Private Offices
+<br>
+<br>111 People Chatting
+<br>PHP
+<br>just now - TeresaMcgH
+<br>[TeresaMcgH: just now] [Joe Watkins: just now] [Paul Crovella: just now] [ircmaxell: just now] [Charles: just now] [Florian Margaine: just now] [hakre: just now]
+<br>JavaScript
+<br>just now - rlemon
+<br>[rlemon: just now] [Florian Margaine: just now] [Benjamin Gruenbaum: just now] [Caprica Six: just now] [Mosho: just now] [George Jempty: just now] [SomeKittens: just now]
+<br>Linked
+<br>2
+<br>How do I programatically take a screenshot of an application in Linux?
+<br>0
+<br>GUI window screenshot from C/C++ to memory
+<br>0
+<br>How can I get X11 screen buffer (or how can I get X11 to write to /dev/fb0)
+<br>Related
+<br>3
+<br>Xlib: XGetWindowAttributes always returns 1x1?
+<br>1
+<br>XLib with GLX Error Produced when Calling XCreateWindow()
+<br>1
+<br>Taking screenshot with libx11
+<br>2
+<br>capture mouse with Xlib
+<br>1
+<br>Xlib: window is created in wrong position
+<br>2
+<br>X11 screenshot of active window fails for GTK windows
+<br>0
+<br>How to interpret the field 'data' of an XImage
+<br>0
+<br>Making a screenshot using Xlib and Cairo libs [fail]
+<br>0
+<br>Get a screenshot of a window that is cover or not visible or minimized with Xcomposite extension for X11
+<br>1
+<br>Xlib screenshot call
+<br>Hot Network Questions
+<br>
+<br>&#32;&#32;&#32;&#32;*
+<br>&#32;&#32;&#32;&#32;&#32;&#32;High-Low Guessing Game
+<br>&#32;&#32;&#32;&#32;*
+<br>&#32;&#32;&#32;&#32;&#32;&#32;Are there algebraic subgroups of Lie groups which happen to be Lie groups on their own but not Lie subgroups?
+<br>&#32;&#32;&#32;&#32;*
+<br>&#32;&#32;&#32;&#32;&#32;&#32;Why do elevator doors close on a floor where the elevator is waiting idle?
+<br>&#32;&#32;&#32;&#32;*
+<br>&#32;&#32;&#32;&#32;&#32;&#32;com_content—get associated article in right language
+<br>&#32;&#32;&#32;&#32;*
+<br>&#32;&#32;&#32;&#32;&#32;&#32;Prove that a statement or its negation follows from ZFC
+<br>&#32;&#32;&#32;&#32;*
+<br>&#32;&#32;&#32;&#32;&#32;&#32;Techniques for good board handwriting
+<br>&#32;&#32;&#32;&#32;*
+<br>&#32;&#32;&#32;&#32;&#32;&#32;Tiefling Sorcerer with Dragonic bloodline?
+<br>&#32;&#32;&#32;&#32;*
+<br>&#32;&#32;&#32;&#32;&#32;&#32;What would be the first thing which will render the Earth uninhabitable?
+<br>&#32;&#32;&#32;&#32;*
+<br>&#32;&#32;&#32;&#32;&#32;&#32;move TD to new TR
+<br>&#32;&#32;&#32;&#32;*
+<br>&#32;&#32;&#32;&#32;&#32;&#32;How long must a Hollywood film wait to use the same title of an older film?
+<br>&#32;&#32;&#32;&#32;*
+<br>&#32;&#32;&#32;&#32;&#32;&#32;The word for someone who lectures that "there's a wrong way and a right way"
+<br>&#32;&#32;&#32;&#32;*
+<br>&#32;&#32;&#32;&#32;&#32;&#32;Breaking composition rules
+<br>&#32;&#32;&#32;&#32;*
+<br>&#32;&#32;&#32;&#32;&#32;&#32;How do Italians customarily insert uppercase Italian vowels with diacritics with an Italian keyboard on a PC?
+<br>&#32;&#32;&#32;&#32;*
+<br>&#32;&#32;&#32;&#32;&#32;&#32;Is it always a best practice to write a function for anything that needs to repeat twice?
+<br>&#32;&#32;&#32;&#32;*
+<br>&#32;&#32;&#32;&#32;&#32;&#32;Are Jedi required to abstain from all sexual relations, or only from the ones involving emotional attachments?
+<br>&#32;&#32;&#32;&#32;*
+<br>&#32;&#32;&#32;&#32;&#32;&#32;Tabular fixed width
+<br>&#32;&#32;&#32;&#32;*
+<br>&#32;&#32;&#32;&#32;&#32;&#32;Why can't I go back with backspace in Safari 8?
+<br>&#32;&#32;&#32;&#32;*
+<br>&#32;&#32;&#32;&#32;&#32;&#32;How do I make an unwinnable fight fun?
+<br>&#32;&#32;&#32;&#32;*
+<br>&#32;&#32;&#32;&#32;&#32;&#32;Consequences of smoking marihuana during pregnancy (especially first weeks)?
+<br>&#32;&#32;&#32;&#32;*
+<br>&#32;&#32;&#32;&#32;&#32;&#32;Is there any English/American equivalent for "beating the nettle with someone else's penis"?
+<br>&#32;&#32;&#32;&#32;*
+<br>&#32;&#32;&#32;&#32;&#32;&#32;Meaning of "... for I bought him cheap of a man that was 'bliged to sell out?"
+<br>&#32;&#32;&#32;&#32;*
+<br>&#32;&#32;&#32;&#32;&#32;&#32;How this can return more than 1 result?
+<br>&#32;&#32;&#32;&#32;*
+<br>&#32;&#32;&#32;&#32;&#32;&#32;Etymology of "a pride of lions"
+<br>&#32;&#32;&#32;&#32;*
+<br>&#32;&#32;&#32;&#32;&#32;&#32;How to deal with coworker undoing my (dev) commit
+<br>
+<br>question feed
+<br>default
+<br>tour help blog chat data legal privacy policy work here advertising info mobile contact us feedback
+<br>Technology &#9;Life / Arts &#9;Culture / Recreation &#9;Science &#9;Other
+<br>
+<br>&#32;&#32;&#32;1. Stack Overflow
+<br>&#32;&#32;&#32;2. Server Fault
+<br>&#32;&#32;&#32;3. Super User
+<br>&#32;&#32;&#32;4. Web Applications
+<br>&#32;&#32;&#32;5. Ask Ubuntu
+<br>&#32;&#32;&#32;6. Webmasters
+<br>&#32;&#32;&#32;7. Game Development
+<br>&#32;&#32;&#32;8. TeX - LaTeX
+<br>
+<br>&#9;
+<br>
+<br>&#32;&#32;&#32;1. Programmers
+<br>&#32;&#32;&#32;2. Unix &amp; Linux
+<br>&#32;&#32;&#32;3. Ask Different (Apple)
+<br>&#32;&#32;&#32;4. WordPress Development
+<br>&#32;&#32;&#32;5. Geographic Information Systems
+<br>&#32;&#32;&#32;6. Electrical Engineering
+<br>&#32;&#32;&#32;7. Android Enthusiasts
+<br>&#32;&#32;&#32;8. Information Security
+<br>
+<br>&#9;
+<br>
+<br>&#32;&#32;&#32;1. Database Administrators
+<br>&#32;&#32;&#32;2. Drupal Answers
+<br>&#32;&#32;&#32;3. SharePoint
+<br>&#32;&#32;&#32;4. User Experience
+<br>&#32;&#32;&#32;5. Mathematica
+<br>&#32;&#32;&#32;6. Salesforce
+<br>&#32;&#32;&#32;7. more (14)
+<br>
+<br>&#9;
+<br>
+<br>&#32;&#32;&#32;1. Photography
+<br>&#32;&#32;&#32;2. Science Fiction &amp; Fantasy
+<br>&#32;&#32;&#32;3. Graphic Design
+<br>&#32;&#32;&#32;4. Seasoned Advice (cooking)
+<br>&#32;&#32;&#32;5. Home Improvement
+<br>&#32;&#32;&#32;6. Personal Finance &amp; Money
+<br>&#32;&#32;&#32;7. Academia
+<br>&#32;&#32;&#32;8. more (10)
+<br>
+<br>&#9;
+<br>
+<br>&#32;&#32;&#32;1. English Language &amp; Usage
+<br>&#32;&#32;&#32;2. Skeptics
+<br>&#32;&#32;&#32;3. Mi Yodeya (Judaism)
+<br>&#32;&#32;&#32;4. Travel
+<br>&#32;&#32;&#32;5. Christianity
+<br>&#32;&#32;&#32;6. Arqade (gaming)
+<br>&#32;&#32;&#32;7. Bicycles
+<br>&#32;&#32;&#32;8. Role-playing Games
+<br>&#32;&#32;&#32;9. more (21)
+<br>
+<br>&#9;
+<br>
+<br>&#32;&#32;&#32;1. Mathematics
+<br>&#32;&#32;&#32;2. Cross Validated (stats)
+<br>&#32;&#32;&#32;3. Theoretical Computer Science
+<br>&#32;&#32;&#32;4. Physics
+<br>&#32;&#32;&#32;5. MathOverflow
+<br>&#32;&#32;&#32;6. more (7)
+<br>
+<br>&#9;
+<br>
+<br>&#32;&#32;&#32;1. Stack Apps
+<br>&#32;&#32;&#32;2. Meta Stack Exchange
+<br>&#32;&#32;&#32;3. Area 51
+<br>&#32;&#32;&#32;4. Stack Overflow Careers
+<br>
+<br>site design / logo © 2015 stack exchange inc; user contributions licensed under cc by-sa 3.0 with attribution required
+<br>rev 2015.1.16.2187<br></p>
+</body>
+</html>

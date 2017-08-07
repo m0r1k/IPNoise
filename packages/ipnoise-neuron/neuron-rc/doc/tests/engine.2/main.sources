@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+
+FUNC_DEFINE(
+    some_func       => int32_t,
+    const char *    => a_data,
+    const uint32_t  => a_data_size)
+{
+    int32_t res = 0;
+
+    res = fprintf(stderr,
+        "%s (len: %d)\n",
+        a_data,
+        a_data_size
+    );
+
+    return res;
+}
+
+int32_t main()
+{
+    char    buffer[512] = { 0x00 };
+    int32_t res, err    = 0;
+
+    res = snprintf(buffer, sizeof(buffer),
+        "hello world"
+    );
+
+    res = FUNC_CALL(
+        some_func       =>  int32_t,
+        const char *    =>  buffer,
+        const uint32_t  =>  res
+    );
+
+    return err;
+};
+

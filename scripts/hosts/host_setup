@@ -1,0 +1,72 @@
+#!/bin/sh
+
+if [ ! -n "$TRANSPORT" ];then
+    echo "missing variable TRANSPORT"
+    exit 1;
+fi
+
+if [ ! -n "$TRANSPORT_BIND_ADDR" ];then
+    echo "missing variable TRANSPORT_BIND_ADDR"
+    exit 1;
+fi
+
+if [ ! -n "$HUID" ];then
+    echo "missing variable HUID"
+    exit 1;
+fi
+
+if [ ! -n "$IPNOISE_CONF" ];then
+    echo "missing variable IPNOISE_CONF"
+    exit 1;
+fi
+
+if [ ! -n "$DEBUG" ];then
+    DEBUG=8
+fi
+
+OUT_DEV=$TRANSPORT"0"
+TRANSPORT_PID=`ps  | /bin/grep "ipnoise-transport"  | /bin/grep "type $TRANSPORT" | /bin/grep -v grep | awk '{print \$1}'`
+if [ -n "$TRANSPORT_PID" ];then
+    # transport already started stop it
+    kill -12 $TRANSPORT_PID >/dev/null 2>&1
+    sleep 2
+    kill -9 $TRANSPORT_PID >/dev/null 2>&1
+fi
+
+ROUTER_PID=`ps  | /bin/grep "ipnoise-router"  | /bin/grep "$IPNOISE_CONF" | /bin/grep -v grep  | awk '{print \$1}'`
+if [ -n "$ROUTER_PID" ];then
+    # router already started stop it
+    kill -12 $ROUTER_PID >/dev/null 2>&1
+    sleep 2
+    kill -9 $ROUTER_PID >/dev/null 2>&1
+fi
+
+## create temp
+mkdir -p /tmp
+chmod 777 /tmp
+
+## start transport
+modprobe tun >/dev/null 2>&1
+/mnt/host_fs/mnt/multimedia/git/IPNoise/ipnoise-transport/ipnoise-transport \
+    --debug    $DEBUG                     \
+    --type     $TRANSPORT                 \
+    --lladdr   $TRANSPORT_BIND_ADDR &
+
+## start router
+modprobe fuse                   >/dev/null 2>&1
+mkdir -p /etc/ipnoise/fuse      >/dev/null 2>&1
+umount /etc/ipnoise/fuse/       >/dev/null 2>&1
+
+# reset interface addresses
+ip link set lo down
+ip link set lo up
+ip link set $OUT_DEV down
+ip link set $OUT_DEV up
+
+## setup our huid
+ip address replace $HUID dev lo
+
+#/mnt/host_fs/mnt/multimedia/git/IPNoise/ipnoise-router/ipnoise-router -c $IPNOISE_CONF --debug 8
+/mnt/host_fs/mnt/multimedia/git/IPNoise/ipnoise-router/ipnoise-router -c $IPNOISE_CONF --debug 8 &
+#gdb --args /mnt/host_fs/mnt/multimedia/git/IPNoise/ipnoise-router/ipnoise-router -c $IPNOISE_CONF --debug 8
+

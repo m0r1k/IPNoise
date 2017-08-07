@@ -1,0 +1,41 @@
+#!/bin/bash
+
+##
+## Setup local user's item script
+##
+## Roman E. Chechnev 20110128
+##
+VERSION="0.04"
+##
+
+## check arguments
+ACTION=$1
+if      [ "add" != "$ACTION" ]  \
+    &&  [ "del" != "$ACTION" ]; \
+then
+    echo "Invalid argument 'action'"
+    exit 1
+fi
+
+USER_HUID=$2
+if ! [ -n "$USER_HUID" ];then
+    echo "Missing argument user huid"
+    exit 1
+fi
+
+ITEM_HUID=$3
+if ! [ -n "$ITEM_HUID" ];then
+    echo "Missing argument user's item huid"
+    exit 1
+fi
+
+if [ "add" == "$ACTION" ];then
+    ## init user
+    /usr/sbin/ipnoise-setup-user add $USER_HUID
+fi
+
+if [ "del" == "$ACTION" ];then
+    ## init user
+    /usr/sbin/ipnoise-setup-user del $USER_HUID
+fi
+

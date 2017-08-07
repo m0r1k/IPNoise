@@ -1,0 +1,12 @@
+[Unit]
+Description=IPNoise hostfs support
+After=syslog.target network.target
+
+[Service]
+ExecStart=/usr/sbin/ipnoise-hostfs
+Restart=always
+IgnoreSIGPIPE=no
+
+[Install]
+WantedBy=multi-user.target
+

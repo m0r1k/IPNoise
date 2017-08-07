@@ -1,0 +1,12 @@
+--- src/human/viewer.cpp
++++ src/human/viewer.cpp
+@@ -27,7 +28,8 @@
+     // init experiment
+     // initExperimentSphere();
+     // initExperimentAudioFlame();
+-    initExperimentBrain();
++    // initExperimentBrain();
++    initExperimentPhysics();
+ }
+ 
+ HumanViewer::~HumanViewer()

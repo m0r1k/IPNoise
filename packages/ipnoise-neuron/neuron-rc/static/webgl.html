@@ -1,0 +1,170 @@
+<html>
+<head>
+    <meta
+        http-equiv="Content-Type"
+        content="text/html; charset=UTF-8">
+    </meta>
+    <script
+        type="text/javascript"
+        src="/static/js/jquery-1.9.1.js">
+    </script>
+    <script
+        type="text/javascript"
+        src="/static/js/logger.js">
+    </script>
+    <script
+        type="text/javascript"
+        src="/static/js/loader.js">
+    </script>
+
+    <title>The Game</title>
+
+    <script id="atom-vs" type="x-shader/x-vertex">
+        precision   mediump     float;
+
+        attribute   vec3        aPosition;
+        // attribute   float       aFaceIndex;
+
+        uniform     mat4        uMVMatrix;
+        uniform     mat4        uPMatrix;
+        uniform     mat4        uZMatrix;
+
+        // varying     float       vFaceIndex;
+
+        void main(void){
+            // Set the size of the point
+            gl_PointSize = 6.0;
+
+            gl_Position = uPMatrix
+                * uMVMatrix
+                * uZMatrix
+                * vec4(aPosition,1.0);
+
+            // vFaceIndex = aFaceIndex;
+        }
+    </script>
+
+    <script id="atom-fs" type="x-shader/x-fragment">
+        precision   mediump     float;
+
+        uniform vec3            uPickColor;
+        // varying float           vFaceIndex;
+
+        void main(void){
+            gl_FragColor = vec4(
+                uPickColor/255.0,
+                1.0
+            );
+
+            // gl_FragColor = vec4(
+            //    uPickColor/255.0,
+            //    1.0
+            // ) + vec4(
+            //        0.5,
+            //        0.5,
+            //        vFaceIndex/255.0,
+            //        0
+            //    );
+        }
+
+    </script>
+
+    <script type="text/javascript">
+        var g_browser = undefined;
+
+        function init_browser(){
+            g_browser = object_create(
+                'core.object.browser',
+                {
+                    'document': window.document
+                }
+            );
+        }
+
+        $(function(){
+            var loader = getLoader();
+            // utils
+            loader.load({
+                'type':     'script',
+                'src':      '/static/webgl/lib/webgl-utils.js',
+                'target':   'head'
+            });
+            loader.load({
+                'type':     'script',
+                'src':      '/static/js/glMatrix-1.2.3.min.js',
+                'target':   'head'
+            });
+            loader.load({
+                'type':     'script',
+                'src':      '/static/js/constants.js',
+                'target':   'head'
+            });
+            loader.load({
+                'type':     'script',
+                'src':      '/static/js/utils.js',
+                'target':   'head'
+            });
+            // generic object
+            loader.load({
+                'type':     'script',
+                'src':      '/static/js/core.object.js',
+                'target':   'head'
+            });
+            // browser
+            loader.load({
+                'type':     'script',
+                'src':      '/static/js/core.object.browser.websocket.js',
+                'target':   'head'
+            });
+            //loader.load({
+            //    'type':     'script',
+            //    'src':      '/static/js/core.object.browser.http.request.js',
+            //    'target':   'head'
+            //});
+            loader.load({
+                'type':     'script',
+                'src':      '/static/js/core.object.browser.keyboard.js',
+                'target':   'head'
+            });
+            loader.load({
+                'type':     'script',
+                'src':      '/static/js/core.object.browser.js',
+                'target':   'head'
+            });
+            // viewer, shaders, camera
+            loader.load({
+                'type':     'script',
+                'src':      '/static/js/core.object.shaders.js',
+                'target':   'head'
+            });
+            loader.load({
+                'type':     'script',
+                'src':      '/static/js/core.object.shader.js',
+                'target':   'head'
+            });
+            loader.load({
+                'type':     'script',
+                'src':      '/static/js/core.object.shader.atom.js',
+                'target':   'head'
+            });
+            loader.load({
+                'type':     'script',
+                'src':      '/static/js/core.object.viewer.js',
+                'target':   'head'
+            });
+            loader.load({
+                'type':     'script',
+                'src':      '/static/js/core.object.browser.camera.js',
+                'target':   'head'
+            });
+            loader.onload(init_browser);
+        });
+    </script>
+
+</head>
+
+<body>
+</body>
+
+</html>
+

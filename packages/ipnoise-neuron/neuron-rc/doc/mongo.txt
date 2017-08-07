@@ -1,0 +1,6 @@
+## remove all
+mongo 127.0.0.1/network --eval "db.neurons.remove()"
+
+## copy db
+ssh 192.168.1.1 "mongoexport --collection neurons --db network" | mongoimport --collection neurons --db network
+

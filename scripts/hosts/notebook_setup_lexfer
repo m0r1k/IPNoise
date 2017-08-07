@@ -1,0 +1,14 @@
+#!/bin/bash
+
+ETH0_IF_ADDR=192.168.222.2
+
+## don't use "0.0.0.0" in TRANSPORT_BIND_ADDR
+TRANSPORT_BIND_ADDR="195.189.218.25:25500"
+INCOMING_LINK_ADDR="s:195.189.218.25:25500"
+HUID="2210:0:349e:f515:36b5:ff1f:e5e7:118a"
+DEBUG=1
+IPNOISE_CONF=/etc/ipnoise/profile/config_lexfer.xml
+
+. notebook_setup_base
+. host_setup
+

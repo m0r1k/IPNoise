@@ -1,0 +1,50 @@
+http://www.ebay.com/itm/Xinje-1500W-Servo-System-Motor-Drive-MS-110ST-M05030-21P5-DS2-21P5-AS-New-/121559938333?pt=LH_DefaultDomain_0&hash=item1c4d89751d
+
+Xinje 1500W Servo System (Motor + Drive) MS-110ST-M05030-21P5 + DS2-21P5-AS New
+US $870.00
+
+900 * 3 = 2700$
+
+
+листы фанеры из сосны, Фанера 6,5мм 1220*2440 сорт 2/3, 632 рубля
+http://sotos38.ru/index.php?page=shop.browse&category_id=17&option=com_virtuemart&Itemid=78&vmcchk=1&Itemid=78
+
+комплект детской мебели, два стула, стол - 3500, по материалам примерно 1000
+http://tiu.ru/p945878-komplekt-detskoj-mebeli.html#description_block
+
+для перемещения используется "винт ходовой" раздел "Линейные направляющие"
+шарико винтовая передача
+
+нашел готовый комплект 1700$
+http://www.aliexpress.com/item/4-ballscrerw-RM1605-350-1524-3048-3048mm-4BK-BF12-coupler-3-SBR16-500mm-SBR25-1524-3084mm/1746487814.html
+
+package:
+
+2pcs SBR16-500mm supported linear rail
+4pcs SBR16UU blocks
+2pcs SBR25-1524mm supported linear rail
+2pcs SBR25-3048mm supported linear rail
+8pcs SBR25UU blocks
+
+1pcs RM1605-350mm ballscrew
+1pcs RM1605-1524mm ballscrew
+1pcs RM1605-3048mm ballscrew
+
+( 3 pcs Ballscrew -c7 total length +3 ballbuts +  end machined)
+
+4 sets BK/BF12 bearing end support
+4pcs couplers 6.35*10mm ( 6.35mm is motor shaft)
+
+
+только нужно договориться чтобы комплект был не 3048mm x 1524mm x 500mm, а 3048mm x 3048mm x 500mm
+потому что встречал на сайтах листы ДСП размерами, мм:
+    2500 х 1850
+    2800 х 2070
+    1220 х 2440 х 21,
+ДВП 2745 х 1700 х 3,    2 мм декорирован. (Вишня оксфорд)
+
+проги:
+- pycam
+- LinuxCNC 
+
+

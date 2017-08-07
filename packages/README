@@ -1,0 +1,2 @@
+- debug packages will not be builded, until redhat-rpm-config will not be installed
+
