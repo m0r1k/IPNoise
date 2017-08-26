@@ -2,8 +2,8 @@
 %define package_path    %{ipnoise_packages_path}/ipnoise-%{package_name}
 
 %define name            ipnoise-kernel
-%define version         3.13.1
-%define release         3
+%define version         4.12.9
+%define release         1
 
 Name:           %{name}
 Summary:        IPNoise kernel

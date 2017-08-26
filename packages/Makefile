@@ -34,14 +34,16 @@ usage:
 rpms: $(TARGETS_RPMS)
 
 setup:
-	@echo "prepare rpmbuild"
-	ln -sf $(IPNOISE_PACKAGES_DIR)/../../IPNoise /home/$$USER/rpmbuild/BUILD/
 	@echo "install required packages"
-	sudo dnf install rpm-build      \
-		bison flex libdb4-devel		\
-		automake					\
-		libxml2 libxml2-devel		\
-		lzma
+	sudo dnf install rpm-build      			\
+		bison flex libdb-devel libdb4-devel     \
+		automake                    			\
+		libxml2 libxml2-devel       			\
+		lzma									\
+		bc
+	@echo "prepare rpmbuild"
+	mkdir -p ~/rpmbuild/BUILD/
+	ln -sf $(IPNOISE_PACKAGES_DIR)/../../IPNoise /home/$(USER)/rpmbuild/BUILD/
 
 $(TARGETS_RPMS):
 	$(MAKE) -C ipnoise-$(@:-rpms=) rpms

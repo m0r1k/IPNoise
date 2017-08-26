@@ -2,8 +2,8 @@
 %define package_path    %{ipnoise_packages_path}/ipnoise-%{package_name}
 
 %define name            ipnoise-squid
-%define version         3.2.1
-%define release         4
+%define version         3.5.27
+%define release         1
 
 Name:           %{name}
 Summary:        IPNoise squid

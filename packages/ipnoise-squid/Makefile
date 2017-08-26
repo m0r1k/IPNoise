@@ -1,5 +1,5 @@
 APPNAME	= 	squid
-APPDIR 	= 	./squid-3.2.1
+APPDIR 	= 	./squid-3.5.27
 CFLAGS 	= 	-I$(PWD)/../
 
 RPMS_DIR		= ~/rpmbuild/RPMS/i386/
