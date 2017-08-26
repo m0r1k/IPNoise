@@ -1,5 +1,5 @@
 APPNAME	= 	openssh
-APPDIR 	= 	./openssh-6.0p1
+APPDIR 	= 	./openssh-7.5p1
 CFLAGS 	= 	-I$(PWD)/../
 
 RPMS_DIR		= ~/rpmbuild/RPMS/i386/
@@ -28,6 +28,7 @@ $(APPNAME)/Makefile:
 			--prefix=											\
 			--exec-prefix=/usr									\
 			--sysconfdir=/etc/ssh								\
+			--without-openssl-header-check						\
 			CPPFLAGS=-I../../
 
 openssh-make-lin32: $(APPNAME)/Makefile

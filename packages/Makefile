@@ -40,7 +40,8 @@ setup:
 	sudo dnf install rpm-build      \
 		bison flex libdb4-devel		\
 		automake					\
-		libxml2 libxml2-devel
+		libxml2 libxml2-devel		\
+		lzma
 
 $(TARGETS_RPMS):
 	$(MAKE) -C ipnoise-$(@:-rpms=) rpms

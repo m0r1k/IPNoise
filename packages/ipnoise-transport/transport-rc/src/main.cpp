@@ -3,7 +3,7 @@
 #include "server.hpp"
 #include "main.hpp"
 
-int debug_level = 0;
+int g_debug_level = 0;
 
 int main(int argc, char **argv)
 {
@@ -71,7 +71,7 @@ int main(int argc, char **argv)
                 break;
 
             case 'd':
-                debug_level = atoi(optarg);
+                g_debug_level = atoi(optarg);
                 break;
 
             case 'v':
@@ -99,11 +99,11 @@ int main(int argc, char **argv)
         PERROR("%s\n", buffer);
     }
 
-    if (debug_level){
+    if (g_debug_level){
         PINFO("Options:\n");
         PINFO("transport-type: '%s'\n", transport_name.c_str());
         PINFO("lladdr:         '%s'\n", lladdr.c_str());
-        PINFO("debug-level:    '%d'\n", debug_level);
+        PINFO("debug-level:    '%d'\n", g_debug_level);
         PINFO("\n");
     }
 

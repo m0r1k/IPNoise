@@ -1,5 +1,5 @@
 APPNAME	= 	kernel
-APPDIR 	= 	./linux-3.13.1
+APPDIR 	= 	./linux-4.12.9
 
 RPMS_DIR		= ~/rpmbuild/RPMS/i386/
 SRPMS_DIR		= ~/rpmbuild/SRPMS/
