@@ -1817,20 +1817,20 @@ again:
         );
         data_element = ipnoise->getElementByXpath(buffer);
 
-        PDEBUG(20, "attept to deliver signal\n"
-            "deliver:       '%x'\n"
-            "slot_name:     '%s'\n"
-            "signal_obj:    '%x'\n"
-            "object_type:   '%s'\n"
-            "data_element:  '%x'\n"
-            "signal_obj->getAttribute('data_ino'): '%s'\n",
-            (int32_t)deliver,
-            slot_name.c_str(),
-            (int32_t)signal_obj,
-            object_type.c_str(),
-            (int32_t)data_element,
-            signal_obj->getAttribute("data_ino").c_str()
-        );
+        //PDEBUG(20, "attept to deliver signal\n"
+        //    "deliver:       '%x'\n"
+        //    "slot_name:     '%s'\n"
+        //    "signal_obj:    '%x'\n"
+        //    "object_type:   '%s'\n"
+        //    "data_element:  '%x'\n"
+        //    "signal_obj->getAttribute('data_ino'): '%s'\n",
+        //    (int32_t)deliver,
+        //    slot_name.c_str(),
+        //    (int32_t)signal_obj,
+        //    object_type.c_str(),
+        //    (int32_t)data_element,
+        //    signal_obj->getAttribute("data_ino").c_str()
+        //);
 
         PDEBUG(20, "search deliver\n");
         if (deliver                 // destination slot
@@ -1839,11 +1839,11 @@ again:
             && object_type.size()   // type of argument
             && data_element)        // signal argument
         {
-            PDEBUG(20, "call deliver,"
-                " slot_name: '%s', data_element: '0x%x'\n",
-                slot_name.c_str(),
-                int32_t(data_element)
-            );
+            //PDEBUG(20, "call deliver,"
+            //    " slot_name: '%s', data_element: '0x%x'\n",
+            //    slot_name.c_str(),
+            //    int32_t(data_element)
+            //);
 
             deliver->slot(
                 slot_name.c_str(),

@@ -25,8 +25,9 @@ $(APPNAME)/Makefile:
 	cd $(APPNAME) 												\
 		&& CFLAGS="$(CFLAGS)"									\
 			./configure 										\
-				--prefix $(DESTDIR)/usr/ 						\
-				--exec-prefix $(DESTDIR)/usr/
+				--prefix /usr/ 									\
+				--exec-prefix /usr/								\
+				CFLAGS=-I../../../
 
 libnet-make-lin32: $(APPNAME)/Makefile
 	$(MAKE) -C $(APPNAME)

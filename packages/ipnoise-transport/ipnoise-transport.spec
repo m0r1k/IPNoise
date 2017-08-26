@@ -1,18 +1,17 @@
-%define packages_path   ipnoise/IPNoise/packages/
 %define package_name    transport
-%define package_path    %{packages_path}/ipnoise-%{package_name}
+%define package_path    %{ipnoise_packages_path}/ipnoise-%{package_name}
 
 %define name            ipnoise-transport
 %define version         0.0.9
 %define release         0
 
-Name:           %{name} 
+Name:           %{name}
 Summary:        IPNoise transport
-Version:        %{version} 
-Release:        %{release} 
-URL:            http://ipnoise.ru/
+Version:        %{version}
+Release:        %{release}
+URL:            https://github.com/m0r1k/IPNoise
 
-Group:          Applications/Multimedia 
+Group:          Applications/Multimedia
 BuildRoot:      %{_tmppath}/ipnoise-buildroot
 License:        Copyright Roman. E. Chechnev
 
@@ -20,16 +19,7 @@ License:        Copyright Roman. E. Chechnev
 IPNoise transport
 TODO add description here
 
-%prep
-# Look at http://rpm.org/max-rpm/s1-rpm-inside-macros.html
-# for help with %setup
-%setup -T -D -c -n ipnoise
-%{git_clone}
-cd ipnoise
-%{git_checkout}
-%{git_pull}
-
-%build 
+%build
 mkdir -p %buildroot
 make -C %{package_path} lin32
 
@@ -44,11 +34,11 @@ ipnoise-devel-rpms-find_files --buildroot "%buildroot" --out .files.list
 /usr/sbin/ipnoise-transport-tcp-v4
 /usr/sbin/ipnoise-transport-udp-v4
 
-%clean 
-rm -rf $RPM_BUILD_ROOT 
+%clean
+rm -rf $RPM_BUILD_ROOT
 
 %post
-    systemctl daemon-reload 
+    systemctl daemon-reload
     systemctl enable  ipnoise-transport-tcp-v4
     systemctl enable  ipnoise-transport-udp-v4
     systemctl restart ipnoise-transport-tcp-v4.service

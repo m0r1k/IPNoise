@@ -31,3 +31,13 @@ packages/ipnoise-kernel/linux-3.13.1/net/core/neighbour.c (IPNoise's hardware ad
 packages/ipnoise-iproute2/iproute2-rc/lib/ll_addr.c (IPNoise's hardware addresses support)
 packages/ipnoise-iproute2/iproute2-rc/lib/ll_types.c (IPNoise's hardware addresses support)
 ```
+
+## Build
+```
+    git clone https://github.com/m0r1k/IPNoise.git
+    cd IPNoise/packages/
+    make setup
+    make lin32
+
+```
+

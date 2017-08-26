@@ -1,5 +1,5 @@
 APPNAME	= 	libevent
-APPDIR 	= 	./libevent-2.1.5-beta
+APPDIR 	= 	./libevent-2.1.8-stable
 
 RPMS_DIR		= ~/rpmbuild/RPMS/i386/
 SRPMS_DIR		= ~/rpmbuild/SRPMS/

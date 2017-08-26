@@ -1,6 +1,5 @@
-%define packages_path   ipnoise/IPNoise/packages/
 %define package_name    squid
-%define package_path    %{packages_path}/ipnoise-%{package_name}
+%define package_path    %{ipnoise_packages_path}/ipnoise-%{package_name}
 
 %define name            ipnoise-squid
 %define version         3.2.1
@@ -10,7 +9,7 @@ Name:           %{name}
 Summary:        IPNoise squid
 Version:        %{version}
 Release:        %{release}
-URL:            http://ipnoise.ru/
+URL:            https://github.com/m0r1k/IPNoise
 
 Group:          Applications/Multimedia
 BuildRoot:      %{_tmppath}/ipnoise-buildroot
@@ -23,15 +22,6 @@ Requires:       /bin/perl, /bin/sh, libcom_err.so.2, libcrypt.so.1, libcrypt.so.
 %description
 IPNoise squid
 TODO add description here
-
-%prep
-# Look at http://rpm.org/max-rpm/s1-rpm-inside-macros.html
-# for help with %setup
-%setup -T -D -c -n ipnoise
-%{git_clone}
-cd ipnoise
-%{git_checkout}
-%{git_pull}
 
 %build
 mkdir -p %buildroot

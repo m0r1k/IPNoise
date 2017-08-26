@@ -1,6 +1,5 @@
-%define packages_path   ipnoise/IPNoise/packages/
 %define package_name    iproute2
-%define package_path    %{packages_path}/ipnoise-%{package_name}
+%define package_path    %{ipnoise_packages_path}/ipnoise-%{package_name}
 
 %define name            ipnoise-iproute2
 %define version         0.0.0
@@ -10,7 +9,7 @@ Name:           %{name}
 Summary:        IPNoise iproute2 implementation
 Version:        %{version}
 Release:        %{release}
-URL:            http://ipnoise.ru/
+URL:            https://github.com/m0r1k/IPNoise
 
 Group:          Applications/Multimedia
 BuildRoot:      %{_tmppath}/ipnoise-buildroot
@@ -21,15 +20,6 @@ Provides:       iproute
 %description
 IPNoise iproute2 implementation
 TODO add description here
-
-%prep
-# Look at http://rpm.org/max-rpm/s1-rpm-inside-macros.html
-# for help with %setup
-%setup -T -D -c -n ipnoise
-%{git_clone}
-cd ipnoise
-%{git_checkout}
-%{git_pull}
 
 %build
 mkdir -p %buildroot

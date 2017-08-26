@@ -32,7 +32,7 @@
 #ifndef __LIBNET_HEADERS_H
 #define __LIBNET_HEADERS_H
 
-#include "ipnoise-common/ipnoise.h"
+#include <ipnoise-common/ipnoise.h>
 
 /**
  * @file libnet-headers.h

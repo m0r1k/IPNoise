@@ -570,7 +570,7 @@ drop:
     goto out;
 }
 
-int LinkObject::linkSendPacketLo(SkBuffObject *skb)
+ssize_t LinkObject::linkSendPacketLo(SkBuffObject *skb)
 {
     ssize_t err         = -1;
     string outbuffer    = skb->getOutDom()->getFirstChild()->serialize(0);
@@ -624,7 +624,7 @@ drop:
     goto out;
 }
 
-int LinkObject::linkSendPacket(SkBuffObject *skb)
+ssize_t LinkObject::linkSendPacket(SkBuffObject *skb)
 {
     string ifname = getName();
     int err = -1;

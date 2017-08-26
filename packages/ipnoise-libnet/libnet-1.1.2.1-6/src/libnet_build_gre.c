@@ -138,7 +138,7 @@ __libnet_print_gre_flags_ver(u_int16_t fv)
 
 
 /* FIXME: what is the portability of the "((struct libnet_gre_hdr*)0)->" ? */
-inline u_int32_t
+u_int32_t
 libnet_getgre_length(u_int16_t fv)
 {
 

@@ -21,7 +21,7 @@
 #include <ipnoise-common/log.h>
 #include <ipnoise-common/system.h>
 
-int debug_level         = 0;
+int g_debug_level       = 0;
 IPNoiseObject *ipnoise  = NULL;
 
 static void shutdown_cb(evutil_socket_t, short, void *arg)
@@ -84,7 +84,7 @@ int main(int argc, char *argv[])
                 break;
 
             case 'd':
-                debug_level = atoi(optarg);
+                g_debug_level = atoi(optarg);
                 break;
 
             case 'v':
@@ -112,10 +112,10 @@ int main(int argc, char *argv[])
         PERROR("%s\n", buffer);
     }
 
-    if (debug_level){
+    if (g_debug_level){
         PINFO("Options:\n");
         PINFO("config file: '%s'\n", config_file.c_str());
-        PINFO("debug-level: '%d'\n", debug_level);
+        PINFO("debug-level: '%d'\n", g_debug_level);
         PINFO("\n");
     }
 

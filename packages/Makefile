@@ -1,3 +1,6 @@
+export IPNOISE_PACKAGES_PATH=$(PWD)
+export PATH := $(IPNOISE_PACKAGES_PATH)/bin:$(PATH)
+
 TARGETS=	iproute2 			\
 			libevent 			\
 			libfuse				\
@@ -14,20 +17,30 @@ TARGETS=	iproute2 			\
 			squid
 
 ARCHES=lin32 win32 arm32
-TARGETS_RPMS= $(TARGETS:=-rpms)
+TARGETS_RPMS=$(TARGETS:=-rpms)
 
-OUT=/mnt/multimedia/out/
+OUT=./out/
 
-.PHONY = usage rpms $(TARGETS) $(TARGETS_RPMS)	\
+.PHONY: setup usage rpms $(TARGETS) $(TARGETS_RPMS)	\
 	lin32 	lin32_prepare 	lin32_make			\
 	win32 	win32_prepare	win32_make			\
 	arm32 	arm32_prepare	arm32_make
 
 usage:
+	@echo "Setup:       make setup"
 	@echo "Compilation: make $(ARCHES)"
 	@echo "Clean:       make clean"
 
 rpms: $(TARGETS_RPMS)
+
+setup:
+	@echo "prepare rpmbuild"
+	ln -sf $(IPNOISE_PACKAGES_DIR)/../../IPNoise /home/$$USER/rpmbuild/BUILD/
+	@echo "install required packages"
+	sudo dnf install rpm-build      \
+		bison flex libdb4-devel		\
+		automake					\
+		libxml2 libxml2-devel
 
 $(TARGETS_RPMS):
 	$(MAKE) -C ipnoise-$(@:-rpms=) rpms

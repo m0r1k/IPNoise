@@ -27,8 +27,8 @@ SHELL = /bin/sh
 srcdir = .
 top_srcdir = ..
 
-prefix = /mnt/multimedia/ipnoise/IPNoise/packages/ipnoise-libnet/.files/usr/
-exec_prefix = /mnt/multimedia/ipnoise/IPNoise/packages/ipnoise-libnet/.files/usr/
+prefix = /usr/
+exec_prefix = /usr/
 
 bindir = ${exec_prefix}/bin
 sbindir = ${exec_prefix}/sbin
@@ -47,10 +47,10 @@ pkglibdir = $(libdir)/libnet
 pkgincludedir = $(includedir)/libnet
 top_builddir = ..
 
-ACLOCAL = ${SHELL} /mnt/multimedia/ipnoise/IPNoise/packages/ipnoise-libnet/libnet/missing --run aclocal-1.6
-AUTOCONF = ${SHELL} /mnt/multimedia/ipnoise/IPNoise/packages/ipnoise-libnet/libnet/missing --run autoconf
-AUTOMAKE = ${SHELL} /mnt/multimedia/ipnoise/IPNoise/packages/ipnoise-libnet/libnet/missing --run automake-1.6
-AUTOHEADER = ${SHELL} /mnt/multimedia/ipnoise/IPNoise/packages/ipnoise-libnet/libnet/missing --run autoheader
+ACLOCAL = ${SHELL} /mnt/multimedia/IPNoise/packages/ipnoise-libnet/libnet/missing --run aclocal-1.6
+AUTOCONF = ${SHELL} /mnt/multimedia/IPNoise/packages/ipnoise-libnet/libnet/missing --run autoconf
+AUTOMAKE = ${SHELL} /mnt/multimedia/IPNoise/packages/ipnoise-libnet/libnet/missing --run automake-1.6
+AUTOHEADER = ${SHELL} /mnt/multimedia/IPNoise/packages/ipnoise-libnet/libnet/missing --run autoheader
 
 am__cd = CDPATH="$${ZSH_VERSION+.}$(PATH_SEPARATOR)" && cd
 INSTALL = /usr/bin/install -c
@@ -79,7 +79,7 @@ EXEEXT =
 OBJEXT = o
 PATH_SEPARATOR = :
 ADDITIONAL_LIBS = 
-AMTAR = ${SHELL} /mnt/multimedia/ipnoise/IPNoise/packages/ipnoise-libnet/libnet/missing --run tar
+AMTAR = ${SHELL} /mnt/multimedia/IPNoise/packages/ipnoise-libnet/libnet/missing --run tar
 AWK = gawk
 CC = gcc
 DEPDIR = .deps
@@ -97,7 +97,7 @@ STRIP =
 VERSION = 1.1.2.1-6
 am__include = include
 am__quote = 
-install_sh = /mnt/multimedia/ipnoise/IPNoise/packages/ipnoise-libnet/libnet/install-sh
+install_sh = /mnt/multimedia/IPNoise/packages/ipnoise-libnet/libnet/install-sh
 
 AUTOMAKE_OPTIONS = foreign no-dependencies
 

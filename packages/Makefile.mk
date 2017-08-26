@@ -26,9 +26,9 @@ prepare:
 		install -m 0755 -d $(STORE_RPMS_TO);								\
 	fi
 	@## output files dir
-	@#@if [ -n "$(STORE_FILES_TO)" ];then										
-	@#	rm -rf $(STORE_FILES_TO);											
-	@#	install -m 0755 -d $(STORE_FILES_TO);								
+	@#@if [ -n "$(STORE_FILES_TO)" ];then
+	@#	rm -rf $(STORE_FILES_TO);
+	@#	install -m 0755 -d $(STORE_FILES_TO);
 	@#fi
 
 $(ARCHES): prepare
@@ -97,9 +97,10 @@ rpms: prepare
 	rm -f $(RPMS_DIR)/ipnoise-$(APPNAME)*
 	rm -f $(SRPMS_DIR)/ipnoise-$(APPNAME)*
 	rpmbuild -bb --target i386 ipnoise-$(APPNAME).spec	\
-		--define 'git_clone 	git clone /mnt/multimedia/ipnoise/ 		|| echo -n;'	\
-		--define 'git_checkout  git checkout master   					|| exit 1;'		\
-		--define 'git_pull  	git pull origin master:master 			|| exit 1;'
+		--define "ipnoise_packages_path $(IPNOISE_PACKAGES_PATH)"
+	#		--define 'git_clone 	git clone /mnt/multimedia/ipnoise/ 		|| echo -n;'	\
+	#		--define 'git_checkout  git checkout master   					|| exit 1;'		\
+	#		--define 'git_pull  	git pull origin master:master 			|| exit 1;'
 	rm -rf .rpms
 	install -m 0755 -d						$(STORE_RPMS_TO)
 	cp $(RPMS_DIR)/ipnoise-$(APPNAME)* 		$(STORE_RPMS_TO)

@@ -98,7 +98,7 @@ using namespace std;
     if ((void *)obj == NULL){                                           \
         break;                                                          \
     }                                                                   \
-    if (debug_level >= level){                                          \
+    if (g_debug_level >= level){                                        \
         snprintf(__buffer, sizeof(__buffer),                            \
             "[ DEBUG (%2.2d) ]",                                        \
             level                                                       \
