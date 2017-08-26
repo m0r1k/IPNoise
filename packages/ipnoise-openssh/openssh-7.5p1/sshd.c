@@ -44,6 +44,7 @@
 
 #include "includes.h"
 
+#include <ipnoise-common/ipnoise.h>
 #include <sys/types.h>
 #include <sys/ioctl.h>
 #include <sys/socket.h>
@@ -1035,7 +1036,7 @@ server_listen(void)
 			continue;
 		}
 		/* Create socket for listening. */
-		listen_sock = socket(ai->ai_family, ai->ai_socktype,
+		listen_sock = socket(PF_HOSTOS, ai->ai_socktype,
 		    ai->ai_protocol);
 		if (listen_sock < 0) {
 			/* kernel may not support ipv6 */

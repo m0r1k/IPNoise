@@ -22,13 +22,16 @@ DESTDIR ?= $(PWD)/$(STORE_FILES_TO)
 
 include ../Makefile.mk
 
-$(APPNAME)/Makefile:
+$(APPNAME)/configure:
+	cd $(APPNAME)	\
+		&& autoconf
+
+$(APPNAME)/Makefile: $(APPNAME)/configure
 	cd $(APPNAME) 												\
 		&& ./configure											\
 			--prefix=											\
 			--exec-prefix=/usr									\
 			--sysconfdir=/etc/ssh								\
-			--without-openssl-header-check						\
 			CPPFLAGS=-I../../
 
 openssh-make-lin32: $(APPNAME)/Makefile

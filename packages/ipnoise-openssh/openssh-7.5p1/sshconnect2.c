@@ -235,6 +235,7 @@ ssh_kex2(char *host, struct sockaddr *hostaddr, u_short port)
 	packet_send();
 	packet_write_wait();
 #endif
+	/* XXX free myproposal ?? */
 }
 
 /*
