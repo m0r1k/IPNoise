@@ -75,6 +75,8 @@
 #include <linux/skb_array.h>
 
 #include <linux/uaccess.h>
+#include <ipnoise-common/ipnoise.h>
+#include <ipnoise-common/pcidev.h>
 
 /* Uncomment to enable debugging */
 /* #define TUN_DEBUG 1 */
@@ -923,6 +925,133 @@ drop:
 	return NET_XMIT_DROP;
 }
 
+// Net device start xmit (for IPNoise devices)
+static int tun_net_xmit_ipnoise(
+    struct sk_buff      *skb,
+    struct net_device   *dev)
+{
+    int res;
+    struct ipnoisehdr   *l2hdr      = NULL;
+    struct neighbour    *neighbour  = NULL;
+    struct dst_entry    *dst        = NULL;
+
+    // try to get IPNoise ll header
+    skb_reset_mac_header(skb);
+
+    l2hdr = ipnoise_hdr(skb);
+    res = ipnoise_hdr_is_valid(l2hdr);
+
+    if (!res){
+        // try to search l2 information about packet
+        dst = skb_dst(skb);
+        if (!dst){
+            // we are don't known packet destination l2 address :(
+            goto drop;
+        }
+	    neighbour = dst_neigh_lookup_skb(dst, skb);
+        if (    neighbour       == NULL
+            ||  neighbour->ha   == NULL
+            || !strncmp(neighbour->ha, "", IPNOISE_ALEN))
+        {
+            // we are don't known packet destination l2 address :(
+		    neigh_release(neighbour);
+            goto drop;
+        }
+
+        l2hdr = (struct ipnoisehdr *)skb_push(skb, sizeof(struct ipnoisehdr));
+        ipnoise_hdr_init(l2hdr);
+        strncpy(l2hdr->h_dest, neighbour->ha, IPNOISE_ALEN);
+
+        neigh_release(neighbour);
+    }
+
+    res = tun_net_xmit(skb, dev);
+
+out:
+    return res;
+
+drop:
+	dev->stats.tx_dropped++;
+	kfree_skb(skb);
+	res = 0;
+    goto out;
+}
+
+int ipnoise_set_mac_address(struct net_device *dev, void *p)
+{
+    int err = 0;
+    struct sockaddr *sa = p;
+    strncpy(dev->dev_addr, sa->sa_data, dev->addr_len);
+    return err;
+}
+
+int ipnoise_hops_create (
+    struct sk_buff      *skb,
+    struct net_device   *dev,
+    unsigned short      type,
+    const void          *daddr,
+    const void          *saddr,
+    unsigned            len)
+{
+    int err = 0;
+
+    struct ipnoisehdr *hdr = (struct ipnoisehdr *)skb_push(
+        skb,
+        IPNOISE_HLEN
+    );
+    ipnoise_hdr_init(hdr);
+
+	if (!saddr)
+		saddr = dev->dev_addr;
+
+    memcpy(hdr->h_source, saddr, IPNOISE_ALEN);
+
+    if (daddr){
+        memcpy(hdr->h_dest, daddr, IPNOISE_ALEN);
+        err = IPNOISE_HLEN;
+        goto ret;
+    }
+
+    err = -IPNOISE_HLEN;
+
+ret:
+    return err;
+};
+
+/**
+ * ipnoise_hops_parse - extract hardware address from packet
+ * @skb: packet to extract header from
+ * @haddr: destination buffer
+ */
+int ipnoise_hops_parse(const struct sk_buff *skb, unsigned char *haddr)
+{
+    const struct ipnoisehdr *hdr = (struct ipnoisehdr *)skb->data;
+    memcpy(haddr, hdr->h_source, IPNOISE_ALEN);
+
+    return IPNOISE_ALEN;
+};
+
+/**
+ * ipnoise_hops_rebuild - rebuild the IPNoise MAC header.
+ * @skb: socket buffer to update
+ *
+ * This is called after an ARP or IPV6 ndisc it's resolution on this
+ * sk_buff. We now let protocol (ARP) fill in the other fields.
+ *
+ * This routine CANNOT use cached dst->neigh!
+ * Really, it is used only when dst->neigh is wrong.
+ */
+int ipnoise_hops_rebuild(struct sk_buff *skb)
+{
+    struct ipnoisehdr *hdr = (struct ipnoisehdr *)skb->data;
+    struct net_device *dev = skb->dev;
+
+    memcpy(hdr->h_source, dev->dev_addr, IPNOISE_ALEN);
+
+    return 0;
+};
+
+
 static void tun_net_mclist(struct net_device *dev)
 {
 	/*
@@ -1054,6 +1183,29 @@ static void tun_flow_uninit(struct tun_struct *tun)
 	tun_flow_flush(tun);
 }
 
+int ipnoise_validate_address(struct net_device *dev)
+{
+    return 0;
+}
+
+static const struct net_device_ops ipnoise_netdev_ops = {
+    .ndo_uninit             = tun_net_uninit,
+    .ndo_open               = tun_net_open,
+    .ndo_stop               = tun_net_close,
+    .ndo_start_xmit         = tun_net_xmit_ipnoise,
+    .ndo_set_mac_address    = ipnoise_set_mac_address,
+    .ndo_validate_addr      = ipnoise_validate_address,
+};
+
+const struct header_ops ipnoise_header_ops =
+{
+    .create           = ipnoise_hops_create,
+    .parse            = ipnoise_hops_parse,
+//    .rebuild          = ipnoise_hops_rebuild,
+    .cache            = NULL,
+    .cache_update     = NULL
+};
+
 #define MIN_MTU 68
 #define MAX_MTU 65535
 
@@ -1084,6 +1236,20 @@ static void tun_net_init(struct net_device *dev)
 		dev->priv_flags |= IFF_LIVE_ADDR_CHANGE;
 
 		eth_hw_addr_random(dev);
+
+		break;
+
+    case IFF_IPNOISE:
+		// Point-to-Point TUN IPNOISE Device
+		dev->netdev_ops         = &ipnoise_netdev_ops;
+        dev->header_ops         = &ipnoise_header_ops;
+		dev->hard_header_len    = IPNOISE_HLEN;
+		dev->addr_len           = IPNOISE_ALEN;
+		dev->mtu                = 1500;
+
+		dev->type           = ARPHRD_IPNOISE;
+		dev->flags          = 0; //IFF_POINTOPOINT | IFF_NOARP | IFF_MULTICAST;
+		dev->tx_queue_len   = TUN_READQ_SIZE;  // We prefer our own queue length
 
 		break;
 	}
@@ -1296,6 +1462,15 @@ static ssize_t tun_get_user(struct tun_struct *tun, struct tun_file *tfile,
 	}
 
 	switch (tun->flags & TUN_TYPE_MASK) {
+    case IFF_IPNOISE:
+		skb->dev = tun->dev;
+		skb_reset_mac_header(skb);
+        skb_pull(skb, skb->dev->hard_header_len);
+        skb_reset_network_header(skb);
+		skb->protocol   = htons(ETH_P_IPV6);
+        skb->ip_summed  = CHECKSUM_UNNECESSARY;
+        break;
+
 	case IFF_TUN:
 		if (tun->flags & IFF_NO_PI) {
 			switch (skb->data[0] & 0xf0) {
@@ -1750,6 +1925,8 @@ static int tun_set_iff(struct net *net, struct file *file, struct ifreq *ifr)
 			tun = netdev_priv(dev);
 		else if ((ifr->ifr_flags & IFF_TAP) && dev->netdev_ops == &tap_netdev_ops)
 			tun = netdev_priv(dev);
+		else if ((ifr->ifr_flags & IFF_IPNOISE) && dev->netdev_ops == &ipnoise_netdev_ops)
+			tun = netdev_priv(dev);
 		else
 			return -EINVAL;
 
@@ -1792,6 +1969,10 @@ static int tun_set_iff(struct net *net, struct file *file, struct ifreq *ifr)
 			/* TUN device */
 			flags |= IFF_TUN;
 			name = "tun%d";
+		} else if (ifr->ifr_flags & IFF_IPNOISE) {
+			// TUN IPNoise device
+			flags |= IFF_IPNOISE;
+			name = "ipnoise%d";
 		} else if (ifr->ifr_flags & IFF_TAP) {
 			/* TAP device */
 			flags |= IFF_TAP;

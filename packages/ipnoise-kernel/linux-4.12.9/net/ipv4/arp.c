@@ -119,6 +119,7 @@
 #include <linux/uaccess.h>
 
 #include <linux/netfilter_arp.h>
+#include <ipnoise-common/ipnoise.h>
 
 /*
  *	Interface to generic neighbour cache.
@@ -1355,6 +1356,9 @@ static void arp_format_neigh_entry(struct seq_file *seq,
 #if IS_ENABLED(CONFIG_AX25)
 	}
 #endif
+    if (ARPHRD_IPNOISE == hatype){
+        strcpy(hbuffer, n->ha);
+    }
 	sprintf(tbuf, "%pI4", n->primary_key);
 	seq_printf(seq, "%-16s 0x%-10x0x%-10x%-17s     *        %s\n",
 		   tbuf, hatype, arp_state_to_flags(n), hbuffer, dev->name);

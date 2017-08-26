@@ -13,12 +13,12 @@
 // Needed for user-space include
 // check what it is free in include/linux/socket.h
 // and don't forget update AF_MAX constant
-#define AF_HOSTOS 41
+#define AF_HOSTOS 44
 #define PF_HOSTOS AF_HOSTOS
 
 // check what it is free in include/uapi/linux/if_tun.h
-// bit fields: IFF_TUN, IFF_TAP, IFF_TUN_IPNOISE
-#define IFF_TUN_IPNOISE	0x0008
+// bit fields: IFF_TUN, IFF_TAP, IFF_IPNOISE
+//#define IFF_IPNOISE	0x0004
 
 // multicast
 #define MULTICAST_USER_REAL_NICKNAME "multicast"

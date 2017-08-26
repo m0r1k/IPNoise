@@ -206,8 +206,10 @@ struct ucred {
 				 * PF_SMC protocol family that
 				 * reuses AF_INET address family
 				 */
+#define AF_HOSTOS   44
+#define PF_HOSTOS   AF_HOSTOS
 
-#define AF_MAX		44	/* For now.. */
+#define AF_MAX		45	/* For now.. */
 
 /* Protocol families, same as address families. */
 #define PF_UNSPEC	AF_UNSPEC

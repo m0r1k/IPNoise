@@ -41,6 +41,8 @@
 #include <linux/inetdevice.h>
 #include <net/addrconf.h>
 
+#include <ipnoise-common/ipnoise.h>
+
 #define DEBUG
 #define NEIGH_DEBUG 1
 #define neigh_dbg(level, fmt, ...)		\
@@ -1685,8 +1687,13 @@ static int neigh_add(struct sk_buff *skb, struct nlmsghdr *nlh,
 			goto out;
 		}
 
-		if (tb[NDA_LLADDR] && nla_len(tb[NDA_LLADDR]) < dev->addr_len)
+        // IPNoise devices can have variable hw addr
+		if (    ARPHRD_IPNOISE != dev->type
+            &&  tb[NDA_LLADDR]
+            &&  nla_len(tb[NDA_LLADDR]) < dev->addr_len)
+        {
 			goto out;
+        }
 	}
 
 	tbl = neigh_find_table(ndm->ndm_family);

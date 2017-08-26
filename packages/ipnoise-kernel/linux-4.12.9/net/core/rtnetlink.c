@@ -57,6 +57,8 @@
 #include <net/rtnetlink.h>
 #include <net/net_namespace.h>
 
+#include <ipnoise-common/ipnoise.h>
+
 struct rtnl_link {
 	rtnl_doit_func		doit;
 	rtnl_dumpit_func	dumpit;
@@ -1677,7 +1679,16 @@ EXPORT_SYMBOL(rtnl_link_get_net);
 
 static int validate_linkmsg(struct net_device *dev, struct nlattr *tb[])
 {
-	if (dev) {
+    if (dev
+        && ARPHRD_IPNOISE == dev->type)
+    {
+        // do this checks only if it not IPNoise device,
+        // because IPNoise device can hw variable ll address length
+        // 20101229 morik
+        return 0;
+    }
+
+	if (dev){
 		if (tb[IFLA_ADDRESS] &&
 		    nla_len(tb[IFLA_ADDRESS]) < dev->addr_len)
 			return -EINVAL;

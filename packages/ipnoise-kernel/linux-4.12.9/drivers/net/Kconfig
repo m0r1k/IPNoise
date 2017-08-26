@@ -483,6 +483,15 @@ config FUJITSU_ES
 	  This driver provides support for Extended Socket network device
           on Extended Partitioning of FUJITSU PRIMEQUEST 2000 E2 series.
 
+config IPNOISE
+	tristate "IPNoise support"
+	depends on PCI
+	help
+      IPNoise PCI driver.
+
+	  To compile this driver as a module, choose M here. The module
+	  will be called ipnoise.
+
 source "drivers/net/hyperv/Kconfig"
 
 endif # NETDEVICES
