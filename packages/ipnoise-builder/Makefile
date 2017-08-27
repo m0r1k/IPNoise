@@ -1,10 +1,10 @@
 ## hard disk params
-HARD_DRIVE_ISO		= ./fedora-19-i386.qcow
+HARD_DRIVE_ISO		= ./fedora-26-x86_64.qcow
 HARD_DRIVE_SIZE		= 20G
 
 ## cdrom isos params
-CDROM_ISO		= ./Fedora-19-i386-DVD.iso
-CDROM_ORIG_ISO		= /mnt/multimedia/iso/Fedora-19-i386-DVD.iso
+CDROM_ISO		= ./Fedora-Server-dvd-x86_64-26-1.5.iso
+CDROM_ORIG_ISO		= /mnt/multimedia/iso/Fedora-Server-dvd-x86_64-26-1.5.iso
 CDROM_CONTENT_DIR	= ./iso
 CDROM_MOUNT_POINT	= ./cdrom
 CDROM_LABEL			= $(shell blkid -o value -s LABEL $(CDROM_ORIG_ISO))

@@ -98,9 +98,6 @@ rpms: prepare
 	rm -f $(SRPMS_DIR)/ipnoise-$(APPNAME)*
 	rpmbuild -bb --target i386 ipnoise-$(APPNAME).spec	\
 		--define "ipnoise_packages_path $(IPNOISE_PACKAGES_PATH)"
-	#		--define 'git_clone 	git clone /mnt/multimedia/ipnoise/ 		|| echo -n;'	\
-	#		--define 'git_checkout  git checkout master   					|| exit 1;'		\
-	#		--define 'git_pull  	git pull origin master:master 			|| exit 1;'
 	rm -rf .rpms
 	install -m 0755 -d						$(STORE_RPMS_TO)
 	cp $(RPMS_DIR)/ipnoise-$(APPNAME)* 		$(STORE_RPMS_TO)

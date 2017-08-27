@@ -13,8 +13,8 @@ TARGETS=	iproute2 			\
 			release				\
 			thttpd				\
 			fake				\
-			openssh				\
-			squid
+			openssh
+# TODO			squid
 
 ARCHES=lin32 win32 arm32
 TARGETS_RPMS=$(TARGETS:=-rpms)
