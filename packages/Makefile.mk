@@ -96,8 +96,10 @@ rpms: prepare
 	@$(MAKE) $(APPNAME)-rpms
 	rm -f $(RPMS_DIR)/ipnoise-$(APPNAME)*
 	rm -f $(SRPMS_DIR)/ipnoise-$(APPNAME)*
-	rpmbuild -bb --target i386 ipnoise-$(APPNAME).spec	\
-		--define "ipnoise_packages_path $(IPNOISE_PACKAGES_PATH)"
+	rpmbuild -bb --target $(IPNOISE_PACKAGES_ARCH) ipnoise-$(APPNAME).spec	\
+		--define "ipnoise_packages_path $(IPNOISE_PACKAGES_PATH)"			\
+		--define "ipnoise_packages_arch $(IPNOISE_PACKAGES_ARCH)"			\
+		--define "ipnoise_packages_target $(IPNOISE_PACKAGES_TARGET)"
 	rm -rf .rpms
 	install -m 0755 -d						$(STORE_RPMS_TO)
 	cp $(RPMS_DIR)/ipnoise-$(APPNAME)* 		$(STORE_RPMS_TO)

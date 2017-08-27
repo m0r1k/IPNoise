@@ -30,6 +30,17 @@ OUT=./out/
 	win32 	win32_prepare	win32_make			\
 	arm32 	arm32_prepare	arm32_make
 
+lin32: IPNOISE_PACKAGES_ARCH="i386"
+lin32: IPNOISE_PACKAGES_TARGET="lin32"
+lin64: IPNOISE_PACKAGES_ARCH="x86_64"
+lin64: IPNOISE_PACKAGES_TARGET="lin64"
+win32: IPNOISE_PACKAGES_ARCH="i386"
+win32: IPNOISE_PACKAGES_TARGET="win32"
+arm32: IPNOISE_PACKAGES_ARCH="i386"
+arm32: IPNOISE_PACKAGES_TARGET="arm32"
+export IPNOISE_PACKAGES_ARCH
+export IPNOISE_PACKAGES_TARGET
+
 usage:
 	@echo "Setup:       make setup"
 	@echo "Compilation: make $(ARCHES)"

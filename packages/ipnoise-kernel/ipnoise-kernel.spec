@@ -21,7 +21,7 @@ TODO add description here
 
 %build
 mkdir -p %buildroot
-make -C %{package_path} lin32
+make -C %{package_path} %{ipnoise_packages_target}
 
 %install
 cd %{package_path}
