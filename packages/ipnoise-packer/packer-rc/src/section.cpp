@@ -1498,7 +1498,7 @@ int Section::deCompressFile(
         &size
     );
 
-    if (debug_level > 10){
+    if (g_debug_level > 10){
         PERROR("buffer: '%s'\n",    buffer);
         PERROR("BUILD_TIME=%ld\n",  build_time);
         PERROR("SIZE=%d\n",         size);

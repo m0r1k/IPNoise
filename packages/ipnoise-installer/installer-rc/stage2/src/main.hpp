@@ -1,9 +1,9 @@
 #ifndef MAIN_HPP
 #define MAIN_HPP
 
-#include <QTextCodec>
-#include <QApplication>
-#include <QDir>
+#include <QtCore/QTextCodec>
+#include <QtWidgets/QApplication>
+#include <QtCore/QDir>
 
 #include <ipnoise-common/log.h>
 #include <ipnoise-common/strings.h>

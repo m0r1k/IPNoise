@@ -1,8 +1,8 @@
 #ifndef WIZARD_HPP
 #define WIZARD_HPP
 
-#include <QObject>
-#include <QWizard>
+#include <QtCore/QObject>
+#include <QtWidgets/QWizard>
 
 class Wizard
     :   public QWizard

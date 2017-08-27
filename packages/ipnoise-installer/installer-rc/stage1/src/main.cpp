@@ -1,6 +1,6 @@
 #include "main.hpp"
 
-int debug_level = 0;
+int g_debug_level = 0;
 
 void usage(int argc, char **argv)
 {
@@ -152,7 +152,7 @@ int main(int argc, char **argv)
                 exit(0);
 
             case 'd':
-                debug_level = atoi(optarg);
+                g_debug_level = atoi(optarg);
                 break;
 
             case 'v':
@@ -189,9 +189,9 @@ int main(int argc, char **argv)
         chdir(install_dir.c_str());
     }
 
-    if (debug_level){
+    if (g_debug_level){
         PINFO("Options:\n");
-        PINFO("debug-level: '%d'\n", debug_level);
+        PINFO("debug-level: '%d'\n", g_debug_level);
         PINFO("install-dir: '%s'\n", install_dir.c_str());
         PINFO("\n");
     }

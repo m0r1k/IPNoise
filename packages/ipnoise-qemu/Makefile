@@ -108,8 +108,8 @@ qemu-install:
 
 qemu-install-lin32: qemu-install
 	install -m 0755 $(APPNAME)/i386-softmmu/qemu-system-i386							$(DESTDIR)/qemu
-	install -m 0755 /usr/lib/libpng15.so.15 $(DESTDIR)/
-	install -m 0755 /usr/lib/libtinfo.so.5  $(DESTDIR)/
+	#install -m 0755 /usr/lib/libpng15.so.15 $(DESTDIR)/
+	#install -m 0755 /usr/lib/libtinfo.so.5  $(DESTDIR)/
 
 qemu-install-win32: qemu-install
 	install -m 0755 $(APPNAME)/i386-softmmu/qemu-system-i386.exe						$(DESTDIR)/qemu.exe

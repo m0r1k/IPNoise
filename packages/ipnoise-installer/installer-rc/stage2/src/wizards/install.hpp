@@ -1,11 +1,11 @@
 #ifndef WIZARD_INSTALL_HPP
 #define WIZARD_INSTALL_HPP
 
-#include <QWidget>
-#include <QString>
-#include <QVBoxLayout>
-#include <QLabel>
-#include <QList>
+#include <QtWidgets/QWidget>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QLabel>
+#include <QtCore/QString>
+#include <QtCore/QList>
 
 #include "wizard.hpp"
 #include "config.hpp"

@@ -1,6 +1,6 @@
 #include "main.hpp"
 
-int debug_level = 0;
+int g_debug_level = 0;
 
 void usage(int argc, char **argv)
 {
@@ -325,7 +325,7 @@ int main(int argc, char **argv)
                 break;
 
             case 'd':
-                debug_level = atoi(optarg);
+                g_debug_level = atoi(optarg);
                 break;
 
             case 'v':
@@ -363,13 +363,13 @@ int main(int argc, char **argv)
         out_file = in_file;
     }
 
-    if (debug_level){
+    if (g_debug_level){
         PINFO("Options:\n");
         PINFO("action:          '%s'\n",    action.c_str());
         PINFO("path:            '%s'\n",    l_path.path().c_str());
         PINFO("in_file:         '%s'\n",    in_file.path().c_str());
         PINFO("out_file:        '%s'\n",    out_file.path().c_str());
-        PINFO("debug-level:     '%d'\n",    debug_level);
+        PINFO("debug-level:     '%d'\n",    g_debug_level);
         PINFO("\n");
     }
 

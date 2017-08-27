@@ -1,13 +1,13 @@
 #ifndef WIDGET_INSTALL_PAGE_FINISH_HPP
 #define WIDGET_INSTALL_PAGE_FINISH_HPP
 
-#include <QWidget>
-#include <QWizardPage>
-#include <QLabel>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QString>
-#include <QAbstractButton>
+#include <QtWidgets/QWidget>
+#include <QtWidgets/QWizardPage>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QAbstractButton>
+#include <QtCore/QString>
 
 #include <ipnoise-common/log_common.h>
 #include <ipnoise-common/path.hpp>

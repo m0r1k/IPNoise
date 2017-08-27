@@ -1,11 +1,12 @@
 DEFINES = -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SHARED
-CFLAGS  = -g3 -O0 -Wall $(DEFINES) 			\
+CFLAGS  = -g3 -O0 -fPIC -Wall $(DEFINES) 	\
 	-I../../../ 							\
-	-I/usr/lib/qt4/include/ 				\
-	-I/usr/lib/qt4/include/QtCore/ 			\
-	-I/usr/lib/qt4/include/QtGui/			\
-	-I/usr/lib/qt4/include/QtNetwork/
+	-I/usr/include/qt5/
 
+#	-I/usr/lib/qt5/include/ 				\
+#	-I/usr/lib/qt5/include/QtCore/ 			\
+#	-I/usr/lib/qt5/include/QtGui/			\
+#	-I/usr/lib/qt5/include/QtNetwork/
 #	-finput-charset=utf8
 
 LDFLAGS = -g3 -finput-charset=utf8
@@ -17,13 +18,13 @@ ARCHES	= lin32 win32 arm32
 lin32: CROSS     =
 lin32: CC        = gcc
 lin32: CXX       = g++
-## mandriva ln -s /usr/lib/qt4/bin/moc /usr/bin/moc-qt4
-lin32: MOC       = moc-qt4
+## mandriva ln -s /usr/lib/qt5/bin/moc /usr/bin/moc-qt5
+lin32: MOC       = moc-qt5
 lin32: CFLAGS   += -DLIN32
 lin32: CXXFLAGS += $(CFLAGS)
 lin32: CCFLAGS  += $(CFLAGS)
 lin32: LDFLAGS  +=
-lin32: LIBS 	+= -lQtGui -lQtCore -lQtNetwork ../../.files/liblzma.a
+lin32: LIBS 	+= -lQt5Widgets -lQt5Gui -lQt5Core -lQt5Network ../../.files/liblzma.a
 
 ## win 32
 win32: CROSS    = i686-w64-mingw32-
@@ -36,13 +37,13 @@ win32: CFLAGS   += -DWIN32 		\
 win32: CXXFLAGS += $(CFLAGS)
 win32: CCFLAGS  += $(CFLAGS)
 win32: LDFLAGS  +=
-win32: LIBS 	+= -lQtGui4 -lQtCore4 -lQtNetwork4 -llzma -liconv
+win32: LIBS 	+= -lQtGui5 -lQtCore5 -lQtNetwork5 -llzma -liconv
 
 ## arm 32
 arm32: CROSS     =
 arm32: CC        = gcc
 arm32: CXX       = g++
-arm32: MOC       = moc-qt4
+arm32: MOC       = moc-qt5
 arm32: CFLAGS   += -DARM32	\
 	-mcpu=cortex-a8 -mtune=cortex-a8 		\
 	-fomit-frame-pointer -fsigned-char 		\
@@ -55,7 +56,7 @@ arm32: LIBS 	+= -lQtGui -lQtCore -lQtNetwork
 TARGET = $(shell basename $(CURDIR))
 
 # Some more include paths
-INCPATHS:=  -I/usr/share/qt4/mkspecs/default 	\
+INCPATHS:=  -I/usr/share/qt5/mkspecs/default 	\
 	-I/usr/include/QtGui						\
 	-I/usr/include/QtXml						\
 	-I/usr/include/QtCore						\

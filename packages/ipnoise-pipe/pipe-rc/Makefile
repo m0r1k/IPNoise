@@ -1,11 +1,11 @@
 DEFINES = -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SHARED
 CFLAGS  = -g3 -O0 -Wall $(DEFINES) 		\
 	-I../../ 							\
-	-I/usr/lib/qt4/include/ 			\
-	-I/usr/lib/qt4/include/QtCore/ 		\
-	-I/usr/lib/qt4/include/QtXml/ 		\
-	-I/usr/lib/qt4/include/QtNetwork/	\
-	-I/usr/lib/qt4/include/QtGui/
+	-I/usr/lib/qt5/include/ 			\
+	-I/usr/lib/qt5/include/QtCore/ 		\
+	-I/usr/lib/qt5/include/QtXml/ 		\
+	-I/usr/lib/qt5/include/QtNetwork/	\
+	-I/usr/lib/qt5/include/QtGui/
 
 LDFLAGS = -g3
 LIBS 	=
@@ -28,8 +28,8 @@ win32: LIBS 	+= -lQtGui4 -lQtCore4 -lQtXml4 -lQtNetwork4 -lwinmm
 lin32: CROSS     =
 lin32: CC        = gcc
 lin32: CXX       = g++
-## mandriva ln -s /usr/lib/qt4/bin/moc /usr/bin/moc-qt4
-lin32: MOC       = moc-qt4
+## mandriva ln -s /usr/lib/qt5/bin/moc /usr/bin/moc-qt5
+lin32: MOC       = moc-qt5
 lin32: CFLAGS   += -DLIN32
 lin32: CXXFLAGS += $(CFLAGS)
 lin32: CCFLAGS  += $(CFLAGS)
@@ -40,7 +40,7 @@ lin32: LIBS 	+= -lQtGui -lQtCore -lQtXml -lQtNetwork
 arm32: CROSS     =
 arm32: CC        = gcc
 arm32: CXX       = g++
-arm32: MOC       = moc-qt4
+arm32: MOC       = moc-qt5
 arm32: CFLAGS   += -DARM32	\
 	-mcpu=cortex-a8 -mtune=cortex-a8 		\
 	-fomit-frame-pointer -fsigned-char 		\
@@ -61,7 +61,7 @@ arm32: LIBS 	+= -lQtGui -lQtCore -lQtXml -lQtNetwork
 TARGET = $(shell basename $(CURDIR))
 
 # Some more include paths
-INCPATHS:=  -I/usr/share/qt4/mkspecs/default 	\
+INCPATHS:=  -I/usr/share/qt5/mkspecs/default 	\
 	-I/usr/include/QtGui						\
 	-I/usr/include/QtXml						\
 	-I/usr/include/QtCore						\

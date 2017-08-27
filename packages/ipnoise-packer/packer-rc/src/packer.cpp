@@ -966,11 +966,11 @@ Section * Packer::getSectionByPath(
         }
     }
 
-    PDEBUG(5, "Packer::getSectionByPath,"
-        " path: '%s', section: 0x'%x'\n",
-        a_path.path().c_str(),
-        (unsigned int)section
-    );
+    //PDEBUG(5, "Packer::getSectionByPath,"
+    //    " path: '%s', section: 0x'%x'\n",
+    //    a_path.path().c_str(),
+    //    (unsigned int)section
+    //);
     return section;
 }
 

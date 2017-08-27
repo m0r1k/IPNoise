@@ -1,7 +1,7 @@
 #ifndef QT_HPP
 #define QT_HPP
 
-#include <QString>
+#include <QtCore/QString>
 #include <ipnoise-common/path.hpp>
 
 using namespace std;

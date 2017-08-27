@@ -1,11 +1,11 @@
 #ifndef WIZARD_INSTALL_PAGE_INTRO_HPP
 #define WIZARD_INSTALL_PAGE_INTRO_HPP
 
-#include <QWidget>
-#include <QWizardPage>
-#include <QLabel>
-#include <QVBoxLayout>
-#include <QString>
+#include <QtWidgets/QWidget>
+#include <QtWidgets/QWizardPage>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QVBoxLayout>
+#include <QtCore/QString>
 
 #include <ipnoise-common/log_common.h>
 #include <ipnoise-common/path.hpp>

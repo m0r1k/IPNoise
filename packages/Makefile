@@ -22,6 +22,7 @@ TARGETS_RPMS=$(TARGETS:=-rpms)
 OUT=./out/
 
 .PHONY: setup usage rpms $(TARGETS) $(TARGETS_RPMS)	\
+	qemu-lin32									\
 	lin32 	lin32_prepare 	lin32_make			\
 	win32 	win32_prepare	win32_make			\
 	arm32 	arm32_prepare	arm32_make
@@ -40,13 +41,23 @@ setup:
 		automake                    			\
 		libxml2 libxml2-devel       			\
 		lzma									\
-		bc
+		bc										\
+		qt5 qt5-devel qt5-qtbase-devel 			\
+			qt5-qtbase-static 					\
+			qt5-qtdeclarative-static			\
+		libcap-devel libattr-devel				\
+		libstdc++-static glibc-static
 	@echo "prepare rpmbuild"
 	mkdir -p ~/rpmbuild/BUILD/
 	ln -sf $(IPNOISE_PACKAGES_DIR)/../../IPNoise /home/$(USER)/rpmbuild/BUILD/
 
 $(TARGETS_RPMS):
 	$(MAKE) -C ipnoise-$(@:-rpms=) rpms
+
+## -------------- qemu --------------
+qemu-lin32:
+	$(MAKE) -C ipnoise-qemu lin32
+	$(MAKE) -C ipnoise-qemu install
 
 ## -------------- router --------------
 router: libfuse libnet

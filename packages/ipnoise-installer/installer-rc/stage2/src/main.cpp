@@ -20,7 +20,7 @@
 
 #include "ipnoise-packer/packer/src/packer.hpp"
 
-int debug_level = 0;
+int g_debug_level = 0;
 
 void usage(int argc, char **argv)
 {
@@ -100,10 +100,13 @@ int main(int argc, char **argv)
 
     // init locale
     // never use QString before locale will be inited!!!
-    QTextCodec* tc = QTextCodec::codecForName("utf-8");
-    QTextCodec::setCodecForTr(tc);
-    QTextCodec::setCodecForCStrings(tc);
-    QTextCodec::setCodecForLocale(tc);
+    QLocale locale = QLocale("ru");
+    QLocale::setDefault(locale);
+
+    //QTextCodec* tc = QTextCodec::codecForName("utf-8");
+    //QTextCodec::setCodecForTr(tc);
+    //QTextCodec::setCodecForCStrings(tc);
+    //QTextCodec::setCodecForLocale(tc);
 
     int res, err = -1;
     char            buffer[1024]    = { 0x00 };
@@ -170,7 +173,7 @@ int main(int argc, char **argv)
                 break;
 
             case 'd':
-                debug_level = atoi(optarg);
+                g_debug_level = atoi(optarg);
                 break;
 
             case 'v':
@@ -203,7 +206,7 @@ int main(int argc, char **argv)
         PERROR("%s\n", buffer);
     }
 
-    if (debug_level){
+    if (g_debug_level){
         PINFO("Options:\n");
         PINFO("action:              '%s'\n",
             action.toStdString().c_str());
@@ -214,7 +217,7 @@ int main(int argc, char **argv)
         PINFO("console:             '%d'\n",
             console);
         PINFO("debug-level:         '%d'\n",
-            debug_level);
+            g_debug_level);
         PINFO("\n");
     }
 

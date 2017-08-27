@@ -3,10 +3,10 @@ class MainWindow;
 #ifndef MAIN_WINDOW_HPP
 #define MAIN_WINDOW_HPP
 
-#include <QApplication>
-#include <QLabel>
-#include <QWidget>
-#include <QVBoxLayout>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QWidget>
+#include <QtWidgets/QVBoxLayout>
 
 #include "wizards/install.hpp"
 

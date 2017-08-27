@@ -36,8 +36,15 @@ packages/ipnoise-iproute2/iproute2-rc/lib/ll_types.c (IPNoise's hardware address
 ```
     git clone https://github.com/m0r1k/IPNoise.git
     cd IPNoise/packages/
+
+    ## install deps
     make setup
+
+    ## make packages
     make lin32
+
+    ## make qemu
+    make qemu-lin32
 
 ```
 
