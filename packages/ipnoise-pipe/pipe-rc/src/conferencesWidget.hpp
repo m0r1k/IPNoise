@@ -1,11 +1,12 @@
 #ifndef CONFERENCES_WIDGET_HPP
 #define CONFERENCES_WIDGET_HPP
 
-#include <QObject>
-#include <QString>
-#include <QWidget>
-#include <QTabWidget>
-#include <QVBoxLayout>
+#include <QtCore/QObject>
+#include <QtCore/QString>
+
+#include <QtWidgets/QWidget>
+#include <QtWidgets/QTabWidget>
+#include <QtWidgets/QVBoxLayout>
 
 #include "api.hpp"
 #include "conferenceWidget.hpp"

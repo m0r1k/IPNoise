@@ -1,8 +1,8 @@
 ## for debug rpms, don't forget install: 'redhat-rpm-config'
 
-.PHONY += usage prepare lin32 win32 arm32 make install rpms clean
+.PHONY += usage prepare lin32 lin64 win32 arm32 make install rpms clean
 
-ARCHES ?= lin32 win32 arm32
+ARCHES ?= lin32 lin64 win32 arm32
 HASH_PATHS += .arch
 
 usage:

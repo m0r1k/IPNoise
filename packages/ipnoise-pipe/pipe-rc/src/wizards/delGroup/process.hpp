@@ -1,11 +1,11 @@
 #ifndef WIZARD_DEL_GROUP_PAGE_PROCESS_HPP
 #define WIZARD_DEL_GROUP_PAGE_PROCESS_HPP
 
-#include <QWidget>
-#include <QWizardPage>
-#include <QLabel>
-#include <QVBoxLayout>
-#include <QRadioButton>
+#include <QtWidgets/QWidget>
+#include <QtWidgets/QWizardPage>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QRadioButton>
 
 #include <ipnoise-common/log_common.h>
 #include <ipnoise-common/path.hpp>

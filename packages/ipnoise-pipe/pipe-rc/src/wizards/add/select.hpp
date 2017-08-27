@@ -1,14 +1,15 @@
 #ifndef WIZARD_ADD_PAGE_SELECT_HPP
 #define WIZARD_ADD_PAGE_SELECT_HPP
 
-#include <QWidget>
-#include <QWizardPage>
-#include <QLabel>
-#include <QVBoxLayout>
-#include <QString>
-#include <QGroupBox>
-#include <QRadioButton>
-#include <QList>
+#include <QtCore/QString>
+#include <QtCore/QList>
+
+#include <QtWidgets/QWidget>
+#include <QtWidgets/QWizardPage>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QGroupBox>
+#include <QtWidgets/QRadioButton>
 
 #include <ipnoise-common/log_common.h>
 #include <ipnoise-common/path.hpp>

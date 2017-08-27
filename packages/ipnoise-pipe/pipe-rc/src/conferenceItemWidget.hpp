@@ -1,9 +1,10 @@
 #ifndef CONFERENCE_ITEM_WIDGET
 #define CONFERENCE_ITEM_WIDGET
 
-#include <QListWidget>
-#include <QListWidgetItem>
-#include <QString>
+#include <QtCore/QString>
+
+#include <QtWidgets/QListWidget>
+#include <QtWidgets/QListWidgetItem>
 
 #include "api.hpp"
 

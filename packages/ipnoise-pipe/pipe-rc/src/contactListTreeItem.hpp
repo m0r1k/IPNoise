@@ -3,10 +3,11 @@ class ContactListTreeItem;
 #ifndef CONTACT_LIST_TREE_ITEM
 #define CONTACT_LIST_TREE_ITEM
 
-#include <QObject>
-#include <QString>
-#include <QTreeWidgetItem>
-#include <QStringList>
+#include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
+
+#include <QtWidgets/QTreeWidgetItem>
 #include "api.hpp"
 
 typedef QList<ContactListTreeItem *>    ContactListPath;

@@ -1,7 +1,8 @@
 export IPNOISE_PACKAGES_PATH=$(PWD)
 export PATH := $(IPNOISE_PACKAGES_PATH)/bin:$(PATH)
 
-TARGETS=	iproute2 			\
+TARGETS=	kernel				\
+			iproute2 			\
 			libevent 			\
 			libfuse				\
 		 	libnet				\
@@ -16,14 +17,16 @@ TARGETS=	iproute2 			\
 			openssh
 # TODO			squid
 
-ARCHES=lin32 win32 arm32
+ARCHES=lin32 lin64 win32 arm32
 TARGETS_RPMS=$(TARGETS:=-rpms)
 
 OUT=./out/
 
 .PHONY: setup usage rpms $(TARGETS) $(TARGETS_RPMS)	\
-	qemu-lin32									\
+	qemu-lin32	qemu-lin64						\
+	install-lin32 install-lin64					\
 	lin32 	lin32_prepare 	lin32_make			\
+	lin64 	lin64_prepare 	lin64_make			\
 	win32 	win32_prepare	win32_make			\
 	arm32 	arm32_prepare	arm32_make
 
@@ -46,10 +49,11 @@ setup:
 			qt5-qtbase-static 					\
 			qt5-qtdeclarative-static			\
 		libcap-devel libattr-devel				\
-		libstdc++-static glibc-static
+		libstdc++-static glibc-static			\
+		syslinux-nonlinux
 	@echo "prepare rpmbuild"
 	mkdir -p ~/rpmbuild/BUILD/
-	ln -sf $(IPNOISE_PACKAGES_DIR)/../../IPNoise /home/$(USER)/rpmbuild/BUILD/
+	ln -sf $(IPNOISE_PACKAGES_PATH)/../../IPNoise /home/$(USER)/rpmbuild/BUILD/
 
 $(TARGETS_RPMS):
 	$(MAKE) -C ipnoise-$(@:-rpms=) rpms
@@ -57,6 +61,10 @@ $(TARGETS_RPMS):
 ## -------------- qemu --------------
 qemu-lin32:
 	$(MAKE) -C ipnoise-qemu lin32
+	$(MAKE) -C ipnoise-qemu install
+
+qemu-lin64:
+	$(MAKE) -C ipnoise-qemu lin64
 	$(MAKE) -C ipnoise-qemu install
 
 ## -------------- router --------------
@@ -137,6 +145,15 @@ lin32: lin32_prepare rpms
 	make -C ipnoise-builder lin32
 	make -C ipnoise-builder install DESTDIR=$(OUT)/lin32/ipnoise/
 
+lin64_prepare:
+	install -m 0755 -d $(OUT)/
+	install -m 0755 -d $(OUT)/lin64
+	install -m 0755 -d $(OUT)/lin64/ipnoise
+
+lin64: lin64_prepare rpms
+	make -C ipnoise-builder lin64
+	make -C ipnoise-builder install DESTDIR=$(OUT)/lin64/ipnoise/
+
 win32_prepare:
 	install -m 0755 -d $(OUT)/
 	install -m 0755 -d $(OUT)/win32
@@ -146,8 +163,22 @@ win32: win32_prepare rpms
 	make -C ipnoise-builder win32
 	make -C ipnoise-builder install DESTDIR=$(OUT)/win32/ipnoise/
 
+install-lin32:
+	mkdir -p ./out/lin32/ipnoise/pipe/
+	make -C ipnoise-installer install DESTDIR=$(IPNOISE_PACKAGES_PATH)/out/lin32/ipnoise/
+	make -C ipnoise-qemu	  lin32
+	make -C ipnoise-qemu	  install DESTDIR=$(IPNOISE_PACKAGES_PATH)/out/lin32/ipnoise/pipe/
+#	cp -f /usr/share/syslinux/ldlinux.c32 $(ipnoise_packages_path)/out/lin32/ipnoise/pipe/
+
+install-lin64:
+	mkdir -p ./out/lin64/ipnoise/pipe/
+	make -C ipnoise-installer install DESTDIR=$(IPNOISE_PACKAGES_PATH)/out/lin64/ipnoise/
+	make -C ipnoise-qemu	  lin64
+	make -C ipnoise-qemu	  install DESTDIR=$(IPNOISE_PACKAGES_PATH)/out/lin64/ipnoise/pipe/
+
 clean:
 	for i in `find . -maxdepth 1 -type d | grep "./"`;do	\
 		make -C $$i clean;	\
 	done
+
 

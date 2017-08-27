@@ -3,9 +3,10 @@
 
 #include "apiEvent.hpp"
 
-#include <QDomDocument>
-#include <QDomElement>
-#include <QString>
+#include <QtCore/QString>
+
+#include <QtXml/QDomDocument>
+#include <QtXml/QDomElement>
 
 class ApiEventConferenceMsg
     :   public ApiEvent

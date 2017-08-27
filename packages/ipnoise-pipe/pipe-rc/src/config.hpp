@@ -1,8 +1,8 @@
 #ifndef CONFIG_HPP
 #define CONFIG_HPP
 
-#include <QMap>
-#include <QString>
+#include <QtCore/QMap>
+#include <QtCore/QString>
 
 typedef QMap<QString, QString>                  Config;
 typedef QMap<QString, QString>::iterator        ConfigIt;

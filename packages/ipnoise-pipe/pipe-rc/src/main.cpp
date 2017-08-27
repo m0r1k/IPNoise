@@ -1,3 +1,5 @@
+#include <QtCore/QTranslator>
+
 #if defined(WIN32) || defined(WIN64)
 #include <windows.h>
 #endif
@@ -7,7 +9,7 @@
 #include "mainWindow.hpp"
 #include "main.hpp"
 
-int debug_level = 0;
+int g_debug_level = 0;
 
 void usage(int argc, char **argv)
 {
@@ -34,6 +36,7 @@ int main(int argc, char **argv)
     MainWindow   *mainWindow  = NULL;
     Config       *config      = NULL;
     QString      address      = "127.0.0.1:2210";
+    QTranslator  tr;
 
     Splitter    app_path(argv[0], "/");
     QString     appdir;
@@ -60,10 +63,12 @@ int main(int argc, char **argv)
     srand(time(NULL));
 
     // init locale
-    QTextCodec* tc = QTextCodec::codecForName("utf-8");
-    QTextCodec::setCodecForTr(tc);
-    QTextCodec::setCodecForCStrings(tc);
-    QTextCodec::setCodecForLocale(tc);
+    if (tr.load("ru.qm")){
+        app->installTranslator(&tr);
+    }
+
+    QLocale locale = QLocale("ru");
+    QLocale::setDefault(locale);
 
     mainWindow = new MainWindow();
 
@@ -109,7 +114,7 @@ int main(int argc, char **argv)
                 break;
 
             case 'd':
-                debug_level = atoi(optarg);
+                g_debug_level = atoi(optarg);
                 break;
 
             case 'v':
@@ -142,12 +147,12 @@ int main(int argc, char **argv)
         PERROR("%s\n", buffer);
     }
 
-    if (debug_level){
+    if (g_debug_level){
         PINFO("Options:\n");
         PINFO("address:     '%s'\n",
             address.toStdString().c_str());
         PINFO("debug-level: '%d'\n",
-            debug_level);
+            g_debug_level);
         PINFO("\n");
     }
 

@@ -3,9 +3,9 @@
 
 class Api;
 
-#include <QObject>
-#include <QString>
-#include <QMap>
+#include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtCore/QMap>
 
 typedef QMap<QString, QString>          ApiCommandArgs;
 typedef ApiCommandArgs::iterator        ApiCommandArgsIt;

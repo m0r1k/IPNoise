@@ -1,23 +1,24 @@
 #ifndef WIDGET_ADD_LINK_PAGE_TCP_HPP
 #define WIDGET_ADD_LINK_PAGE_TCP_HPP
 
-#include <QWidget>
-#include <QWizardPage>
-#include <QLabel>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QString>
-#include <QGroupBox>
-#include <QRadioButton>
-#include <QList>
-#include <QComboBox>
-#include <QPushButton>
-#include <QGroupBox>
-#include <QTabWidget>
-#include <QDialog>
-#include <QMap>
-#include <QFormLayout>
-#include <QLineEdit>
+#include <QtCore/QString>
+#include <QtCore/QList>
+#include <QtCore/QMap>
+
+#include <QtWidgets/QWidget>
+#include <QtWidgets/QWizardPage>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QGroupBox>
+#include <QtWidgets/QRadioButton>
+#include <QtWidgets/QComboBox>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QGroupBox>
+#include <QtWidgets/QTabWidget>
+#include <QtWidgets/QDialog>
+#include <QtWidgets/QFormLayout>
+#include <QtWidgets/QLineEdit>
 
 #include <ipnoise-common/log_common.h>
 #include <ipnoise-common/path.hpp>

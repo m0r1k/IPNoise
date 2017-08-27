@@ -99,28 +99,25 @@ void LoginWidget::setupUi(QWidget *a_parent)
 void LoginWidget::retranslateUi(QWidget *a_parent)
 {
     a_parent->setWindowTitle(QApplication::translate(
-        "LoginWidget", "Form", 0, QApplication::UnicodeUTF8
+        "LoginWidget", "Form", 0//, QApplication::UnicodeUTF8
     ));
     m_login_label->setText(QApplication::translate(
-        "LoginWidget", "Login", 0, QApplication::UnicodeUTF8
+        "LoginWidget", "Login", 0//, QApplication::UnicodeUTF8
     ));
     m_password_label->setText(QApplication::translate(
-        "LoginWidget", "Password",
-        0, QApplication::UnicodeUTF8
+        "LoginWidget", "Password", 0//, QApplication::UnicodeUTF8
     ));
     m_login_new->setText(QApplication::translate(
-        "LoginWidget", "New user",
-        0, QApplication::UnicodeUTF8
+        "LoginWidget", "New user", 0//, QApplication::UnicodeUTF8
     ));
     m_password_store->setText(QApplication::translate(
-        "LoginWidget", "Store", 0, QApplication::UnicodeUTF8
+        "LoginWidget", "Store", 0//, QApplication::UnicodeUTF8
     ));
     m_login_submit->setText(QApplication::translate(
-        "LoginWidget", "Login", 0, QApplication::UnicodeUTF8
+        "LoginWidget", "Login", 0//, QApplication::UnicodeUTF8
     ));
     m_status_label->setText(QApplication::translate(
-        "LoginWidget", "Status line",
-        0, QApplication::UnicodeUTF8
+        "LoginWidget", "Status line", 0//, QApplication::UnicodeUTF8
     ));
 }
 

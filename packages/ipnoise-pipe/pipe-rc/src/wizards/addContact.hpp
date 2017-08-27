@@ -1,10 +1,11 @@
 #ifndef WIZARD_ADD_CONTACT_HPP
 #define WIZARD_ADD_CONTACT_HPP
 
-#include <QWidget>
-#include <QString>
-#include <QVBoxLayout>
-#include <QLabel>
+#include <QtCore/QString>
+
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QWidget>
 
 #include <ipnoise-common/log_common.h>
 #include "contactListTreeItem.hpp"

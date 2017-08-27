@@ -1,8 +1,8 @@
 #ifndef CONFERENCE_MSG_WIDGET_HPP
 #define CONFERENCE_MSG_WIDGET_HPP
 
-#include <QString>
-#include <QListWidgetItem>
+#include <QtCore/QString>
+#include <QtWidgets/QListWidgetItem>
 
 class ConferenceMsgWidget
     :   public  QListWidgetItem

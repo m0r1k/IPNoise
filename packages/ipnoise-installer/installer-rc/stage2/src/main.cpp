@@ -1,3 +1,5 @@
+#include <QtCore/QTranslator>
+
 #if defined(WIN32) || defined(WIN64)
 #include <windows.h>
 #endif
@@ -116,6 +118,11 @@ int main(int argc, char **argv)
     QString         action          = "";
     QString         install_dir     = "";
     bool            console         = false;
+    QTranslator     tr;
+
+    if (tr.load("ru.qm")){
+        app->installTranslator(&tr);
+    }
 
     // default install dir
     Path cur_dir    = Path::getCwd();

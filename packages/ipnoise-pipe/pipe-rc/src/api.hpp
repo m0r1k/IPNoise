@@ -6,14 +6,15 @@ class Api;
 #include <sys/types.h>
 #include <unistd.h>
 
-#include <QObject>
-#include <QString>
-#include <QMap>
-#include <QList>
-#include <QDomDocument>
-#include <QDomElement>
-#include <QTcpSocket>
-#include <QUrl>
+#include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtCore/QMap>
+#include <QtCore/QList>
+#include <QtCore/QUrl>
+
+#include <QtXml/QDomDocument>
+#include <QtXml/QDomElement>
+#include <QtNetwork/QTcpSocket>
 
 // commands
 #include "api/apiCommand.hpp"

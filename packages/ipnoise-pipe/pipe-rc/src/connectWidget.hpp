@@ -3,12 +3,13 @@
 
 #include <stdio.h>
 
-#include <QObject>
-#include <QWidget>
-#include <QLabel>
-#include <QString>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
+#include <QtCore/QObject>
+#include <QtCore/QString>
+
+#include <QtWidgets/QWidget>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QHBoxLayout>
 
 #include "loginWidget.hpp"
 #include <ipnoise-common/log.h>

@@ -1,9 +1,10 @@
 #ifndef CONTACT_LIST_GROUP
 #define CONTACT_LIST_GROUP
 
-#include <QTreeWidgetItem>
-#include <QStringList>
-#include <QString>
+#include <QtCore/QStringList>
+#include <QtCore/QString>
+
+#include <QtWidgets/QTreeWidgetItem>
 
 #include "contactListTreeItem.hpp"
 #include "api.hpp"

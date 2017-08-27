@@ -1,12 +1,12 @@
 #ifndef LINK_UDP_WIDGET_HPP
 #define LINK_UDP_WIDGET_HPP
 
-#include <QWidget>
-#include <QLabel>
-#include <QFormLayout>
-#include <QLabel>
-#include <QLineEdit>
-#include <QVBoxLayout>
+#include <QtWidgets/QWidget>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QFormLayout>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
+#include <QtWidgets/QVBoxLayout>
 
 #include "linkWidget.hpp"
 

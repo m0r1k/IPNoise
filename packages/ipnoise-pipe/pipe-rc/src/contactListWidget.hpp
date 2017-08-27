@@ -3,17 +3,19 @@ class ContactListWidget;
 #ifndef CONTACT_LIST_WIDGET_HPP
 #define CONTACT_LIST_WIDGET_HPP
 
-#include <QObject>
-#include <QWidget>
-#include <QList>
-#include <QTreeWidget>
-#include <QStringList>
-#include <QHeaderView>
-#include <QContextMenuEvent>
-#include <QAction>
-#include <QMenu>
-#include <QApplication>
-#include <QCloseEvent>
+#include <QtCore/QObject>
+#include <QtCore/QList>
+#include <QtCore/QStringList>
+
+#include <QtWidgets/QWidget>
+#include <QtWidgets/QTreeWidget>
+#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QAction>
+#include <QtWidgets/QMenu>
+#include <QtWidgets/QApplication>
+
+#include <QtGui/QCloseEvent>
+#include <QtGui/QContextMenuEvent>
 
 #include <ipnoise-common/log_common.h>
 #include "contactListTreeItem.hpp"

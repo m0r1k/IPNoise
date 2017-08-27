@@ -1,4 +1,4 @@
-#include <QColor>
+#include <QtGui/QColor>
 
 #include "conferencesWidget.hpp"
 #include "conferenceWidget.hpp"

@@ -5,7 +5,7 @@ RPMS_DIR		= ~/rpmbuild/RPMS/i386/
 SRPMS_DIR		= ~/rpmbuild/SRPMS/
 STORE_FILES_TO	= .files
 STORE_RPMS_TO	= .rpms
-ARCHES			= lin32 win32 arm32
+ARCHES			= lin32 lin64 win32 arm32
 HASH_PATHS		= ../ipnoise-common/ ${APPNAME}/
 
 ## DESTDIR must be only absolute path
@@ -13,20 +13,24 @@ DESTDIR ?= $(PWD)/$(STORE_FILES_TO)
 
 .PHONY =	qemu-prepare			\
 			qemu-prepare-lin32		\
+			qemu-prepare-lin64		\
 			qemu-prepare-win32		\
 			qemu-prepare-arm32		\
 			qemu-platform-changed	\
 			qemu-make				\
 			qemu-make-lin32			\
+			qemu-make-lin64			\
 			qemu-make-win32			\
 			qemu-make-arm32			\
 			qemu-install			\
 			qemu-install-lin32		\
+			qemu-install-lin64		\
 			qemu-install-win32		\
 			qemu-install-arm32		\
 			qemu-rpms				\
 			qemu-clean				\
 			qemu-clean-lin32		\
+			qemu-clean-lin64		\
 			qemu-clean-win32		\
 			qemu-clean-arm32
 
@@ -49,6 +53,22 @@ qemu-prepare-lin32: qemu-prepare
 	    --extra-cflags="-I $(PWD)/../" 									\
 	    --extra-ldflags=-lrt											\
 		--target-list=i386-softmmu										\
+		--prefix=/usr/;
+
+qemu-prepare-lin64: qemu-prepare
+	cd $(APPNAME);														\
+	PKG_CONFIG_PATH=/usr/lib/pkgconfig/;								\
+	export PKG_CONFIG_PATH;												\
+	./configure 														\
+	    --cross-prefix= 												\
+	    --host-cc=gcc 													\
+	    --audio-drv-list=  												\
+		--enable-virtfs													\
+		--disable-debug-tcg												\
+		--disable-tcg-interpreter										\
+	    --extra-cflags="-I $(PWD)/../" 									\
+	    --extra-ldflags=-lrt											\
+		--target-list=x86_64-softmmu									\
 		--prefix=/usr/;
 
 qemu-prepare-win32: qemu-prepare
@@ -92,6 +112,7 @@ qemu-make:
 	$(MAKE) -C $(APPNAME) -j 4
 
 qemu-make-lin32: qemu-make
+qemu-make-lin64: qemu-make
 qemu-make-win32: qemu-make
 qemu-make-arm32: qemu-make
 
@@ -108,6 +129,11 @@ qemu-install:
 
 qemu-install-lin32: qemu-install
 	install -m 0755 $(APPNAME)/i386-softmmu/qemu-system-i386							$(DESTDIR)/qemu
+	#install -m 0755 /usr/lib/libpng15.so.15 $(DESTDIR)/
+	#install -m 0755 /usr/lib/libtinfo.so.5  $(DESTDIR)/
+
+qemu-install-lin64: qemu-install
+	install -m 0755 $(APPNAME)/x86_64-softmmu/qemu-system-x86_64						$(DESTDIR)/qemu
 	#install -m 0755 /usr/lib/libpng15.so.15 $(DESTDIR)/
 	#install -m 0755 /usr/lib/libtinfo.so.5  $(DESTDIR)/
 
@@ -150,6 +176,7 @@ qemu-clean:
 	$(MAKE) -C $(APPNAME) clean
 
 qemu-clean-lin32: qemu-clean
+qemu-clean-lin64: qemu-clean
 qemu-clean-win32: qemu-clean
 qemu-clean-arm32: qemu-clean
 

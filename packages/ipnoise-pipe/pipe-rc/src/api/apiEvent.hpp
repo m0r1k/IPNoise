@@ -6,10 +6,10 @@
 
 class Api;
 
-#include <QObject>
-#include <QString>
-#include <QDomDocument>
-#include <QDomElement>
+#include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtXml/QDomDocument>
+#include <QtXml/QDomElement>
 
 class ApiEvent
     :   public QObject

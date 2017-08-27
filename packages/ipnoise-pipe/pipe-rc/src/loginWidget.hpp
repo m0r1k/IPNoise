@@ -1,21 +1,22 @@
 #ifndef LOGIN_WIDGET_HPP
 #define LOGIN_WIDGET_HPP
 
-#include <QObject>
-#include <QWidget>
-#include <QVariant>
-#include <QAction>
-#include <QApplication>
-#include <QButtonGroup>
-#include <QCheckBox>
-#include <QFormLayout>
-#include <QHBoxLayout>
-#include <QHeaderView>
-#include <QLabel>
-#include <QLineEdit>
-#include <QPushButton>
-#include <QSpacerItem>
-#include <QVBoxLayout>
+#include <QtCore/QObject>
+#include <QtCore/QVariant>
+
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QWidget>
+#include <QtWidgets/QAction>
+#include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QCheckBox>
+#include <QtWidgets/QFormLayout>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QVBoxLayout>
 
 class LoginWidget
     :   public QWidget

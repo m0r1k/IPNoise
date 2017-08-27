@@ -1,8 +1,8 @@
 #ifndef LINK_TCP_HPP
 #define LINK_TCP_HPP
 
-#include <QWidget>
-#include <QLabel>
+#include <QtWidgets/QWidget>
+#include <QtWidgets/QLabel>
 #include "linkWidget.hpp"
 
 class LinkTcpWidget

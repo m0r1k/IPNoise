@@ -1,12 +1,13 @@
 #ifndef CONFERENCE_HELPER_WIDGET
 #define CONFERENCE_HELPER_WIDGET
 
-#include <QWidget>
-#include <QString>
-#include <QLabel>
-#include <QVBoxLayout>
-#include <QPushButton>
-#include <QSpacerItem>
+#include <QtCore/QString>
+
+#include <QtWidgets/QWidget>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpacerItem>
 
 class ConferenceWidget;
 class ConferencesWidget;

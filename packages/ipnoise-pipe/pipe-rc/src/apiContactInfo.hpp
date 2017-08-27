@@ -2,10 +2,11 @@
 #define API_CONTACT_INFO
 
 #include <stdio.h>
-#include <QObject>
-#include <QString>
-#include <QMap>
 #include <stdint.h>
+
+#include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtCore/QMap>
 
 typedef QMap<QString, int32_t>          ContactItems;
 typedef ContactItems::iterator          ContactItemsIt;

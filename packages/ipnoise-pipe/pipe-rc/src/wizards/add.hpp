@@ -1,11 +1,12 @@
 #ifndef WIZARD_ADD_HPP
 #define WIZARD_ADD_HPP
 
-#include <QWidget>
-#include <QString>
-#include <QVBoxLayout>
-#include <QLabel>
-#include <QList>
+#include <QtCore/QString>
+#include <QtCore/QList>
+
+#include <QtWidgets/QWidget>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QLabel>
 
 #include <ipnoise-common/log_common.h>
 #include "wizard.hpp"

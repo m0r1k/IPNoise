@@ -1,8 +1,8 @@
 #ifndef API_ITEM_INFO
 #define API_ITEM_INFO
 
-#include <QObject>
-#include <QString>
+#include <QtCore/QObject>
+#include <QtCore/QString>
 
 class ApiItemInfo
     :   public QObject

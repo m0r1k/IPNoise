@@ -3,8 +3,8 @@
 
 #include "apiEvent.hpp"
 
-#include <QDomDocument>
-#include <QDomElement>
+#include <QtXml/QDomDocument>
+#include <QtXml/QDomElement>
 
 class ApiEventLoginFailed
     :   public ApiEvent

@@ -1,17 +1,18 @@
 #ifndef WIDGET_SEARCH_USER_PAGE_PROCESS_HPP
 #define WIDGET_SEARCH_USER_PAGE_PROCESS_HPP
 
-#include <QWidget>
-#include <QWizardPage>
-#include <QVBoxLayout>
-#include <QLabel>
-#include <QGroupBox>
-#include <QRadioButton>
-#include <QList>
-#include <QTimer>
-#include <QProgressBar>
-#include <QCoreApplication>
-#include <QSpacerItem>
+#include <QtCore/QList>
+#include <QtCore/QTimer>
+#include <QtCore/QCoreApplication>
+
+#include <QtWidgets/QWidget>
+#include <QtWidgets/QWizardPage>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QGroupBox>
+#include <QtWidgets/QRadioButton>
+#include <QtWidgets/QProgressBar>
+#include <QtWidgets/QSpacerItem>
 
 #include <ipnoise-common/log_common.h>
 #include "contactListTreeItem.hpp"

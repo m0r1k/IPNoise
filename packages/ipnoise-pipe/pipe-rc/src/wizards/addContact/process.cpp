@@ -174,9 +174,9 @@ void WizardAddContactPageProcess::AddLinksTab(
     m_links_table->setHorizontalHeaderLabels(labels);
     m_links_table->horizontalHeader()
         ->setStretchLastSection(true);
-    m_links_table->horizontalHeader()->setResizeMode(
-        QHeaderView::ResizeToContents
-    );
+    //m_links_table->horizontalHeader()->setResizeMode(
+    //    QHeaderView::ResizeToContents
+    //);
 
     vbox->addWidget(m_links_table);
 

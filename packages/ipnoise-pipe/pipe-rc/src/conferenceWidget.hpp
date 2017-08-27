@@ -1,15 +1,16 @@
 #ifndef CONFERENCE_WIDGET_HPP
 #define CONFERENCE_WIDGET_HPP
 
-#include <QObject>
-#include <QWidget>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QLabel>
-#include <QTextEdit>
-#include <QListWidget>
-#include <QPushButton>
-#include <QApplication>
+#include <QtCore/QObject>
+
+#include <QtWidgets/QListWidget>
+#include <QtWidgets/QWidget>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QTextEdit>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QApplication>
 
 #include "textEditWidget.hpp"
 #include "conferenceItemWidget.hpp"

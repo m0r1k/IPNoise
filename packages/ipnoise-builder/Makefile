@@ -3,7 +3,7 @@ HARD_DRIVE_ISO		= ./fedora-26-x86_64.qcow
 HARD_DRIVE_SIZE		= 20G
 
 ## cdrom isos params
-CDROM_ISO		= ./Fedora-Server-dvd-x86_64-26-1.5.iso
+CDROM_ISO			= ./Fedora-Server-dvd-x86_64-26-1.5.iso
 CDROM_ORIG_ISO		= /mnt/multimedia/iso/Fedora-Server-dvd-x86_64-26-1.5.iso
 CDROM_CONTENT_DIR	= ./iso
 CDROM_MOUNT_POINT	= ./cdrom
@@ -14,6 +14,9 @@ CDROM_ROOTFS_FILES  = $(foreach dir, $(CDROM_ROOTFS_DIR), $(wildcard $(dir)/*))
 
 ## qemu params
 QEMU_MEM_SIZE		= 2047
+
+QEMU_DIR  = ../out/lin64/ipnoise/pipe/
+QEMU      = $(QEMU_DIR)/qemu
 
 .PHONY: default start install_os hard_drive_iso cdrom_iso $(CDROM_ISO)
 
@@ -72,8 +75,8 @@ cdrom_iso: $(CDROM_ISO)
 ## install os
 
 install_os: cdrom_iso hard_drive_iso
-	/mnt/multimedia/out/lin32/ipnoise/pipe/qemu   					\
-		-L /mnt/multimedia/out/lin32/ipnoise/pipe/					\
+	$(QEMU)															\
+		-L $(QEMU_DIR)												\
 		-enable-kvm													\
 		-smp 4														\
 		-cdrom $(CDROM_ISO) 										\
@@ -84,8 +87,8 @@ install_os: cdrom_iso hard_drive_iso
 		-localtime
 
 start_with_net:
-	/mnt/multimedia/out/lin32/ipnoise/pipe/qemu 					\
-		-L /mnt/multimedia/out/lin32/ipnoise/pipe/					\
+	$(QEMU)															\
+		-L $(QEMU_DIR)												\
 		-enable-kvm													\
 		-smp 4														\
 		-hda $(HARD_DRIVE_ISO)										\
@@ -96,8 +99,8 @@ start_with_net:
 		-vnc 0.0.0.0::5901
 
 start:
-	/mnt/multimedia/out/lin32/ipnoise/pipe/qemu 					\
-		-L /mnt/multimedia/out/lin32/ipnoise/pipe/					\
+	$(QEMU)															\
+		-L $(QEMU_DIR)												\
 		-enable-kvm													\
 		-smp 4														\
 		-hda $(HARD_DRIVE_ISO)										\

@@ -34,6 +34,13 @@ packages/ipnoise-iproute2/iproute2-rc/lib/ll_types.c (IPNoise's hardware address
 
 ## Build
 ```
+    ## start downloading the Fedora ISO
+    mkdir -p /mnt/multimedia/iso
+    cd /mnt/multimedia/iso
+    wget -c http://ftp.colocall.net/pub/fedora/linux/releases/26/Server/x86_64/iso/Fedora-Server-dvd-x86_64-26-1.5.iso
+    cd -
+
+    ## clone IPNoise
     git clone https://github.com/m0r1k/IPNoise.git
     cd IPNoise/packages/
 
@@ -44,7 +51,24 @@ packages/ipnoise-iproute2/iproute2-rc/lib/ll_types.c (IPNoise's hardware address
     make lin32
 
     ## make qemu
-    make qemu-lin32
+    make qemu-lin64
+
+    ## install all to out
+    make install-lin64
+
+    ## prepare virtual machine
+    cd ipnoise-builder/
+    sudo losetup -f
+    sudo mkdir -p /mnt/iso/
+    sudo mount -o loop /mnt/multimedia/iso/Fedora-Server-dvd-x86_64-26-1.5.iso /mnt/iso/
+    sudo cp -f /mnt/iso/* iso/
+    sudo umount /mnt/iso
+    make install_os
+    ## you can view installation via command: 'vncviewer :0'
+    cd ../
+
+    ## after installation you can start virtual machine by command:
+    make -C ipnoise-builder start
 
 ```
 

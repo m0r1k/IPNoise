@@ -1,16 +1,17 @@
 #ifndef WIZARD_SEARCH_USER_PAGE_SELECT_HPP
 #define WIZARD_SEARCH_USER_PAGE_SELECT_HPP
 
-#include <QWidget>
-#include <QWizardPage>
-#include <QLabel>
-#include <QVBoxLayout>
-#include <QString>
-#include <QGroupBox>
-#include <QRadioButton>
-#include <QList>
-#include <QComboBox>
-#include <QSpacerItem>
+#include <QtCore/QString>
+#include <QtCore/QList>
+
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QWidget>
+#include <QtWidgets/QWizardPage>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QGroupBox>
+#include <QtWidgets/QRadioButton>
+#include <QtWidgets/QComboBox>
+#include <QtWidgets/QSpacerItem>
 
 #include <ipnoise-common/log_common.h>
 #include <ipnoise-common/path.hpp>

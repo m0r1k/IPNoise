@@ -1,10 +1,11 @@
 #ifndef TEXT_EDIT_WIDGET
 #define TEXT_EDIT_WIDGET
 
-#include <QObject>
-#include <QTextEdit>
-#include <QKeyEvent>
 #include <stdint.h>
+
+#include <QtCore/QObject>
+#include <QtWidgets/QTextEdit>
+#include <QtGui/QKeyEvent>
 
 #include <ipnoise-common/log_common.h>
 

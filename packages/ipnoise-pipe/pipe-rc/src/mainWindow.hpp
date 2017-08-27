@@ -5,14 +5,16 @@ class MainWindow;
 
 #include <unistd.h>
 
-#include <QApplication>
-#include <QLabel>
-#include <QWidget>
-#include <QTimer>
-#include <QProcess>
-#include <QDomDocument>
-#include <QDomElement>
-#include <QVBoxLayout>
+#include <QtCore/QTimer>
+#include <QtCore/QProcess>
+
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QWidget>
+#include <QtWidgets/QVBoxLayout>
+
+#include <QtXml/QDomDocument>
+#include <QtXml/QDomElement>
 
 #include "api.hpp"
 #include "contactListWidget.hpp"

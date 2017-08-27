@@ -3,10 +3,10 @@ class LinkWidget;
 #ifndef LINK_WIDGET_HPP
 #define LINK_WIDGET_HPP
 
-#include <QWidget>
-#include <QInputDialog>
-#include <QIcon>
-#include <QMap>
+#include <QtCore/QMap>
+#include <QtWidgets/QWidget>
+#include <QtWidgets/QInputDialog>
+#include <QtGui/QIcon>
 
 #include <ipnoise-common/log_common.h>
 

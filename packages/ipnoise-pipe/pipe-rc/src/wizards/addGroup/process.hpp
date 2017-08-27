@@ -1,13 +1,14 @@
 #ifndef WIZARD_ADD_GROUP_PAGE_PROCESS_HPP
 #define WIZARD_ADD_GROUP_PAGE_PROCESS_HPP
 
-#include <QWidget>
-#include <QWizardPage>
-#include <QLabel>
-#include <QVBoxLayout>
-#include <QFormLayout>
-#include <QString>
-#include <QLineEdit>
+#include <QtCore/QString>
+
+#include <QtWidgets/QWidget>
+#include <QtWidgets/QWizardPage>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QFormLayout>
+#include <QtWidgets/QLineEdit>
 
 #include <ipnoise-common/log_common.h>
 #include <ipnoise-common/path.hpp>

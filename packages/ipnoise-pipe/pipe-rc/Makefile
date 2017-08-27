@@ -1,11 +1,7 @@
 DEFINES = -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SHARED
-CFLAGS  = -g3 -O0 -Wall $(DEFINES) 		\
+CFLAGS  = -fPIC -g3 -O0 -Wall $(DEFINES) 		\
 	-I../../ 							\
-	-I/usr/lib/qt5/include/ 			\
-	-I/usr/lib/qt5/include/QtCore/ 		\
-	-I/usr/lib/qt5/include/QtXml/ 		\
-	-I/usr/lib/qt5/include/QtNetwork/	\
-	-I/usr/lib/qt5/include/QtGui/
+	-I/usr/include/qt5
 
 LDFLAGS = -g3
 LIBS 	=
@@ -34,7 +30,7 @@ lin32: CFLAGS   += -DLIN32
 lin32: CXXFLAGS += $(CFLAGS)
 lin32: CCFLAGS  += $(CFLAGS)
 lin32: LDFLAGS  +=
-lin32: LIBS 	+= -lQtGui -lQtCore -lQtXml -lQtNetwork
+lin32: LIBS 	+= -lQt5Gui -lQt5Core -lQt5Widgets -lQt5Xml -lQt5Network
 
 ## arm 32
 arm32: CROSS     =
