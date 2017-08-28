@@ -1,7 +1,7 @@
 # IPNoise
 IPNoise - decentralized network engine for free internet
 
-![Main diagram](IPNoise.png")
+![Main diagram](https://raw.githubusercontent.com/m0r1k/IPNoise/master/IPNoise.png)
 
 ## Main parts
 
