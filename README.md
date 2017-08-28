@@ -1,6 +1,8 @@
 # IPNoise
 IPNoise - decentralized network engine for free internet
 
+![Main diagram](https://github.com/m0r1k/IPNoise/blob/master/IPNoise.svg)
+
 ## Main parts
 
 ### IPNoise QEMU virtual PCI device
