@@ -2,21 +2,24 @@ APPNAME	= 	installer
 APPDIR 	= 	./installer-rc
 
 STORE_FILES_TO	= .files
-ARCHES			= lin32 win32 arm32
+ARCHES			= lin32 lin64 win32 arm32
 HASH_PATHS		= ../ipnoise-common/ ${APPNAME}/ ../ipnoise-packer/
 
 ## DESTDIR must be only absolute path
 DESTDIR ?= $(PWD)/$(STORE_FILES_TO)
 
-.PHONY =	installer-prepare-lin32			\
+.PHONY:		installer-prepare-lin32			\
+			installer-prepare-lin64			\
 			installer-prepare-win32			\
 			installer-prepare-arm32			\
 			installer-platform-changed		\
 			installer-make-lin32			\
+			installer-make-lin64			\
 			installer-make-win32			\
 			installer-make-arm32			\
 			installer-install				\
 			installer-install-lin32			\
+			installer-install-lin64			\
 			installer-install-win32			\
 			installer-install-arm32			\
 			installer-rpms					\
@@ -28,6 +31,7 @@ installer-prepare:
 	install -m 0755 -d "$(PWD)/$(STORE_FILES_TO)"
 
 installer-prepare-lin32: installer-prepare
+installer-prepare-lin64: installer-prepare
 installer-prepare-win32: installer-prepare
 installer-prepare-arm32: installer-prepare
 
@@ -38,6 +42,14 @@ installer-make-lin32:
 	$(MAKE) -C ../ipnoise-xz 	 lin32
 	$(MAKE) -C ../ipnoise-xz 	 install DESTDIR="$(PWD)/$(STORE_FILES_TO)"
 	$(MAKE) -C $(APPNAME) lin32
+
+installer-make-lin64:
+	$(MAKE) -C ../ipnoise-packer clean
+	$(MAKE) -C ../ipnoise-packer lin64
+	$(MAKE) -C ../ipnoise-packer install DESTDIR="$(PWD)/$(STORE_FILES_TO)"
+	$(MAKE) -C ../ipnoise-xz 	 lin64
+	$(MAKE) -C ../ipnoise-xz 	 install DESTDIR="$(PWD)/$(STORE_FILES_TO)"
+	$(MAKE) -C $(APPNAME) lin64
 
 installer-make-win32:
 	$(MAKE) -C ../ipnoise-packer win32
@@ -53,6 +65,14 @@ installer-install:
 	install -m 0755 -d $(DESTDIR)
 
 installer-install-lin32: installer-install
+	install -m 0755 $(APPNAME)/stage1/stage1 $(DESTDIR)/stage1
+	install -m 0755 -d $(DESTDIR)/pipe
+	install -m 0755 -d $(DESTDIR)/pipe/resources
+	install -m 0755 $(APPNAME)/stage2/stage2 	$(DESTDIR)/pipe/
+	install -m 0755 $(APPNAME)/stage2/stage2.sh	$(DESTDIR)/pipe/
+	cp -r $(APPNAME)/stage2/resources/* $(DESTDIR)/pipe/resources
+
+installer-install-lin64: installer-install
 	install -m 0755 $(APPNAME)/stage1/stage1 $(DESTDIR)/stage1
 	install -m 0755 -d $(DESTDIR)/pipe
 	install -m 0755 -d $(DESTDIR)/pipe/resources
@@ -91,6 +111,7 @@ installer-clean:
 	fi
 
 installer-clean-lin32: installer-clean
+installer-clean-lin64: installer-clean
 installer-clean-win32: installer-clean
 installer-clean-arm32: installer-clean
 

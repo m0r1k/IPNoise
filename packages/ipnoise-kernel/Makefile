@@ -1,8 +1,6 @@
 APPNAME	= 	kernel
 APPDIR 	= 	./linux-4.12.9
 
-RPMS_DIR		= ~/rpmbuild/RPMS/i386/
-SRPMS_DIR		= ~/rpmbuild/SRPMS/
 STORE_FILES_TO	= .files
 STORE_RPMS_TO	= .rpms
 HASH_PATHS		= ${APPNAME}/ ../ipnoise-common/
@@ -10,16 +8,18 @@ HASH_PATHS		= ${APPNAME}/ ../ipnoise-common/
 ## DESTDIR must be only absolute path
 DESTDIR ?= $(PWD)/$(STORE_FILES_TO)
 
-.PHONY =	kernel-prepare-lin32		\
-			kernel-prepare-lin64		\
-			kernel-platform-changed		\
+.PHONY:		kernel-prepare-lin32		\
 			kernel-make-lin32			\
-			kernel-make-lin64			\
 			kernel-install-lin32		\
-			kernel-install-lin64		\
-			kernel-rpms					\
 			kernel-clean-lin32			\
-			kernel-clean-lin64
+										\
+			kernel-prepare-lin64		\
+			kernel-make-lin64			\
+			kernel-install-lin64		\
+			kernel-clean-lin64			\
+										\
+			kernel-platform-changed		\
+			kernel-rpms
 
 include ../Makefile.mk
 
@@ -52,7 +52,6 @@ kernel-install-lin64:
 	find $(DESTDIR) -name source | xargs -i rm -rf {};
 	## $(MAKE) -C ${APPNAME} headers_install ARCH=i386 INSTALL_HDR_PATH=$(DESTDIR)/usr/include/$(APPNAME)/
 	cat target.hash > last_build.hash
-
 
 kernel-clean:
 	rm -rf $(DESTDIR)/*

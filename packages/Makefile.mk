@@ -1,9 +1,12 @@
 ## for debug rpms, don't forget install: 'redhat-rpm-config'
 
-.PHONY += usage prepare lin32 lin64 win32 arm32 make install rpms clean
+.PHONY: usage prepare lin32 lin64 win32 arm32 make install rpms clean
 
 ARCHES ?= lin32 lin64 win32 arm32
 HASH_PATHS += .arch
+
+RPMS_DIR  = ~/rpmbuild/RPMS/$(IPNOISE_PACKAGES_ARCH)/
+SRPMS_DIR = ~/rpmbuild/SRPMS/
 
 usage:
 	@echo "Compilation: make $(ARCHES)"
@@ -81,22 +84,26 @@ install:
 		fi
 
 rpms: prepare
-	@if [ ! -n "$(RPMS_DIR)" ];then			\
-		echo "RPMS_DIR not defined";		\
-		exit 1;								\
+	@if [ ! -n "$(IPNOISE_PACKAGES_ARCH)" ];then		\
+		echo "IPNOISE_PACKAGES_ARCH is not defined";	\
+		exit 1;											\
 	fi
-	@if [ ! -n "$(SRPMS_DIR)" ];then		\
-		echo "SRPMS_DIR not defined";		\
-		exit 1;								\
+	@if [ ! -n "$(RPMS_DIR)" ];then				\
+		echo "RPMS_DIR is not defined";			\
+		exit 1;									\
 	fi
-	@if [ ! -n "$(STORE_RPMS_TO)" ];then	\
-		echo "STORE_RPMS_TO not defined";	\
-		exit 1;								\
+	@if [ ! -n "$(SRPMS_DIR)" ];then			\
+		echo "SRPMS_DIR is not defined";		\
+		exit 1;									\
+	fi
+	@if [ ! -n "$(STORE_RPMS_TO)" ];then		\
+		echo "STORE_RPMS_TO is not defined";	\
+		exit 1;									\
 	fi
 	@$(MAKE) $(APPNAME)-rpms
 	rm -f $(RPMS_DIR)/ipnoise-$(APPNAME)*
 	rm -f $(SRPMS_DIR)/ipnoise-$(APPNAME)*
-	rpmbuild -bb --target $(IPNOISE_PACKAGES_ARCH) ipnoise-$(APPNAME).spec	\
+	QA_SKIP_BUILD_ROOT=1 rpmbuild -bb --target $(IPNOISE_PACKAGES_ARCH) ipnoise-$(APPNAME).spec	\
 		--define "ipnoise_packages_path $(IPNOISE_PACKAGES_PATH)"			\
 		--define "ipnoise_packages_arch $(IPNOISE_PACKAGES_ARCH)"			\
 		--define "ipnoise_packages_target $(IPNOISE_PACKAGES_TARGET)"

@@ -28,7 +28,8 @@ OUT=./out/
 	lin32 	lin32_prepare 	lin32_make			\
 	lin64 	lin64_prepare 	lin64_make			\
 	win32 	win32_prepare	win32_make			\
-	arm32 	arm32_prepare	arm32_make
+	arm32 	arm32_prepare	arm32_make			\
+	copy_rpms
 
 lin32: IPNOISE_PACKAGES_ARCH="i386"
 lin32: IPNOISE_PACKAGES_TARGET="lin32"
@@ -61,7 +62,8 @@ setup:
 			qt5-qtdeclarative-static			\
 		libcap-devel libattr-devel				\
 		libstdc++-static glibc-static			\
-		syslinux-nonlinux
+		syslinux-nonlinux						\
+		libguestfs-tools
 	@echo "prepare rpmbuild"
 	mkdir -p ~/rpmbuild/BUILD/
 	ln -sf $(IPNOISE_PACKAGES_PATH)/../../IPNoise /home/$(USER)/rpmbuild/BUILD/
@@ -186,6 +188,9 @@ install-lin64:
 	make -C ipnoise-installer install DESTDIR=$(IPNOISE_PACKAGES_PATH)/out/lin64/ipnoise/
 	make -C ipnoise-qemu	  lin64
 	make -C ipnoise-qemu	  install DESTDIR=$(IPNOISE_PACKAGES_PATH)/out/lin64/ipnoise/pipe/
+
+copy_rpms:
+	make -C ipnoise-builder copy_rpms
 
 clean:
 	for i in `find . -maxdepth 1 -type d | grep "./"`;do	\

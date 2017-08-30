@@ -2,7 +2,7 @@ APPNAME	= 	pipe
 APPDIR 	= 	./pipe-rc
 
 STORE_FILES_TO	= .files
-ARCHES			= lin32 win32 arm32
+ARCHES			= lin32 lin64 win32 arm32
 HASH_PATHS		= ../ipnoise-common/ ${APPNAME}/
 
 ## DESTDIR must be only absolute path
@@ -11,18 +11,21 @@ DESTDIR ?= $(PWD)/$(STORE_FILES_TO)
 DEFAULT_IMAGES=resources/default/images
 DEFAULT_SOUNDS=resources/default/sounds
 
-.PHONY =	default						\
+.PHONY:		default						\
 			pipe-prepare-lin32			\
+			pipe-prepare-lin64			\
 			pipe-prepare-win32			\
 			pipe-prepare-arm32			\
-			pipe-platform-changed		\
 			pipe-make-lin32				\
+			pipe-make-lin64				\
 			pipe-make-win32				\
 			pipe-make-arm32				\
-			pipe-install				\
 			pipe-install-lin32			\
+			pipe-install-lin64			\
 			pipe-install-win32			\
 			pipe-install-arm32			\
+			pipe-install				\
+			pipe-platform-changed		\
 			pipe-rpms					\
 			pipe-clean
 
@@ -30,6 +33,9 @@ include ../Makefile.mk
 
 pipe-make-lin32:
 	$(MAKE) -C $(APPNAME) lin32
+
+pipe-make-lin64:
+	$(MAKE) -C $(APPNAME) lin64
 
 pipe-make-win32:
 	$(MAKE) -C $(APPNAME) win32
@@ -81,6 +87,9 @@ pipe-install-win32: pipe-install
 pipe-install-lin32: pipe-install
 	install -m 0755 $(APPNAME)/pipe-rc  $(DESTDIR)/pipe;
 
+pipe-install-lin64: pipe-install
+	install -m 0755 $(APPNAME)/pipe-rc  $(DESTDIR)/pipe;
+
 pipe-install-arm32: pipe-install
 	install -m 0755 $(APPNAME)/pipe-rc  $(DESTDIR)/pipe;
 
@@ -89,11 +98,13 @@ pipe-clean:
 	make -C $(APPNAME) clean
 
 pipe-clean-lin32: pipe-clean
+pipe-clean-lin64: pipe-clean
 pipe-clean-win32: pipe-clean
 pipe-clean-arm32: pipe-clean
 
 ## not used
 pipe-prepare-lin32:
+pipe-prepare-lin64:
 pipe-prepare-win32:
 pipe-prepare-arm32:
 pipe-platform-changed:

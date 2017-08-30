@@ -8,7 +8,7 @@ HASH_PATHS		= ../ipnoise-common/ win32/
 ## DESTDIR must be only absolute path
 DESTDIR ?= $(PWD)/$(STORE_FILES_TO)
 
-.PHONY =	tvnc-prepare-win32		\
+.PHONY:		tvnc-prepare-win32		\
 			tvnc-platform-changed	\
 			tvnc-make-win32			\
 			tvnc-install-win32		\
