@@ -122,6 +122,7 @@ start:
 		-enable-kvm													\
 		-smp 4														\
 		-hda $(HARD_DRIVE_ISO)										\
+		-cdrom $(CDROM_ISO) 										\
 		-boot order=c												\
 		-net none													\
 		-m $(QEMU_MEM_SIZE)											\
