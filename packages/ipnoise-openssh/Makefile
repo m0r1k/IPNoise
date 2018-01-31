@@ -1,5 +1,5 @@
 APPNAME	= 	openssh
-APPDIR 	= 	./openssh-7.5p1
+APPDIR 	= 	./openssh-7.6p1
 CFLAGS 	= 	-I$(PWD)/../
 
 SOURCES_DIR		= ~/rpmbuild/SOURCES/

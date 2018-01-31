@@ -2,7 +2,7 @@
 %define package_path    %{ipnoise_packages_path}/ipnoise-%{package_name}
 
 %define name            ipnoise-openssh
-%define version         7.5p1
+%define version         7.6p1
 %define release         0
 
 Name:           %{name}
