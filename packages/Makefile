@@ -53,7 +53,7 @@ setup:
 	@echo "install required packages"
 	sudo dnf install rpm-build      			\
 		bison flex libdb-devel libdb4-devel     \
-		gcc make automake                    	\
+		gcc gcc-c++ make automake               \
 		openssl openssl-devel					\
 		libxml2 libxml2-devel       			\
 		lzma									\
