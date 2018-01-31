@@ -1,6 +1,10 @@
-.PHONY = lin32 clean
+.PHONY = lin32 lin64 clean
 
 lin32:
+	$(MAKE) -C stage1 $@
+	$(MAKE) -C stage2 $@
+
+lin64:
 	$(MAKE) -C stage1 $@
 	$(MAKE) -C stage2 $@
 

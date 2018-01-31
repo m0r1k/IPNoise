@@ -12,7 +12,7 @@ CFLAGS  = -g3 -O0 -fPIC -Wall $(DEFINES) 	\
 LDFLAGS = -g3 -finput-charset=utf8
 LIBS 	= ../../.files/packer.a
 
-ARCHES	= lin32 win32 arm32
+ARCHES	= lin32 lin64 win32 arm32
 
 ## linux 32
 lin32: CROSS     =
@@ -25,6 +25,18 @@ lin32: CXXFLAGS += $(CFLAGS)
 lin32: CCFLAGS  += $(CFLAGS)
 lin32: LDFLAGS  +=
 lin32: LIBS 	+= -lQt5Widgets -lQt5Gui -lQt5Core -lQt5Network ../../.files/liblzma.a
+
+## linux 64
+lin64: CROSS     =
+lin64: CC        = gcc
+lin64: CXX       = g++
+## mandriva ln -s /usr/lib/qt5/bin/moc /usr/bin/moc-qt5
+lin64: MOC       = moc-qt5
+lin64: CFLAGS   += -DLIN64
+lin64: CXXFLAGS += $(CFLAGS)
+lin64: CCFLAGS  += $(CFLAGS)
+lin64: LDFLAGS  +=
+lin64: LIBS 	+= -lQt5Widgets -lQt5Gui -lQt5Core -lQt5Network ../../.files/liblzma.a
 
 ## win 32
 win32: CROSS    = i686-w64-mingw32-
@@ -88,13 +100,14 @@ endif
 export OFILES   :=  $(HPPFILES:.hpp=.moc.o) $(CPPFILES:.cpp=.o)
 export INCLUDE  :=  $(foreach dir,$(INCLUDES),-I$(CURDIR)/$(dir)) $(INCPATHS)
 
-.PHONY: usage lin32 win32 arm32 clean
+.PHONY: usage lin32 lin64 win32 arm32 clean
 
 usage:
 	@echo "Compilation: make $(ARCHES)"
 	@echo "Clean:       make clean"
 
 lin32: $(TARGET)
+lin64: $(TARGET)
 win32: $(TARGET)
 arm32: $(TARGET)
 
