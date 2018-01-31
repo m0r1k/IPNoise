@@ -24,6 +24,7 @@ DESTDIR ?= $(PWD)/$(STORE_FILES_TO)
 include ../Makefile.mk
 
 kernel-make-lin32:
+	cd $(APPNAME) && cp -f ipnoise.config .config
 	$(MAKE) -C $(APPNAME) oldconfig
 	$(MAKE) -C ${APPNAME} KCFLAGS=-I$(PWD)/../
 
@@ -39,6 +40,7 @@ kernel-install-lin32:
 	cat target.hash > last_build.hash
 
 kernel-make-lin64:
+	cd $(APPNAME) && cp -f ipnoise.config .config
 	$(MAKE) -C $(APPNAME) oldconfig
 	$(MAKE) -C ${APPNAME} KCFLAGS=-I$(PWD)/../
 
