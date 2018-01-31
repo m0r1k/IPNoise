@@ -1,7 +1,7 @@
 IPNOISE_PACKAGES_TARGET=lin64
 IPNOISE_PACKAGES_ARCH=x86_64
 
-# ENABLE_KVM=-enable-kvm
+ENABLE_KVM=-enable-kvm
 # SMP=-smp 4
 SMP=-smp 2
 

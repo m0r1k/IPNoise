@@ -61,6 +61,7 @@ packages/ipnoise-iproute2/iproute2-rc/lib/ll_types.c (IPNoise's hardware address
 
     ## prepare virtual machine
     cd ipnoise-builder/
+    mkdir iso
     sudo losetup -f
     sudo mkdir -p /mnt/iso/
     sudo mount -o loop /mnt/multimedia/iso/Fedora-Server-dvd-x86_64-26-1.5.iso /mnt/iso/
