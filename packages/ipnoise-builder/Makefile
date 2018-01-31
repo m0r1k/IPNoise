@@ -1,6 +1,10 @@
 IPNOISE_PACKAGES_TARGET=lin64
 IPNOISE_PACKAGES_ARCH=x86_64
 
+# ENABLE_KVM=-enable-kvm
+# SMP=-smp 4
+SMP=-smp 2
+
 ## hard disk params
 HARD_DRIVE_ISO		= ./fedora-26-$(IPNOISE_PACKAGES_ARCH).qcow
 HARD_DRIVE_SIZE		= 20G
@@ -72,6 +76,11 @@ $(CDROM_CONTENT_DIR):
 	rm -rf ${CDROM_MOUNT_POINT};
 
 $(CDROM_ISO): $(CDROM_CONTENT_DIR) $(CDROM_ROOTFS_FILES)
+	cp -f /usr/share/syslinux/isolinux.bin 	${CDROM_CONTENT_DIR}/isolinux/
+	cp -f /boot/extlinux/ldlinux.c32 		${CDROM_CONTENT_DIR}/isolinux/
+	cp -f /boot/extlinux/vesamenu.c32		${CDROM_CONTENT_DIR}/isolinux/
+	cp -f /boot/extlinux/libcom32.c32		${CDROM_CONTENT_DIR}/isolinux/
+	cp -f /boot/extlinux/libutil.c32		${CDROM_CONTENT_DIR}/isolinux/
 	cp -rf $(CDROM_ROOTFS_DIR)/* ${CDROM_CONTENT_DIR}/;
 	cat ${CDROM_CONTENT_DIR}/isolinux/isolinux.cfg					\
 		| sed -e "s/%CDROM_LABEL%/$(CDROM_LABEL_ESCAPED)/g"			\
@@ -95,20 +104,21 @@ cdrom_iso: $(CDROM_ISO)
 install_os: cdrom_iso hard_drive_iso
 	$(QEMU)															\
 		-L $(QEMU_DIR)												\
-		-enable-kvm													\
-		-smp 4														\
+		$(ENABLE_KVM)												\
+		$(SMP)														\
 		-cdrom $(CDROM_ISO) 										\
 		-hda $(HARD_DRIVE_ISO)										\
 		-boot order=cd												\
 		-net none													\
 		-m $(QEMU_MEM_SIZE)											\
-		-localtime
+		-localtime													\
+		-vnc 0.0.0.0::5901
 
 start_with_net:
 	$(QEMU)															\
 		-L $(QEMU_DIR)												\
-		-enable-kvm													\
-		-smp 4														\
+		$(ENABLE_KVM)												\
+		$(SMP)														\
 		-hda $(HARD_DRIVE_ISO)										\
 		-boot order=c												\
 		-net nic -net user											\
@@ -119,8 +129,8 @@ start_with_net:
 start:
 	$(QEMU)															\
 		-L $(QEMU_DIR)												\
-		-enable-kvm													\
-		-smp 4														\
+		$(ENABLE_KVM)												\
+		$(SMP)														\
 		-hda $(HARD_DRIVE_ISO)										\
 		-cdrom $(CDROM_ISO) 										\
 		-boot order=c												\

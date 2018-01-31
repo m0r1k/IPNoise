@@ -68,7 +68,7 @@ setup:
 			qt5-qtdeclarative-static			\
 		libcap-devel libattr-devel				\
 		libstdc++-static glibc-static			\
-		syslinux-nonlinux						\
+		syslinux-nonlinux syslinux-extlinux-nonlinux \
 		libguestfs-tools
 	@echo "prepare rpmbuild"
 	mkdir -p ~/rpmbuild/BUILD/
