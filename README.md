@@ -50,7 +50,7 @@ packages/ipnoise-iproute2/iproute2-rc/lib/ll_types.c (IPNoise's hardware address
     make setup
 
     ## make packages
-    make lin32
+    make lin64
 
     ## make qemu
     make qemu-lin64
