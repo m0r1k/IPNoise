@@ -64,7 +64,10 @@ packages/ipnoise-iproute2/iproute2-rc/lib/ll_types.c (IPNoise's hardware address
     sudo losetup -f
     sudo mkdir -p /mnt/iso/
     sudo mount -o loop /mnt/multimedia/iso/Fedora-Server-dvd-x86_64-26-1.5.iso /mnt/iso/
-    sudo cp -rf /mnt/iso/* iso/
+    sudo cp -r /mnt/iso .
+    sudo chown -R $USER:$USER iso
+    find iso -type d | xargs -i chmod 0755 {}
+    find iso -type f | xargs -i chmod 0644 {}
     sudo umount /mnt/iso
     make install_os
     ## you can view installation via command: 'vncviewer :0'
