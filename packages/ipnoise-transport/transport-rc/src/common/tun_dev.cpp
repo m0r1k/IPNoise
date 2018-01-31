@@ -24,7 +24,7 @@ int tun_open_common(string &a_dev)
 
     memset(&ifr, 0, sizeof(ifr));
 
-    ifr.ifr_flags = IFF_TUN_IPNOISE | IFF_NO_PI;
+    ifr.ifr_flags = IFF_IPNOISE | IFF_NO_PI;
 
     // setup interface name if exist
     if (not a_dev.empty()){

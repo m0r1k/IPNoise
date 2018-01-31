@@ -74,3 +74,16 @@ packages/ipnoise-iproute2/iproute2-rc/lib/ll_types.c (IPNoise's hardware address
 
 ```
 
+## Notes:
+```
+    Porting on the new kernel:
+
+        Don't forger to check:
+
+        constant IFF_IPNOISE must be the save and free (0x0004 now) in the
+            ipnoise-common/ipnoise.h
+            ipnoise-kernel/kernel/include/uapi/linux/if_tun.h
+
+
+```
+

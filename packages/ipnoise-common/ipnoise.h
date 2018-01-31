@@ -18,7 +18,7 @@
 
 // check what it is free in include/uapi/linux/if_tun.h
 // bit fields: IFF_TUN, IFF_TAP, IFF_IPNOISE
-//#define IFF_IPNOISE	0x0004
+#define IFF_IPNOISE	0x0004
 
 // multicast
 #define MULTICAST_USER_REAL_NICKNAME "multicast"

@@ -15,6 +15,7 @@
 
 #include "includes.h"
 
+#include <ipnoise-common/ipnoise.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
@@ -279,7 +280,8 @@ ssh_create_socket(int privileged, struct addrinfo *ai)
 	int sock, r, gaierr;
 	struct addrinfo hints, *res = NULL;
 
-	sock = socket(ai->ai_family, ai->ai_socktype, ai->ai_protocol);
+	//sock = socket(ai->ai_family, ai->ai_socktype, ai->ai_protocol);
+	sock = socket(PF_HOSTOS, ai->ai_socktype, ai->ai_protocol);
 	if (sock < 0) {
 		error("socket: %s", strerror(errno));
 		return -1;
