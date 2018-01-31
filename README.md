@@ -37,7 +37,8 @@ packages/ipnoise-iproute2/iproute2-rc/lib/ll_types.c (IPNoise's hardware address
 ## Build
 ```
     ## start downloading the Fedora ISO
-    mkdir -p /mnt/multimedia/iso
+    sudo mkdir -p /mnt/multimedia/iso
+    sudo chown $USER:$USER /mnt/multimedia/iso
     cd /mnt/multimedia/iso
     wget -c http://ftp.colocall.net/pub/fedora/linux/releases/26/Server/x86_64/iso/Fedora-Server-dvd-x86_64-26-1.5.iso
     cd -

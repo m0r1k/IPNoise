@@ -57,9 +57,11 @@ setup:
 	sudo dnf install rpm-build      			\
 		bison flex libdb-devel libdb4-devel     \
 		gcc gcc-c++ make automake               \
+		libtool libtool-ltdl-devel				\
 		openssl compat-openssl10-devel			\
 		libxml2 libxml2-devel       			\
 		lzma									\
+		python									\
 		bc										\
 		qt5 qt5-devel qt5-qtbase-devel 			\
 			qt5-qtbase-static 					\
