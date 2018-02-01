@@ -1,6 +1,8 @@
 IPNOISE_PACKAGES_TARGET=lin64
 IPNOISE_PACKAGES_ARCH=x86_64
 
+USER_ORIG=$(USER)
+
 ## hard disk params
 HARD_DRIVE_ISO		= ./fedora-26-$(IPNOISE_PACKAGES_ARCH).qcow
 HARD_DRIVE_SIZE		= 20G
@@ -159,7 +161,7 @@ copy_rpms: hard_drive_iso
 	sudo mkdir -p $(MOUNT_DIR)$(HDD_RPMS_DIR)
 	sudo cp -f ./tmp/rpms/*.rpm $(MOUNT_DIR)$(HDD_RPMS_DIR)
 	$(MAKE) umount
-	sudo chown $(USER):$(USER) $(HARD_DRIVE_ISO)
+	sleep 5 && sudo chown $(USER_ORIG):$(USER_ORIG) $(HARD_DRIVE_ISO)
 
 ## not used
 lin32:
