@@ -1,10 +1,6 @@
 IPNOISE_PACKAGES_TARGET=lin64
 IPNOISE_PACKAGES_ARCH=x86_64
 
-ENABLE_KVM=-enable-kvm
-# SMP=-smp 4
-SMP=-smp 2
-
 ## hard disk params
 HARD_DRIVE_ISO		= ./fedora-26-$(IPNOISE_PACKAGES_ARCH).qcow
 HARD_DRIVE_SIZE		= 20G
@@ -27,6 +23,15 @@ QEMU_MEM_SIZE		= 2047
 
 QEMU_DIR  = ../out/$(IPNOISE_PACKAGES_TARGET)/ipnoise/pipe/
 QEMU      = $(QEMU_DIR)/qemu
+
+## start config {
+CDROM=-cdrom $(CDROM_ISO)
+HARD_DRIVE=-hda $(HARD_DRIVE_ISO)
+ENABLE_KVM=-enable-kvm
+# SMP=-smp 4
+SMP=-smp 2
+VNC=-vnc 0.0.0.0::5901
+## start config }
 
 .PHONY: default 	\
 	start 			\
@@ -76,11 +81,11 @@ $(CDROM_CONTENT_DIR):
 	rm -rf ${CDROM_MOUNT_POINT};
 
 $(CDROM_ISO): $(CDROM_CONTENT_DIR) $(CDROM_ROOTFS_FILES)
-	cp -f /usr/share/syslinux/isolinux.bin 	${CDROM_CONTENT_DIR}/isolinux/
-	cp -f /boot/extlinux/ldlinux.c32 		${CDROM_CONTENT_DIR}/isolinux/
-	cp -f /boot/extlinux/vesamenu.c32		${CDROM_CONTENT_DIR}/isolinux/
-	cp -f /boot/extlinux/libcom32.c32		${CDROM_CONTENT_DIR}/isolinux/
-	cp -f /boot/extlinux/libutil.c32		${CDROM_CONTENT_DIR}/isolinux/
+#	cp -f /usr/share/syslinux/isolinux.bin 	${CDROM_CONTENT_DIR}/isolinux/
+#	cp -f /boot/extlinux/ldlinux.c32 		${CDROM_CONTENT_DIR}/isolinux/
+#	cp -f /boot/extlinux/vesamenu.c32		${CDROM_CONTENT_DIR}/isolinux/
+#	cp -f /boot/extlinux/libcom32.c32		${CDROM_CONTENT_DIR}/isolinux/
+#	cp -f /boot/extlinux/libutil.c32		${CDROM_CONTENT_DIR}/isolinux/
 	cp -rf $(CDROM_ROOTFS_DIR)/* ${CDROM_CONTENT_DIR}/;
 	cat ${CDROM_CONTENT_DIR}/isolinux/isolinux.cfg					\
 		| sed -e "s/%CDROM_LABEL%/$(CDROM_LABEL_ESCAPED)/g"			\
@@ -106,38 +111,37 @@ install_os: cdrom_iso hard_drive_iso
 		-L $(QEMU_DIR)												\
 		$(ENABLE_KVM)												\
 		$(SMP)														\
-		-cdrom $(CDROM_ISO) 										\
-		-hda $(HARD_DRIVE_ISO)										\
+		$(HARD_DRIVE)												\
+		$(CDROM)	 												\
 		-boot order=cd												\
 		-net none													\
 		-m $(QEMU_MEM_SIZE)											\
-		-localtime													\
-		-vnc 0.0.0.0::5901
+		-localtime
 
 start_with_net:
 	$(QEMU)															\
 		-L $(QEMU_DIR)												\
 		$(ENABLE_KVM)												\
 		$(SMP)														\
-		-hda $(HARD_DRIVE_ISO)										\
+		$(HARD_DRIVE)												\
 		-boot order=c												\
 		-net nic -net user											\
 		-m $(QEMU_MEM_SIZE)											\
 		-localtime													\
-		-vnc 0.0.0.0::5901
+		$(VNC)
 
 start:
 	$(QEMU)															\
 		-L $(QEMU_DIR)												\
 		$(ENABLE_KVM)												\
 		$(SMP)														\
-		-hda $(HARD_DRIVE_ISO)										\
-		-cdrom $(CDROM_ISO) 										\
+		$(HARD_DRIVE)												\
+		$(CDROM)	 												\
 		-boot order=c												\
 		-net none													\
 		-m $(QEMU_MEM_SIZE)											\
 		-localtime													\
-		-vnc 0.0.0.0::5901
+		$(VNC)
 
 #		-virtfs local,path=/,mount_tag=host0,security_model=passthrough,id=host0	\
 
