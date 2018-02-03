@@ -915,7 +915,7 @@
 #define HAVE_REALLOC 1
 
 /* Define to 1 if you have the `reallocarray' function. */
-#define HAVE_REALLOCARRAY 1
+/* #undef HAVE_REALLOCARRAY */
 
 /* Define to 1 if you have the `realpath' function. */
 #define HAVE_REALPATH 1
@@ -1759,7 +1759,7 @@
 #endif
 
 /* Define if xauth is found in your path */
-/* #undef XAUTH_PATH */
+#define XAUTH_PATH "/usr/bin/xauth"
 
 /* Enable large inode numbers on Mac OS X 10.5.  */
 #ifndef _DARWIN_USE_64_BIT_INODE

@@ -32,7 +32,7 @@ HARD_DRIVE=-hda $(HARD_DRIVE_ISO)
 ENABLE_KVM=-enable-kvm
 # SMP=-smp 4
 SMP=-smp 2
-VNC=-vnc 0.0.0.0::5901
+VNC_ARG=$(if $(VNC),-vnc $(VNC),)
 ## start config }
 
 .PHONY: default 	\
@@ -62,6 +62,12 @@ default:
 	@echo
 	@echo "CDROM_ISO:           '$(CDROM_ISO)'"
 	@echo "HARD_DRIVE_ISO:      '$(HARD_DRIVE_ISO)'"
+	@echo
+	@echo "VNC:					'$(VNC)'"
+	@echo
+	@echo "Examples:"
+	@echo
+	@echo "    VNC=0.0.0.0::5901 make start"
 	@echo
 
 ## hard disk
@@ -118,7 +124,9 @@ install_os: cdrom_iso hard_drive_iso
 		-boot order=cd												\
 		-net none													\
 		-m $(QEMU_MEM_SIZE)											\
-		-localtime
+		-localtime													\
+		$(VNC_ARG)													\
+		$(END_OF_ARGS)
 
 start_with_net:
 	$(QEMU)															\
@@ -130,7 +138,8 @@ start_with_net:
 		-net nic -net user											\
 		-m $(QEMU_MEM_SIZE)											\
 		-localtime													\
-		$(VNC)
+		$(VNC_ARG)													\
+		$(END_OF_ARGS)
 
 start:
 	$(QEMU)															\
@@ -143,7 +152,8 @@ start:
 		-net none													\
 		-m $(QEMU_MEM_SIZE)											\
 		-localtime													\
-		$(VNC)
+		$(VNC_ARG)													\
+		$(END_OF_ARGS)
 
 #		-virtfs local,path=/,mount_tag=host0,security_model=passthrough,id=host0	\
 
@@ -153,6 +163,8 @@ mount:
 
 umount:
 	sudo guestunmount $(MOUNT_DIR)
+	sleep 5; ## wait until guestunmount finished, file owner will be changed on 'root' :(
+	sudo chown $(USER_ORIG):$(USER_ORIG) $(HARD_DRIVE_ISO) ## change file owner back
 
 copy_rpms: hard_drive_iso
 	mkdir -p tmp/rpms
@@ -161,7 +173,6 @@ copy_rpms: hard_drive_iso
 	sudo mkdir -p $(MOUNT_DIR)$(HDD_RPMS_DIR)
 	sudo cp -f ./tmp/rpms/*.rpm $(MOUNT_DIR)$(HDD_RPMS_DIR)
 	$(MAKE) umount
-	sleep 5 && sudo chown $(USER_ORIG):$(USER_ORIG) $(HARD_DRIVE_ISO)
 
 ## not used
 lin32:

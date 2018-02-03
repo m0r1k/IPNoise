@@ -1,6 +1,7 @@
 *.log
 *.o
 *.lo
+*.log
 *.la
 *.pc
 *.hash

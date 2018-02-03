@@ -3,7 +3,7 @@
 
 %define name            ipnoise-kernel
 %define version         4.12.9
-%define release         1
+%define release         2
 
 Name:           %{name}
 Summary:        IPNoise kernel
