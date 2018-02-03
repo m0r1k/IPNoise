@@ -4,7 +4,7 @@
 #include <sys/socket.h>
 #include <linux/in.h>
 
-#define PF_HOSTOS 40
+#define PF_HOSTOS 44
 
 int main(void)
 {

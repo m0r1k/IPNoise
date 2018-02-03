@@ -48,7 +48,8 @@ VNC_ARG=$(if $(VNC),-vnc $(VNC),)
 
 default:
 	@echo "Usage:"
-	@echo "  make start             - start OS from hard drive"
+	@echo "  make start             - start OS from hard drive (with IPNoise net)"
+	@echo "  make start_with_net    - start OS from hard drive (with common net)"
 	@echo "  make install_os        - install OS from CD iso to hard drive"
 	@echo "  make cdrom_iso         - to create install CD iso"
 	@echo "  make hard_drive_iso    - to create hard drive iso"

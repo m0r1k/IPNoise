@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Socket;
 
-use constant PF_HOSTOS => 40;
+use constant PF_HOSTOS => 44;
 
 my $dst_ip   = inet_aton("localhost");
 my $dst_port = 2525;

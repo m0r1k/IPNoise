@@ -6,7 +6,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-#define PF_HOSTOS 40
+#define PF_HOSTOS 44
 
 int main(void)
 {

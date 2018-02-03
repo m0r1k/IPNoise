@@ -5,7 +5,7 @@ use Data::Dumper;
 use Fcntl;
 use POSIX;
 
-use constant PF_HOSTOS => 40;
+use constant PF_HOSTOS => 44;
 
 my $res;
 

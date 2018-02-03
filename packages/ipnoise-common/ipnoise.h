@@ -11,12 +11,18 @@
 #define IPNOISE_ALEN        22
 
 // Needed for user-space include
-// check what it is free in include/linux/socket.h
+// check what it is free in ipnoise-kernel/kernel/include/linux/socket.h
 // and don't forget update AF_MAX constant
+// + update:
+// ipnoise-devel/rootfs/root/bin/tcp_01.pl
+// ipnoise-devel/rootfs/root/bin/echo-client.pl
+// ipnoise-devel/rootfs/root/test.c
+// ipnoise-devel/rootfs/root/tcp_01.c
+//
 #define AF_HOSTOS 44
 #define PF_HOSTOS AF_HOSTOS
 
-// check what it is free in include/uapi/linux/if_tun.h
+// check what it is free in packages/ipnoise-kernel/kernel/include/uapi/linux/if_tun.h
 // bit fields: IFF_TUN, IFF_TAP, IFF_IPNOISE
 #define IFF_IPNOISE	0x0004
 

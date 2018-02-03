@@ -84,10 +84,18 @@ packages/ipnoise-iproute2/iproute2-rc/lib/ll_types.c (IPNoise's hardware address
 
         Don't forger to check:
 
-        constant IFF_IPNOISE must be the save and free (0x0004 now) in the
+        packages/ipnoise-common/ipnoise.h
+
+        constants PF_HOSTOS, AF_HOSTOS must be the same and free (44) in the
+            ipnoise-kernel/kernel/include/linux/socket.h (don't forget update AF_MAX constant)
+            ipnoise-devel/rootfs/root/bin/tcp_01.pl
+            ipnoise-devel/rootfs/root/bin/echo-client.pl
+            ipnoise-devel/rootfs/root/test.c
+            ipnoise-devel/rootfs/root/tcp_01.c
+
+        constant IFF_IPNOISE must be the same and free (0x0004 now) in the
             ipnoise-common/ipnoise.h
             ipnoise-kernel/kernel/include/uapi/linux/if_tun.h
-
 
 ```
 
