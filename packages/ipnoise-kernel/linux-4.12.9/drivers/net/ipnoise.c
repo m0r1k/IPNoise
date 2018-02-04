@@ -274,12 +274,12 @@ static irqreturn_t ipnoise_interrupt(
             {
                 // there are no space for this packet :(
                 pr_warn("not enough uplink DMA size:\n"
-                    "ipnoise->dma_uplink:   '%x'\n"
-                    "dma_uplink_ptr:        '%x'\n"
+                    "ipnoise->dma_uplink:   '%p'\n"
+                    "dma_uplink_ptr:        '%p'\n"
                     "packet_size:           '%d'\n"
                     "UPLINK_DMA_SIZE:       '%d'\n",
-                    (unsigned int)ipnoise->dma_uplink,
-                    (unsigned int)dma_uplink_ptr,
+                    ipnoise->dma_uplink,
+                    dma_uplink_ptr,
                     packet_size,
                     UPLINK_DMA_SIZE
                 );
@@ -1417,7 +1417,7 @@ static int32_t ipnoise_pci_recvmsg(
     {
         packet = kzalloc(sizeof(*packet), GFP_KERNEL);
         if (!packet){
-            perr("cannot allocate memory, was needed %d byte(s)\n",
+            perr("cannot allocate memory, was needed %ld byte(s)\n",
                 sizeof(*packet));
             goto fail;
         }
@@ -1447,7 +1447,7 @@ static int32_t ipnoise_pci_recvmsg(
     if (msg->msg_namelen > 0){
         packet = kzalloc(sizeof(*packet), GFP_KERNEL);
         if (!packet){
-            perr("cannot allocate memory, was needed %d byte(s)\n",
+            perr("cannot allocate memory, was needed %ld byte(s)\n",
                 sizeof(*packet));
             goto fail;
         }
@@ -1477,7 +1477,7 @@ static int32_t ipnoise_pci_recvmsg(
     {
         packet = kzalloc(sizeof(*packet), GFP_KERNEL);
         if (!packet){
-            perr("cannot allocate memory, was needed %d byte(s)\n",
+            perr("cannot allocate memory, was needed %ld byte(s)\n",
                 sizeof(*packet));
             goto fail;
         }
@@ -1498,7 +1498,7 @@ static int32_t ipnoise_pci_recvmsg(
     {
         packet = kzalloc(sizeof(*packet), GFP_KERNEL);
         if (!packet){
-            perr("cannot allocate memory, was needed %d byte(s)\n",
+            perr("cannot allocate memory, was needed %ld byte(s)\n",
                 sizeof(*packet));
             goto fail;
         }
@@ -1523,7 +1523,7 @@ static int32_t ipnoise_pci_recvmsg(
 
     pdebug(20, "recvmsg"
         " non_block: '%d',"
-        " timeo: '%ld'\n",
+        " timeo: 0x'%lx'\n",
         non_block,
         timeo
     );
@@ -1535,8 +1535,9 @@ static int32_t ipnoise_pci_recvmsg(
         }
         // TODO remove this
         // problems with openssh when recvmsg is not sync
+        pdebug(20, "recvmsg, timeo: 0x'%lx'\n", timeo);
         if (!timeo){
-           break;
+            break;
         }
     } while (!ipnoise_wait_for_events(sk, &error, &timeo));
 
@@ -2365,6 +2366,8 @@ static int32_t ipnoise_pci_sendmsg(
     int32_t             size        = 0;
     int32_t             non_block   = 0;
 
+    pdebug(50, "ipnoise_pci_sendmsg\n");
+
     // get non block state
     non_block = sock->file->f_flags & O_NONBLOCK;
 
@@ -2384,9 +2387,16 @@ static int32_t ipnoise_pci_sendmsg(
 
     // check perr fd
     if (hostos->peer.fd < 0){
+        perr("hostos->peer.fd: '%d'\n",
+            hostos->peer.fd
+        );
         err = -ENOTCONN;
         goto out;
     }
+
+    pdebug(20, "sendmsg msg->msg_iter.count: '%ld'\n",
+        msg->msg_iter.count
+    );
 
     if (!msg->msg_iter.count){
         // empty msg
@@ -2394,11 +2404,8 @@ static int32_t ipnoise_pci_sendmsg(
         goto out;
     }
 
-
     // msg data
     {
-        int32_t notcopied;
-
         //if (1 < msg->msg_iovlen){
         //    pdebug(20, "iovs dump {\n");
         //    for (iov_id = 0;
@@ -2412,6 +2419,12 @@ static int32_t ipnoise_pci_sendmsg(
         //}
 
         do {
+            size_t copied = 0;
+
+            pdebug(20, "sendmsg msg->msg_iter.count: '%ld'\n",
+                msg->msg_iter.count
+            );
+
             if (!msg->msg_iter.count){
                 // empty msg
                 break;
@@ -2420,7 +2433,7 @@ static int32_t ipnoise_pci_sendmsg(
             // allocate packet
             packet = kzalloc(sizeof(*packet), GFP_KERNEL);
             if (!packet){
-                perr("cannot allocate memory, was needed %d"
+                perr("cannot allocate memory, was needed %ld"
                     " byte(s)\n",
                     sizeof(*packet)
                 );
@@ -2437,26 +2450,54 @@ static int32_t ipnoise_pci_sendmsg(
                 (uint32_t)msg->msg_iter.count
             );
 
-            if (0 < packet->data_size){
-                packet->data = kzalloc(
-                    packet->data_size,
-                    GFP_KERNEL
-                );
-                if (!packet->data){
-                    perr("cannot allocate memory,"
-                        " was needed %d byte(s)\n",
-                        packet->data_size
-                    );
-                    goto fail;
-                }
+            if (0 >= packet->data_size){
+                kfree(packet);
+                packet = NULL;
 
-                notcopied = copy_from_iter(
-                    packet->data,
-                    packet->data_size,
-                    &msg->msg_iter
-                );
+                perr("not enough uplink size for packet\n");
+                goto fail;
+            }
 
-                packet->data_size -= notcopied;
+            // prepare date
+            packet->data = kzalloc(
+                packet->data_size,
+                GFP_KERNEL
+            );
+            if (!packet->data){
+                kfree(packet);
+                packet = NULL;
+
+                perr("cannot allocate memory for packet data,"
+                    " was needed %d byte(s)\n",
+                    packet->data_size
+                );
+                goto fail;
+            }
+
+            copied = copy_from_iter(
+                packet->data,
+                packet->data_size,
+                &msg->msg_iter
+            );
+
+            pdebug(20, "copied from iter: '%ld'\n",
+                copied
+            );
+
+            packet->data_size = copied;
+
+            if (!copied){
+                kfree(packet->data);
+                packet->data = NULL;
+
+                kfree(packet);
+                packet = NULL;
+
+                perr("cannot copy packet data from iter,"
+                    " was needed copy %d byte(s)\n",
+                    packet->data_size
+                );
+                goto fail;
             }
 
             res = ipnoise_add_uplink(packet);
@@ -2570,7 +2611,7 @@ static int32_t ipnoise_pci_sendmsg(
             break;
         }
         if (!timeo){
-           break;
+            break;
         }
     } while (!ipnoise_wait_for_events(sk, &error, &timeo));
 
@@ -2634,14 +2675,14 @@ static int32_t hostos_sendmsg(
         // socket have closing state..
         copied = 0;
         perr("Attempt to sendmsg in socket"
-            " what have 'shutdown' state\n");
+            " that has 'shutdown' state\n");
         goto fail;
     }
 
     if (!is_connected(sock)){
         copied = -ENOTCONN;
         perr("Attempt to sendmsg in socket"
-            " what have 'not-connected' state (%d)\n",
+            " that has 'not-connected' state (%d)\n",
             sock->state);
         goto fail;
     }
@@ -2650,14 +2691,19 @@ static int32_t hostos_sendmsg(
 
     copied = -EPIPE;
     if (sk->sk_err || (sk->sk_shutdown & SEND_SHUTDOWN)){
+        perr("Attempt to writing in socket"
+            " that has sk_err or SEND_SHUTDOWN state\n"
+        );
         goto fail_release;
     }
 
     // send msg to pci device
+    pdebug(20, "call ipnoise_pci_sendmsg, total_len: '%ld'\n",
+        total_len
+    );
     copied = ipnoise_pci_sendmsg(sock, msg, total_len);
 
 out_release:
-    pdebug(20, "hostos_sendmsg, copied: '%d'\n", copied);
     release_sock(sk);
 
 out:

@@ -23,7 +23,7 @@ while (<SOCK>){
     my $line = $_;
     chomp ($line);
     print "was read: '$line', send it back\n";
-    print SOCK "$line\n"
+    print SOCK "$line"
 }
 
 close (SOCK)

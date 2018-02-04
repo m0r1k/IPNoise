@@ -297,9 +297,9 @@ inline static void ipnoise_dump_packet(
                 "fd:            '%d'\n"
                 "type:          '%d' (packet free)\n"
                 "res:           '%d'\n"
-                "data:          0x'%x'\n"
+                "data:          0x'%p'\n"
                 "data_size:     '%u'\n"
-                "os_private:    0x'%x'\n"
+                "os_private:    0x'%p'\n"
                 "poll_revents:  0x'%x'\n"
                 "last_sock_err: '%d'\n"
                 "non_block:     '%d'\n"
@@ -307,9 +307,9 @@ inline static void ipnoise_dump_packet(
                 packet->fd,
                 packet->type,
                 packet->res,
-                (unsigned int)packet->data,
+                packet->data,
                 packet->data_size,
-                (unsigned int)packet->os_private,
+                packet->os_private,
                 packet->poll_revents,
                 packet->last_sock_err,
                 packet->non_block
@@ -321,9 +321,9 @@ inline static void ipnoise_dump_packet(
                 "fd:            '%d'\n"
                 "type:          '%d' (open socket)\n"
                 "res:           '%d'\n"
-                "data:          0x'%x'\n"
+                "data:          0x'%p'\n"
                 "data_size:     '%u'\n"
-                "os_private:    0x'%x'\n"
+                "os_private:    0x'%p'\n"
                 "poll_revents:  0x'%x'\n"
                 "last_sock_err: '%d'\n"
                 "non_block:     '%d'\n"
@@ -334,9 +334,9 @@ inline static void ipnoise_dump_packet(
                 packet->fd,
                 packet->type,
                 packet->res,
-                (unsigned int)packet->data,
+                packet->data,
                 packet->data_size,
-                (unsigned int)packet->os_private,
+                packet->os_private,
                 packet->poll_revents,
                 packet->last_sock_err,
                 packet->non_block,
@@ -351,9 +351,9 @@ inline static void ipnoise_dump_packet(
                 "fd:            '%d'\n"
                 "type:          '%d' (close)\n"
                 "res:           '%d'\n"
-                "data:          0x'%x'\n"
+                "data:          0x'%p'\n"
                 "data_size:     '%u'\n"
-                "os_private:    0x'%x'\n"
+                "os_private:    0x'%p'\n"
                 "poll_revents:  0x'%x'\n"
                 "last_sock_err: '%d'\n"
                 "non_block:     '%d'\n"
@@ -361,9 +361,9 @@ inline static void ipnoise_dump_packet(
                 packet->fd,
                 packet->type,
                 packet->res,
-                (unsigned int)packet->data,
+                packet->data,
                 packet->data_size,
-                (unsigned int)packet->os_private,
+                packet->os_private,
                 packet->poll_revents,
                 packet->last_sock_err,
                 packet->non_block
@@ -384,9 +384,9 @@ inline static void ipnoise_dump_packet(
                     "fd:                '%d'\n"
                     "type:              '%d' (connect)\n"
                     "res:               '%d'\n"
-                    "data:              0x'%x'\n"
+                    "data:              0x'%p'\n"
                     "data_size:         '%u'\n"
-                    "os_private:        0x'%x'\n"
+                    "os_private:        0x'%p'\n"
                     "poll_revents:      0x'%x'\n"
                     "last_sock_err:     '%d'\n"
                     "non_block:         '%d'\n"
@@ -397,9 +397,9 @@ inline static void ipnoise_dump_packet(
                     packet->fd,
                     packet->type,
                     packet->res,
-                    (unsigned int)packet->data,
+                    packet->data,
                     packet->data_size,
-                    (unsigned int)packet->os_private,
+                    packet->os_private,
                     packet->poll_revents,
                     packet->last_sock_err,
                     packet->non_block,
@@ -415,9 +415,9 @@ inline static void ipnoise_dump_packet(
                     "fd:                '%d'\n"
                     "type:              '%d' (connect)\n"
                     "res:               '%d'\n"
-                    "data:              0x'%x'\n"
+                    "data:              0x'%p'\n"
                     "data_size:         '%u'\n"
-                    "os_private:        0x'%x'\n"
+                    "os_private:        0x'%p'\n"
                     "poll_revents:      0x'%x'\n"
                     "last_sock_err:     '%d'\n"
                     "non_block:         '%d'\n"
@@ -426,9 +426,9 @@ inline static void ipnoise_dump_packet(
                     packet->fd,
                     packet->type,
                     packet->res,
-                    (unsigned int)packet->data,
+                    packet->data,
                     packet->data_size,
-                    (unsigned int)packet->os_private,
+                    packet->os_private,
                     packet->poll_revents,
                     packet->last_sock_err,
                     packet->non_block,
@@ -447,9 +447,9 @@ inline static void ipnoise_dump_packet(
                             "fd:            '%d'\n"
                             "type:          '%d' (sendmsg)\n"
                             "res:           '%d'\n"
-                            "data:          0x'%x'\n"
+                            "data:          0x'%p'\n"
                             "data_size:     '%u'\n"
-                            "os_private:    0x'%x'\n"
+                            "os_private:    0x'%p'\n"
                             "poll_revents:  0x'%x'\n"
                             "last_sock_err: '%d'\n"
                             "non_block:     '%d'\n"
@@ -458,9 +458,9 @@ inline static void ipnoise_dump_packet(
                             packet->fd,
                             packet->type,
                             packet->res,
-                            (unsigned int)packet->data,
+                            packet->data,
                             packet->data_size,
-                            (unsigned int)packet->os_private,
+                            packet->os_private,
                             packet->poll_revents,
                             packet->last_sock_err,
                             packet->non_block,
@@ -473,9 +473,9 @@ inline static void ipnoise_dump_packet(
                             "fd:            '%d'\n"
                             "type:          '%d' (sendmsg)\n"
                             "res:           '%d'\n"
-                            "data:          0x'%x'\n"
+                            "data:          0x'%p'\n"
                             "data_size:     '%u'\n"
-                            "os_private:    0x'%x'\n"
+                            "os_private:    0x'%p'\n"
                             "poll_revents:  0x'%x'\n"
                             "last_sock_err: '%d'\n"
                             "non_block:     '%d'\n"
@@ -485,9 +485,9 @@ inline static void ipnoise_dump_packet(
                             packet->fd,
                             packet->type,
                             packet->res,
-                            (unsigned int)packet->data,
+                            packet->data,
                             packet->data_size,
-                            (unsigned int)packet->os_private,
+                            packet->os_private,
                             packet->poll_revents,
                             packet->last_sock_err,
                             packet->non_block,
@@ -501,9 +501,9 @@ inline static void ipnoise_dump_packet(
                             "fd:            '%d'\n"
                             "type:          '%d' (sendmsg)\n"
                             "res:           '%d'\n"
-                            "data:          0x'%x'\n"
+                            "data:          0x'%p'\n"
                             "data_size:     '%u'\n"
-                            "os_private:    0x'%x'\n"
+                            "os_private:    0x'%p'\n"
                             "poll_revents:  0x'%x'\n"
                             "last_sock_err: '%d'\n"
                             "non_block:     '%d'\n"
@@ -512,9 +512,9 @@ inline static void ipnoise_dump_packet(
                             packet->fd,
                             packet->type,
                             packet->res,
-                            (uint32_t)packet->data,
+                            packet->data,
                             packet->data_size,
-                            (uint32_t)packet->os_private,
+                            packet->os_private,
                             packet->poll_revents,
                             packet->last_sock_err,
                             packet->non_block,
@@ -527,9 +527,9 @@ inline static void ipnoise_dump_packet(
                             "fd:            '%d'\n"
                             "type:          '%d' (sendmsg)\n"
                             "res:           '%d'\n"
-                            "data:          0x'%x'\n"
+                            "data:          0x'%p'\n"
                             "data_size:     '%u'\n"
-                            "os_private:    0x'%x'\n"
+                            "os_private:    0x'%p'\n"
                             "poll_revents:  0x'%x'\n"
                             "last_sock_err: '%d'\n"
                             "non_block:     '%d'\n"
@@ -538,9 +538,9 @@ inline static void ipnoise_dump_packet(
                             packet->fd,
                             packet->type,
                             packet->res,
-                            (unsigned int)packet->data,
+                            packet->data,
                             packet->data_size,
-                            (unsigned int)packet->os_private,
+                            packet->os_private,
                             packet->poll_revents,
                             packet->last_sock_err,
                             packet->non_block,
@@ -561,9 +561,9 @@ inline static void ipnoise_dump_packet(
                             "fd:            '%d'\n"
                             "type:          '%d' (recvmsg)\n"
                             "res:           '%d'\n"
-                            "data:          0x'%x'\n"
+                            "data:          0x'%p'\n"
                             "data_size:     '%u'\n"
-                            "os_private:    0x'%x'\n"
+                            "os_private:    0x'%p'\n"
                             "poll_revents:  0x'%x'\n"
                             "last_sock_err: '%d'\n"
                             "non_block:     '%d'\n"
@@ -572,9 +572,9 @@ inline static void ipnoise_dump_packet(
                             packet->fd,
                             packet->type,
                             packet->res,
-                            (unsigned int)packet->data,
+                            packet->data,
                             packet->data_size,
-                            (unsigned int)packet->os_private,
+                            packet->os_private,
                             packet->poll_revents,
                             packet->last_sock_err,
                             packet->non_block,
@@ -587,9 +587,9 @@ inline static void ipnoise_dump_packet(
                             "fd:            '%d'\n"
                             "type:          '%d' (recvmsg)\n"
                             "res:           '%d'\n"
-                            "data:          0x'%x'\n"
+                            "data:          0x'%p'\n"
                             "data_size:     '%u'\n"
-                            "os_private:    0x'%x'\n"
+                            "os_private:    0x'%p'\n"
                             "poll_revents:  0x'%x'\n"
                             "last_sock_err: '%d'\n"
                             "non_block:     '%d'\n"
@@ -598,9 +598,9 @@ inline static void ipnoise_dump_packet(
                             packet->fd,
                             packet->type,
                             packet->res,
-                            (unsigned int)packet->data,
+                            packet->data,
                             packet->data_size,
-                            (unsigned int)packet->os_private,
+                            packet->os_private,
                             packet->poll_revents,
                             packet->last_sock_err,
                             packet->non_block,
@@ -613,9 +613,9 @@ inline static void ipnoise_dump_packet(
                             "fd:            '%d'\n"
                             "type:          '%d' (recvmsg)\n"
                             "res:           '%d'\n"
-                            "data:          0x'%x'\n"
+                            "data:          0x'%p'\n"
                             "data_size:     '%u'\n"
-                            "os_private:    0x'%x'\n"
+                            "os_private:    0x'%p'\n"
                             "poll_revents:  0x'%x'\n"
                             "last_sock_err: '%d'\n"
                             "non_block:     '%d'\n"
@@ -625,9 +625,9 @@ inline static void ipnoise_dump_packet(
                             packet->fd,
                             packet->type,
                             packet->res,
-                            (unsigned int)packet->data,
+                            packet->data,
                             packet->data_size,
-                            (unsigned int)packet->os_private,
+                            packet->os_private,
                             packet->poll_revents,
                             packet->last_sock_err,
                             packet->non_block,
@@ -657,9 +657,9 @@ inline static void ipnoise_dump_packet(
                                 "fd:                '%d'\n"
                                 "type:              '%d' (recvmsg)\n"
                                 "res:               '%d'\n"
-                                "data:              0x'%x'\n"
+                                "data:              0x'%p'\n"
                                 "data_size:         '%u'\n"
-                                "os_private:        0x'%x'\n"
+                                "os_private:        0x'%p'\n"
                                 "poll_revents:      0x'%x'\n"
                                 "last_sock_err:     '%d'\n"
                                 "non_block:         '%d'\n"
@@ -672,9 +672,9 @@ inline static void ipnoise_dump_packet(
                                 packet->fd,
                                 packet->type,
                                 packet->res,
-                                (unsigned int)packet->data,
+                                packet->data,
                                 packet->data_size,
-                                (unsigned int)packet->os_private,
+                                packet->os_private,
                                 packet->poll_revents,
                                 packet->last_sock_err,
                                 packet->non_block,
@@ -692,9 +692,9 @@ inline static void ipnoise_dump_packet(
                                 "fd:                '%d'\n"
                                 "type:              '%d' (recvmsg)\n"
                                 "res:               '%d'\n"
-                                "data:              0x'%x'\n"
+                                "data:              0x'%p'\n"
                                 "data_size:         '%u'\n"
-                                "os_private:        0x'%x'\n"
+                                "os_private:        0x'%p'\n"
                                 "poll_revents:      0x'%x'\n"
                                 "last_sock_err:     '%d'\n"
                                 "non_block:         '%d'\n"
@@ -705,9 +705,9 @@ inline static void ipnoise_dump_packet(
                                 packet->fd,
                                 packet->type,
                                 packet->res,
-                                (unsigned int)packet->data,
+                                packet->data,
                                 packet->data_size,
-                                (unsigned int)packet->os_private,
+                                packet->os_private,
                                 packet->poll_revents,
                                 packet->last_sock_err,
                                 packet->non_block,
@@ -725,9 +725,9 @@ inline static void ipnoise_dump_packet(
                             "fd:            '%d'\n"
                             "type:          '%d' (recvmsg)\n"
                             "res:           '%d'\n"
-                            "data:          0x'%x'\n"
+                            "data:          0x'%p'\n"
                             "data_size:     '%u'\n"
-                            "os_private:    0x'%x'\n"
+                            "os_private:    0x'%p'\n"
                             "poll_revents:  0x'%x'\n"
                             "last_sock_err: '%d'\n"
                             "non_block:     '%d'\n"
@@ -736,9 +736,9 @@ inline static void ipnoise_dump_packet(
                             packet->fd,
                             packet->type,
                             packet->res,
-                            (unsigned int)packet->data,
+                            packet->data,
                             packet->data_size,
-                            (unsigned int)packet->os_private,
+                            packet->os_private,
                             packet->poll_revents,
                             packet->last_sock_err,
                             packet->non_block,
@@ -763,9 +763,9 @@ inline static void ipnoise_dump_packet(
                     "fd:                '%d'\n"
                     "type:              '%d' (bind)\n"
                     "res:               '%d'\n"
-                    "data:              0x'%x'\n"
+                    "data:              0x'%p'\n"
                     "data_size:         '%u'\n"
-                    "os_private:        0x'%x'\n"
+                    "os_private:        0x'%p'\n"
                     "poll_revents:      0x'%x'\n"
                     "last_sock_err:     '%d'\n"
                     "non_block:         '%d'\n"
@@ -776,9 +776,9 @@ inline static void ipnoise_dump_packet(
                     packet->fd,
                     packet->type,
                     packet->res,
-                    (unsigned int)packet->data,
+                    packet->data,
                     packet->data_size,
-                    (unsigned int)packet->os_private,
+                    packet->os_private,
                     packet->poll_revents,
                     packet->last_sock_err,
                     packet->non_block,
@@ -794,9 +794,9 @@ inline static void ipnoise_dump_packet(
                     "fd:                '%d'\n"
                     "type:              '%d' (bind)\n"
                     "res:               '%d'\n"
-                    "data:              0x'%x'\n"
+                    "data:              0x'%p'\n"
                     "data_size:         '%u'\n"
-                    "os_private:        0x'%x'\n"
+                    "os_private:        0x'%p'\n"
                     "poll_revents:      0x'%x'\n"
                     "last_sock_err:     '%d'\n"
                     "non_block:         '%d'\n"
@@ -805,9 +805,9 @@ inline static void ipnoise_dump_packet(
                     packet->fd,
                     packet->type,
                     packet->res,
-                    (unsigned int)packet->data,
+                    packet->data,
                     packet->data_size,
-                    (unsigned int)packet->os_private,
+                    packet->os_private,
                     packet->poll_revents,
                     packet->last_sock_err,
                     packet->non_block,
@@ -822,9 +822,9 @@ inline static void ipnoise_dump_packet(
                     "fd:                '%d'\n"
                     "type:              '%d' (listen)\n"
                     "res:               '%d'\n"
-                    "data:              0x'%x'\n"
+                    "data:              0x'%p'\n"
                     "data_size:         '%u'\n"
-                    "os_private:        0x'%x'\n"
+                    "os_private:        0x'%p'\n"
                     "poll_revents:      0x'%x'\n"
                     "last_sock_err:     '%d'\n"
                     "non_block:         '%d'\n"
@@ -833,9 +833,9 @@ inline static void ipnoise_dump_packet(
                     packet->fd,
                     packet->type,
                     packet->res,
-                    (unsigned int)packet->data,
+                    packet->data,
                     packet->data_size,
-                    (unsigned int)packet->os_private,
+                    packet->os_private,
                     packet->poll_revents,
                     packet->last_sock_err,
                     packet->non_block,
@@ -858,9 +858,9 @@ inline static void ipnoise_dump_packet(
                     "fd:                '%d'\n"
                     "type:              '%d' (accept)\n"
                     "res:               '%d'\n"
-                    "data:              0x'%x'\n"
+                    "data:              0x'%p'\n"
                     "data_size:         '%u'\n"
-                    "os_private:        0x'%x'\n"
+                    "os_private:        0x'%p'\n"
                     "poll_revents:      0x'%x'\n"
                     "last_sock_err:     '%d'\n"
                     "non_block:         '%d'\n"
@@ -871,9 +871,9 @@ inline static void ipnoise_dump_packet(
                     packet->fd,
                     packet->type,
                     packet->res,
-                    (unsigned int)packet->data,
+                    packet->data,
                     packet->data_size,
-                    (unsigned int)packet->os_private,
+                    packet->os_private,
                     packet->poll_revents,
                     packet->last_sock_err,
                     packet->non_block,
@@ -889,9 +889,9 @@ inline static void ipnoise_dump_packet(
                     "fd:                '%d'\n"
                     "type:              '%d' (accept)\n"
                     "res:               '%d'\n"
-                    "data:              0x'%x'\n"
+                    "data:              0x'%p'\n"
                     "data_size:         '%u'\n"
-                    "os_private:        0x'%x'\n"
+                    "os_private:        0x'%p'\n"
                     "poll_revents:      0x'%x'\n"
                     "last_sock_err:     '%d'\n"
                     "non_block:         '%d'\n"
@@ -900,9 +900,9 @@ inline static void ipnoise_dump_packet(
                     packet->fd,
                     packet->type,
                     packet->res,
-                    (unsigned int)packet->data,
+                    packet->data,
                     packet->data_size,
-                    (unsigned int)packet->os_private,
+                    packet->os_private,
                     packet->poll_revents,
                     packet->last_sock_err,
                     packet->non_block,
@@ -917,9 +917,9 @@ inline static void ipnoise_dump_packet(
                     "fd:                '%d'\n"
                     "type:              '%d' (poll)\n"
                     "res:               '%d'\n"
-                    "data:              0x'%x'\n"
+                    "data:              0x'%p'\n"
                     "data_size:         '%u'\n"
-                    "os_private:        0x'%x'\n"
+                    "os_private:        0x'%p'\n"
                     "poll_revents:      0x'%x'\n"
                     "last_sock_err:     '%d'\n"
                     "non_block:         '%d'\n"
@@ -928,13 +928,13 @@ inline static void ipnoise_dump_packet(
                     packet->fd,
                     packet->type,
                     packet->res,
-                    (unsigned int)packet->data,
+                    packet->data,
                     packet->data_size,
-                    (unsigned int)packet->os_private,
+                    packet->os_private,
                     packet->poll_revents,
                     packet->last_sock_err,
                     packet->non_block,
-                    (unsigned int)packet->un.poll.events
+                    packet->un.poll.events
                 );
             }
             break;
@@ -945,9 +945,9 @@ inline static void ipnoise_dump_packet(
                     "fd:                '%d'\n"
                     "type:              '%d' (sockopt_get)\n"
                     "res:               '%d'\n"
-                    "data:              0x'%x'\n"
+                    "data:              0x'%p'\n"
                     "data_size:         '%u'\n"
-                    "os_private:        0x'%x'\n"
+                    "os_private:        0x'%p'\n"
                     "poll_revents:      0x'%x'\n"
                     "last_sock_err:     '%d'\n"
                     "non_block:         '%d'\n"
@@ -958,9 +958,9 @@ inline static void ipnoise_dump_packet(
                     packet->fd,
                     packet->type,
                     packet->res,
-                    (unsigned int)packet->data,
+                    packet->data,
                     packet->data_size,
-                    (unsigned int)packet->os_private,
+                    packet->os_private,
                     packet->poll_revents,
                     packet->last_sock_err,
                     packet->non_block,
@@ -977,9 +977,9 @@ inline static void ipnoise_dump_packet(
                     "fd:                '%d'\n"
                     "type:              '%d' (sockopt_set)\n"
                     "res:               '%d'\n"
-                    "data:              0x'%x'\n"
+                    "data:              0x'%p'\n"
                     "data_size:         '%u'\n"
-                    "os_private:        0x'%x'\n"
+                    "os_private:        0x'%p'\n"
                     "poll_revents:      0x'%x'\n"
                     "last_sock_err:     '%d'\n"
                     "non_block:         '%d'\n"
@@ -990,9 +990,9 @@ inline static void ipnoise_dump_packet(
                     packet->fd,
                     packet->type,
                     packet->res,
-                    (unsigned int)packet->data,
+                    packet->data,
                     packet->data_size,
-                    (unsigned int)packet->os_private,
+                    packet->os_private,
                     packet->poll_revents,
                     packet->last_sock_err,
                     packet->non_block,
@@ -1008,9 +1008,9 @@ inline static void ipnoise_dump_packet(
                 "fd:            '%d'\n"
                 "type:          '%d' (unknown)\n"
                 "res:           '%d'\n"
-                "data:          0x'%x'\n"
+                "data:          0x'%p'\n"
                 "data_size:     '%u'\n"
-                "os_private:    0x'%x'\n"
+                "os_private:    0x'%p'\n"
                 "poll_revents:  0x'%x'\n"
                 "last_sock_err: '%d'\n"
                 "non_block:     '%d'\n"
@@ -1018,9 +1018,9 @@ inline static void ipnoise_dump_packet(
                 packet->fd,
                 packet->type,
                 packet->res,
-                (unsigned int)packet->data,
+                packet->data,
                 packet->data_size,
-                (unsigned int)packet->os_private,
+                packet->os_private,
                 packet->poll_revents,
                 packet->last_sock_err,
                 packet->non_block

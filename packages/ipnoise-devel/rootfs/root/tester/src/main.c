@@ -5,7 +5,7 @@
 
 #include "main.h"
 
-int32_t debug_level = 1;
+int32_t g_debug_level = 1;
 
 void iov_alloc(
     struct iovec    *iov,
@@ -779,7 +779,7 @@ int32_t main(int32_t argc, char **argv)
                 break;
 
             case 'd':
-                debug_level = atoi(optarg);
+                g_debug_level = atoi(optarg);
                 break;
 
             case 'v':
@@ -826,7 +826,7 @@ int32_t main(int32_t argc, char **argv)
     PINFO("addr:            '%s'\n", buffer);
     PINFO("port:            '%d'\n", conf.port);
     PINFO("hostos:          '%d'\n", conf.hostos);
-    PINFO("debug-level:     '%d'\n", debug_level);
+    PINFO("debug-level:     '%d'\n", g_debug_level);
     PINFO("\n");
 
     if (!strcmp("echo-server", conf.type)){

@@ -1,7 +1,7 @@
 DEFINES =
 CFLAGS  = -g3 -O0 -Wall $(DEFINES) -I ../../
 LDFLAGS = -g3
-LIBS 	= -L../../../../ipnoise-libevent/.files/usr/lib/ -levent
+LIBS 	= -L./ipnoise-libevent/.files/usr/lib/ -levent
 
 CROSS     =
 CC        = gcc
@@ -15,8 +15,9 @@ LIBS     +=
 TARGET = $(shell basename $(CURDIR))
 
 # Some more include paths
-INCPATHS:= -I../../../../	\
-	-I../../../../ipnoise-libevent/libevent/include/
+INCPATHS:= -I./ \
+	-I../../../../ \
+	-I./ipnoise-libevent/libevent/include/
 
 # Source folders and executable name
 DIRS = src
@@ -46,11 +47,11 @@ export INCLUDE  :=  $(foreach dir,$(INCLUDES),-I$(CURDIR)/$(dir)) $(INCPATHS)
 
 .PHONY: all prepare install clean
 
-all: prepare install
+all: install
 
 prepare:
-	make -C ../../../../ipnoise-libevent lin32
-	make -C ../../../../ipnoise-libevent install
+#	make -C /root/ipnoise-libevent lin64
+#	make -C /root/ipnoise-libevent install
 
 install: $(TARGET)
 

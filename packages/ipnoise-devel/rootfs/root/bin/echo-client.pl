@@ -1,7 +1,6 @@
 #!/usr/bin/perl
 
 use Socket;
-use Data::Dumper;
 use Fcntl;
 use POSIX;
 

@@ -78,9 +78,40 @@ packages/ipnoise-iproute2/iproute2-rc/lib/ll_types.c (IPNoise's hardware address
 
 ```
 
+## How-to
+```
+    ## how to connect to the IPNoise virtual machine via PF_HOSTOS sockets:
+    ssh -p 2222 root@127.0.0.1 ## root/root
+
+    ## how to enable debug for IPNoise Linux kernel module and IPNoise QEMU PCI device:
+    ## run inside IPNoise virtual machine:
+    echo 50 > /sys/devices/pci0000\:00/0000\:00\:03.0/debug
+
+```
+
+## Known issues:
+```
+    IPnoise Linux kernel driver and IPNoise QEMU PCI device doesn't support smp > 1 yet,
+    so, please, be sure, you are starting a virtual machine with smp = 1
+
+    The problem in the:
+         ipnoise_interrupt -> ipnoise_downlink_process_packet
+
+    Information from IPNoise QEMU PCI device will be stored in the
+        hostos->pcidev.last_packet
+        and after that sk->sk_data_ready(sk); or sk->sk_state_change(sk); will be called
+        sock will be awakened and data will be copied to the user space,
+        BUT
+        if we will get another interrupt till data will be copied in the userspace
+        (another HostOS event will occur), then hostos->pcidev.last_packet will be rewritten
+        and traffic data will be corrupted.
+
+    This issue will be fixed soon, but workaround, for now - to start a virtual machine with smp = 1 (default now)
+```
+
 ## Notes:
 ```
-    Porting on the new kernel:
+    Porting to the new kernel:
 
         Don't forger to check:
 

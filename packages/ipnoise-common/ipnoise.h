@@ -37,7 +37,7 @@ struct ipnoisehdr
 	unsigned char	h_source[IPNOISE_ALEN];
 };
 
-#define IPNOISE_HLEN sizeof(struct ipnoisehdr)
+#define IPNOISE_HLEN (int)(sizeof(struct ipnoisehdr))
 
 static inline void ipnoise_hdr_init(struct ipnoisehdr *hdr)
 {

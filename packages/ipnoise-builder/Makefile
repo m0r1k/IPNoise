@@ -31,7 +31,7 @@ CDROM=-cdrom $(CDROM_ISO)
 HARD_DRIVE=-hda $(HARD_DRIVE_ISO)
 ENABLE_KVM=-enable-kvm
 # SMP=-smp 4
-SMP=-smp 2
+SMP=-smp 1
 VNC_ARG=$(if $(VNC),-vnc $(VNC),)
 ## start config }
 
